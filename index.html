@@ -1,365 +1,136 @@
 <!doctype html>
 <html lang="en">
- 
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HELLO AI — Autonomous Cybernetic Intelligence</title>
+  
   <meta name="google-site-verification" content="5_t3l45NphipJFEMWj1SUDlV6pYnkxUDu9oOFMGUgHI" />
 
   <!-- Tailwind CSS & FontAwesome Icons -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- GSAP Engine -->
+  <!-- GSAP Animation Engine -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>HELLO AI — Autonomous Cyber Intelligence</title>
-  
+  <!-- Google Web Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+
   <style>
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    
-    html, body {
-      width: 100%;
-      min-height: 100%;
+    body {
       margin: 0;
-      background: #030712;
+      background: #02040a;
       color: #f1f5f9;
       font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
     }
-    
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; }
 
-    /* CYBER GLOW TYPOGRAPHY */
-    .cyber-glow-title {
-      color: #ffffff;
-      text-shadow: 0 0 20px rgba(56, 189, 248, 0.75), 0 0 45px rgba(14, 165, 233, 0.45);
-    }
-
-    /* TOP BAR */
-    #deviceControlBar {
-      position: sticky;
+    /* BACKGROUND CANVAS */
+    #cyberCanvas {
+      position: fixed;
       top: 0;
-      z-index: 1000005;
-      background: rgba(3, 7, 18, 0.88);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
-      padding: 12px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: #fff;
-    }
-    .device-pill-btn {
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: #94a3b8;
-      transition: all 0.25s ease;
-    }
-    .device-pill-btn:hover, .device-pill-btn.active {
-      background: rgba(56, 189, 248, 0.15);
-      border-color: rgba(56, 189, 248, 0.7);
-      color: #38bdf8;
-      transform: translateY(-1px);
-      box-shadow: 0 0 15px rgba(56, 189, 248, 0.35);
-    }
-
-    /* DEVICE SIMULATION WRAPPER */
-    #deviceSimulatorWrapper {
-      width: 100%;
-      min-height: 100vh;
-      margin: 0 auto;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      background: radial-gradient(circle at 15% 15%, #081028 0%, #030712 60%, #02040a 100%);
-      position: relative;
-    }
-    .view-pc { width: 100% !important; border: 0 !important; }
-    .view-laptop { max-width: 1200px !important; margin: 24px auto !important; border-radius: 24px !important; border: 3px solid rgba(56, 189, 248, 0.3) !important; box-shadow: 0 0 40px rgba(0,0,0,0.8); }
-    .view-tablet { max-width: 768px !important; margin: 24px auto !important; border-radius: 30px !important; border: 6px solid #0f172a !important; box-shadow: 0 0 40px rgba(0,0,0,0.8); }
-    .view-mobile { max-width: 395px !important; margin: 24px auto !important; border-radius: 38px !important; border: 8px solid #0f172a !important; box-shadow: 0 0 40px rgba(0,0,0,0.8); }
-
-    /* HERO SECTION */
-    .hero {
-      position: relative;
-      width: 100%;
-      min-height: 94vh;
-      overflow: hidden;
-      padding: 30px clamp(24px, 4vw, 70px) 40px;
-      isolation: isolate;
-      background: 
-        radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.12) 0%, transparent 45%),
-        radial-gradient(circle at 20% 70%, rgba(168, 85, 247, 0.12) 0%, transparent 50%),
-        linear-gradient(145deg, #030712 0%, #060b19 40%, #02040a 100%);
-    }
-    .hero:before {
-      content: "";
-      position: absolute;
-      z-index: -2;
-      width: 60vw;
-      height: 60vw;
-      min-width: 750px;
-      min-height: 750px;
-      top: 10%;
-      right: -10%;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, rgba(99, 102, 241, 0.08) 50%, transparent 75%);
-      filter: blur(120px);
-    }
-
-    .header {
-      position: relative;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .hero__body {
-      position: relative;
-      display: flex;
-      align-items: center;
-      min-height: calc(94vh - 120px);
-    }
-
-    .hero-text-content {
-      position: relative;
-      z-index: 50;
-      width: 100%;
-      max-width: clamp(380px, 48vw, 620px);
-    }
-
-    /* 3D REVOLVING TITLE */
-    .revolve-container {
-      perspective: 1100px;
-      display: inline-block;
-      margin: 8px 0;
-    }
-    .revolving-cyber-title {
-      display: inline-block;
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(48px, 5.8vw, 108px);
-      font-weight: 900;
-      line-height: 0.95;
-      letter-spacing: -0.04em;
-      transform-style: preserve-3d;
-      animation: spin3DOrbit 9s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-      background: linear-gradient(
-        110deg,
-        #38bdf8 0%,
-        #818cf8 25%,
-        #c084fc 45%,
-        #ffffff 55%,
-        #38bdf8 75%,
-        #0284c7 100%
-      );
-      background-size: 260% 100%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 35px rgba(56, 189, 248, 0.65)) drop-shadow(0 0 75px rgba(168, 85, 247, 0.4));
-    }
-
-    @keyframes spin3DOrbit {
-      0% { transform: rotateY(-26deg) rotateX(8deg); background-position: 220% 0; }
-      50% { transform: rotateY(26deg) rotateX(-8deg) scale(1.03); background-position: 0% 0; }
-      100% { transform: rotateY(-26deg) rotateX(8deg); background-position: -220% 0; }
-    }
-
-    .intro {
-      max-width: 520px;
-      margin: clamp(18px, 2.8vh, 30px) 0 0;
-      font-size: clamp(14px, 1.05vw, 17px);
-      line-height: 1.75;
-      color: #94a3b8;
-    }
-
-    /* RIGHT PARALLAX VISUAL SCENE */
-    .visual {
-      position: absolute;
-      z-index: 10;
-      top: 50%;
-      right: clamp(-30px, 1vw, 30px);
-      width: clamp(500px, 52vw, 1050px);
-      aspect-ratio: 1.29;
-      transform: translateY(-50%);
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
       pointer-events: none;
     }
-    .liquid-scene { width: 100%; height: 100%; display: block; overflow: visible; }
-    .bubble-edge {
-      fill: rgba(56, 189, 248, 0.03);
-      stroke: url(#cyberStroke);
-      stroke-width: 3.5;
-      filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.75)) drop-shadow(0 0 35px rgba(168, 85, 247, 0.5));
-    }
-    .marquee__text { fill: #38bdf8; font-size: 17px; font-weight: 800; letter-spacing: 6px; filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.8)); }
 
-    /* DOCKED DRAGGABLE BUTTONS */
-    #masterAllToolsTrigger {
-      position: fixed;
-      left: 24px;
-      bottom: 28px;
-      z-index: 99999;
-      background: rgba(11, 19, 43, 0.85);
-      backdrop-filter: blur(14px);
-      border: 1.5px solid rgba(56, 189, 248, 0.6);
-      padding: 12px 22px;
+    /* NEON GLOWS & TYPOGRAPHY */
+    .cyber-title {
+      font-family: 'Syne', sans-serif;
+      background: linear-gradient(135deg, #ffffff 0%, #38bdf8 35%, #818cf8 70%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 35px rgba(56, 189, 248, 0.45));
+    }
+    
+    .glow-cyan {
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.35);
+    }
+    .glow-purple {
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.35);
+    }
+
+    /* GLASS PANELS */
+    .glass-card {
+      background: rgba(8, 14, 28, 0.72);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(56, 189, 248, 0.15);
+      border-radius: 24px;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card:hover {
+      background: rgba(13, 22, 44, 0.85);
+      border-color: rgba(56, 189, 248, 0.6);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 25px rgba(56, 189, 248, 0.25);
+    }
+
+    /* TOP BAR CHAT BUTTON */
+    .chat-pill-btn {
+      padding: 8px 22px;
       border-radius: 999px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(56, 189, 248, 0.35);
-      cursor: grab;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      color: #f8fafc;
-      user-select: none;
-      touch-action: none;
-      transition: box-shadow 0.25s ease, border-color 0.25s ease;
-    }
-    #masterAllToolsTrigger:active {
-      cursor: grabbing;
-      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.9), 0 0 35px rgba(56, 189, 248, 0.7);
-      border-color: #38bdf8;
-    }
-
-    #draggableSideChatTrigger {
-      position: fixed;
-      right: 24px;
-      bottom: 28px;
-      z-index: 99999;
-      background: rgba(11, 19, 43, 0.85);
-      backdrop-filter: blur(14px);
-      border: 1.5px solid rgba(168, 85, 247, 0.6);
-      padding: 12px 22px;
-      border-radius: 999px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(168, 85, 247, 0.35);
-      cursor: grab;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: #f8fafc;
-      user-select: none;
-      touch-action: none;
-      transition: box-shadow 0.25s ease, border-color 0.25s ease;
-    }
-    #draggableSideChatTrigger:active {
-      cursor: grabbing;
-      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.9), 0 0 38px rgba(168, 85, 247, 0.7);
-      border-color: #c084fc;
-    }
-
-    /* COMPACT POPUP MODAL */
-    #allAppsLaunchpad {
-      position: fixed;
-      inset: 0;
-      z-index: 1000008;
-      background: rgba(2, 6, 23, 0.85);
-      backdrop-filter: blur(16px);
-      display: none;
-      place-items: center;
-      padding: 16px;
-      opacity: 0;
-      transition: opacity 0.28s ease;
-    }
-    #allAppsLaunchpad.active {
-      display: grid;
-      opacity: 1;
-    }
-    .launchpad-popup-box {
-      width: min(540px, 94vw);
-      max-height: 85vh;
-      overflow-y: auto;
-      background: #090e1a;
-      border: 1.5px solid rgba(56, 189, 248, 0.35);
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.95), 0 0 45px rgba(56, 189, 248, 0.15);
-      border-radius: 28px;
-      padding: 24px;
-      color: #fff;
-      transform: translateY(25px) scale(0.96);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    #allAppsLaunchpad.active .launchpad-popup-box {
-      transform: translateY(0) scale(1);
-    }
-
-    .compact-tool-item {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 18px;
-      padding: 12px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
+      gap: 9px;
+      background: linear-gradient(90deg, rgba(56, 189, 248, 0.15), rgba(99, 102, 241, 0.15));
+      border: 1.5px solid rgba(56, 189, 248, 0.65);
+      color: #38bdf8;
       cursor: pointer;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
       transition: all 0.25s ease;
     }
-    .compact-tool-item:hover {
-      background: rgba(56, 189, 248, 0.08);
-      border-color: rgba(56, 189, 248, 0.6);
-      transform: translateX(5px);
-      box-shadow: 0 8px 24px rgba(56, 189, 248, 0.2);
+    .chat-pill-btn:hover {
+      background: linear-gradient(90deg, rgba(56, 189, 248, 0.35), rgba(99, 102, 241, 0.35));
+      border-color: #38bdf8;
+      color: #ffffff;
+      transform: scale(1.04);
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.6);
     }
 
-    /* SECTIONS */
-    .spacious-section {
-      padding: 80px clamp(24px, 4vw, 70px);
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    /* ARCHITECTURE STORY CARD */
-    .build-story-card {
-      background: rgba(11, 17, 32, 0.65);
+    /* DRAGGABLE FLOATING ACTION BUTTON */
+    #draggableFloatingChat {
+      position: fixed;
+      bottom: 26px;
+      right: 26px;
+      z-index: 99999;
+      background: rgba(9, 15, 30, 0.88);
       backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 26px;
-      padding: 32px 28px;
-      transition: all 0.35s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      border: 1.5px solid rgba(56, 189, 248, 0.65);
+      padding: 12px 22px;
+      border-radius: 999px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(56, 189, 248, 0.4);
+      cursor: grab;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #f8fafc;
+      user-select: none;
+      touch-action: none;
+      transition: box-shadow 0.25s ease, border-color 0.25s ease;
     }
-    .build-story-card:hover {
-      background: rgba(15, 23, 42, 0.9);
-      border-color: rgba(56, 189, 248, 0.6);
-      transform: translateY(-6px);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(56, 189, 248, 0.18);
-    }
-
-    /* CUSTOM TOOL CARD */
-    .custom-tool-card {
-      background: rgba(11, 17, 32, 0.65);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 26px;
-      padding: 28px;
-      transition: all 0.35s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .custom-tool-card:hover {
-      background: rgba(15, 23, 42, 0.9);
-      border-color: rgba(168, 85, 247, 0.6);
-      transform: translateY(-5px);
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(168, 85, 247, 0.2);
+    #draggableFloatingChat:active {
+      cursor: grabbing;
+      border-color: #38bdf8;
+      box-shadow: 0 0 35px rgba(56, 189, 248, 0.8);
     }
 
     /* FULL MODALS */
     .full-studio-modal {
       position: fixed;
       inset: 0;
-      z-index: 1000009;
-      background-color: #030712;
+      z-index: 1000000;
+      background-color: #02050e;
       color: #f3f4f6;
       display: none;
       flex-direction: column;
@@ -368,27 +139,28 @@
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(2, 6, 23, 0.85);
-      backdrop-filter: blur(14px);
+      background: rgba(2, 5, 14, 0.85);
+      backdrop-filter: blur(16px);
       z-index: 1000010;
       display: none;
       place-items: center;
       padding: 20px;
     }
 
+    /* TOAST */
     #copyToast {
       position: fixed;
-      bottom: 40px;
+      bottom: 30px;
       left: 50%;
-      transform: translateX(-50%) translateY(100px);
+      transform: translateX(-50%) translateY(80px);
       background: #090e1a;
       color: #38bdf8;
       border: 1px solid #38bdf8;
-      padding: 12px 28px;
+      padding: 10px 26px;
       border-radius: 999px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
       box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(56, 189, 248, 0.4);
       z-index: 2000000;
       opacity: 0;
@@ -400,331 +172,175 @@
 </head>
 <body>
 
+  <!-- INTERACTIVE CYBER BACKGROUND PARTICLES -->
+  <canvas id="cyberCanvas"></canvas>
+
   <!-- TOAST NOTIFICATION -->
   <div id="copyToast">Notification</div>
 
-  <!-- TOP BAR -->
-  <header id="deviceControlBar">
-    <div class="flex items-center gap-3">
-      <span class="text-cyan-400 font-extrabold text-sm tracking-wider flex items-center gap-1.5">
-        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-        HELLO AI
-      </span>
-      <span class="hidden sm:inline text-slate-700 text-xs">|</span>
-      <span class="hidden sm:inline text-slate-400 text-xs font-semibold">View Matrix:</span>
-    </div>
-
-    <!-- Screen Size Switcher -->
-    <div class="flex items-center gap-2">
-      <button onclick="switchDeviceView('pc', this)" class="device-pill-btn active" title="PC View (Full)">
-        <i class="fa-solid fa-desktop"></i>
-        <span class="hidden sm:inline">Desktop</span>
-      </button>
-
-      <button onclick="switchDeviceView('laptop', this)" class="device-pill-btn" title="Laptop View">
-        <i class="fa-solid fa-laptop"></i>
-        <span class="hidden sm:inline">Laptop</span>
-      </button>
-
-      <button onclick="switchDeviceView('tablet', this)" class="device-pill-btn" title="Tablet View">
-        <i class="fa-solid fa-tablet-screen-button"></i>
-        <span class="hidden sm:inline">Tablet</span>
-      </button>
-
-      <button onclick="switchDeviceView('mobile', this)" class="device-pill-btn" title="Mobile View">
-        <i class="fa-solid fa-mobile-screen"></i>
-        <span class="hidden sm:inline">Mobile</span>
-      </button>
-    </div>
-
-    <!-- User Auth Status -->
-    <div id="authHeaderBlock" class="flex items-center gap-2"></div>
-  </header>
-
-  <!-- MAIN SIMULATOR WRAPPER -->
-  <div id="deviceSimulatorWrapper" class="view-pc">
-
-    <!-- DOCKED DRAGGABLE BUTTONS -->
-    <div id="masterAllToolsTrigger" title="Drag anywhere or click to open ALL TOOLS">
-      <i class="fa-solid fa-grip-vertical text-cyan-400/50 text-xs"></i>
-      <span class="text-cyan-400 font-black text-sm">✦</span>
-      <span class="text-xs font-extrabold tracking-wider">ALL TOOLS HUB</span>
-    </div>
-
-    <div id="draggableSideChatTrigger" title="Drag anywhere or click to open AI Chat Studio">
-      <i class="fa-solid fa-grip-vertical text-purple-400/50 text-xs"></i>
-      <i class="fa-solid fa-comments text-purple-400 text-xs"></i>
-      <span class="text-xs font-extrabold tracking-wider">NEURAL CHAT</span>
-    </div>
-
-    <!-- HERO SECTION -->
-    <div class="hero">
-      <header class="header">
-        <a href="#" class="inline-flex items-center gap-3.5 group cursor-pointer">
-          <div class="w-11 h-11 rounded-2xl bg-[#090f1d] border border-cyan-500/40 flex items-center justify-center shadow-[0_0_25px_rgba(56,189,248,0.25)] group-hover:scale-105 group-hover:border-cyan-400 transition-all duration-300">
-            <svg viewBox="0 0 80 80" class="w-7 h-7 drop-shadow-[0_0_10px_rgba(56,189,248,0.8)]">
-              <defs>
-                <linearGradient id="logoCyberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#38bdf8"/>
-                  <stop offset="50%" stop-color="#ffffff"/>
-                  <stop offset="100%" stop-color="#818cf8"/>
-                </linearGradient>
-              </defs>
-              <polygon points="40,6 68,22 68,58 40,74 12,58 12,22" fill="none" stroke="url(#logoCyberGrad)" stroke-width="4.5" stroke-linejoin="round"/>
-              <polygon points="40,18 58,40 40,62 22,40" fill="rgba(8,16,32,0.9)" stroke="url(#logoCyberGrad)" stroke-width="2.5"/>
-              <path d="M40,26 Q40,40 54,40 Q40,40 40,54 Q40,40 26,40 Q40,40 40,26 Z" fill="url(#logoCyberGrad)"/>
-            </svg>
-          </div>
-
-          <div class="flex flex-col">
-            <div class="flex items-center gap-1.5 leading-none">
-              <span class="font-extrabold text-[15px] tracking-[0.24em] text-white">HELLO</span>
-              <span class="font-black text-lg font-['Syne'] bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(56,189,248,0.6)]">AI</span>
-            </div>
-            <span class="text-[8.5px] font-mono tracking-[0.26em] text-cyan-400 font-bold mt-1 uppercase">Cybernetic Engine</span>
-          </div>
-        </a>
-      </header>
-
-      <main class="hero__body">
-        <section class="hero-text-content">
-          <div class="flex items-center gap-2 mb-4 text-[10px] font-bold tracking-[0.25em] text-cyan-400 font-mono">
-            <span class="w-8 h-[2px] bg-cyan-400 shadow-[0_0_8px_#38bdf8] inline-block"></span>
-            <span>NEXT-GEN SYNTHETIC MATRIX</span>
-          </div>
-
-          <h1 class="font-bold">
-            <span class="block text-4xl sm:text-6xl text-slate-100 font-['Syne'] cyber-glow-title">AUTONOMOUS</span>
-            <div class="revolve-container">
-              <span class="revolving-cyber-title">HELLO AI</span>
-            </div>
-          </h1>
-
-          <p class="intro" id="introText">
-            Full-stack GPU-accelerated computing environment. Real-time code execution, WebM video generation, and decentralized neural chat workflows.
-          </p>
-
-          <div class="flex flex-wrap gap-4 mt-8">
-            <button onclick="openAllAppsLaunchpad()" class="px-8 py-3.5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-extrabold text-xs tracking-wider shadow-[0_0_30px_rgba(56,189,248,0.4)] hover:scale-105 transition-all flex items-center gap-3">
-              <span>EXPLORE ALL TOOLS</span>
-              <span class="text-white text-sm">✦</span>
-            </button>
-            <a href="#how-i-built-section" class="px-8 py-3.5 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-200 font-extrabold text-xs tracking-wider border border-slate-700/60 transition-all flex items-center gap-2">
-              <span>SYSTEM ARCHITECTURE</span>
-              <span>↓</span>
-            </a>
-          </div>
-
-          <div class="grid grid-cols-3 w-full max-w-lg mt-12 pt-6 border-t border-slate-800/80">
-            <div class="flex flex-col gap-1">
-              <small class="text-[9px] font-mono font-bold tracking-wider text-slate-500 uppercase">Architecture</small>
-              <strong class="text-xs font-bold text-slate-200 tracking-wide">SHADERS / GLSL</strong>
-            </div>
-            <div class="flex flex-col gap-1">
-              <small class="text-[9px] font-mono font-bold tracking-wider text-slate-500 uppercase">Performance</small>
-              <strong class="text-xs font-bold text-slate-200 tracking-wide">ULTRA LIGHTWEIGHT</strong>
-            </div>
-            <div class="flex flex-col gap-1">
-              <small class="text-[9px] font-mono font-bold tracking-wider text-slate-500 uppercase">Active Core</small>
-              <strong id="activeDeviceLabel" class="text-xs font-bold text-cyan-400 tracking-wide">DESKTOP MATRIX</strong>
-            </div>
-          </div>
-        </section>
-
-        <!-- RIGHT: COMPLETE SVG LIQUID MORPHING SCENE -->
-        <section class="visual" id="visual">
-          <svg class="liquid-scene" viewBox="0 0 1100 850" preserveAspectRatio="xMidYMid meet">
-            <defs>
-              <path id="mainBubblePath" d="M305 154C430 88 638 77 781 126C906 169 978 281 961 405C945 524 858 620 735 651C631 678 558 647 494 620C434 595 380 592 322 552C247 501 204 426 218 345C231 267 258 196 305 154Z">
-                <animate attributeName="d" dur="14s" repeatCount="indefinite" values="M305 154C430 88 638 77 781 126C906 169 978 281 961 405C945 524 858 620 735 651C631 678 558 647 494 620C434 595 380 592 322 552C247 501 204 426 218 345C231 267 258 196 305 154Z;M286 171C411 91 626 68 792 135C922 187 966 296 949 420C929 552 829 622 722 649C614 677 541 627 478 617C405 605 345 612 297 553C242 486 192 415 218 324C241 244 244 207 286 171Z;M305 154C430 88 638 77 781 126C906 169 978 281 961 405C945 524 858 620 735 651C631 678 558 647 494 620C434 595 380 592 322 552C247 501 204 426 218 345C231 267 258 196 305 154Z"/>
-              </path>
-              <clipPath id="mainClip"><use href="#mainBubblePath"/></clipPath>
-              <linearGradient id="cyberStroke" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#38bdf8"/>
-                <stop offset="50%" stop-color="#818cf8"/>
-                <stop offset="100%" stop-color="#c084fc"/>
-              </linearGradient>
-            </defs>
-
-            <g id="mainParallax">
-              <g clip-path="url(#mainClip)">
-                <image href="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1800&q=90" x="125" y="40" width="930" height="720" preserveAspectRatio="xMidYMid slice" opacity="0.6"/>
-                <rect width="1100" height="850" fill="rgba(8, 16, 36, 0.4)"/>
-              </g>
-              <g class="marquee">
-                <text class="marquee__text" dy="-14">
-                  <textPath href="#mainBubblePath">
-                    HELLO AI ✦ CYBER COMPUTATION MATRIX ✦ ULTRA ENGINE ✦ DECENTRALIZED WORKFLOWS ✦
-                    <animate attributeName="startOffset" from="0%" to="100%" dur="24s" repeatCount="indefinite"/>
-                  </textPath>
-                </text>
-              </g>
-              <use href="#mainBubblePath" class="bubble-edge"/>
-            </g>
-          </svg>
-        </section>
-      </main>
-    </div>
-
-    <!-- ARCHITECTURE BREAKDOWN TIMELINE -->
-    <section id="how-i-built-section" class="spacious-section bg-slate-950/60">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center max-w-2xl mx-auto mb-14">
-          <span class="text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase">Engineering Matrix</span>
-          <h2 class="text-3xl sm:text-5xl font-extrabold font-['Syne'] text-white mt-1">How HELLO AI Operates</h2>
-          <p class="text-xs sm:text-sm text-slate-400 mt-3 leading-relaxed">
-            Direct breakdown of the core systems driving instant computation and zero-latency client sandboxing.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div class="build-story-card">
-            <div>
-              <div class="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl font-bold mb-5 border border-blue-500/30">
-                01
-              </div>
-              <h4 class="text-lg font-bold font-['Syne'] text-white mb-2">Canvas Video Pipeline</h4>
-              <p class="text-xs text-slate-400 leading-relaxed mb-4">
-                Integrated MediaStream & Canvas MediaRecorder captures live frames to generate downloadable WebM video files instantly.
-              </p>
-            </div>
-            <span class="text-[10px] font-mono font-bold text-blue-400 tracking-wider uppercase">MediaStream Pipeline</span>
-          </div>
-
-          <div class="build-story-card">
-            <div>
-              <div class="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-xl font-bold mb-5 border border-purple-500/30">
-                02
-              </div>
-              <h4 class="text-lg font-bold font-['Syne'] text-white mb-2">Gemini 2.5 Neural API</h4>
-              <p class="text-xs text-slate-400 leading-relaxed mb-4">
-                Direct client-side async fetch connecting Google AI Studio's Gemini 2.5 Flash model for sub-second contextual answers.
-              </p>
-            </div>
-            <span class="text-[10px] font-mono font-bold text-purple-400 tracking-wider uppercase">Gemini Neural API</span>
-          </div>
-
-          <div class="build-story-card">
-            <div>
-              <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl font-bold mb-5 border border-emerald-500/30">
-                03
-              </div>
-              <h4 class="text-lg font-bold font-['Syne'] text-white mb-2">Zero-Leak Sandboxing</h4>
-              <p class="text-xs text-slate-400 leading-relaxed mb-4">
-                Fully isolated execution contexts for live previews eliminate script collisions and UI thread locks.
-              </p>
-            </div>
-            <span class="text-[10px] font-mono font-bold text-emerald-400 tracking-wider uppercase">Isolated Sandboxes</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- MY CREATED AI TOOLS DIRECTORY -->
-    <section id="my-tools-section" class="spacious-section">
-      <div class="max-w-6xl mx-auto">
-        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4 pb-6 border-b border-slate-800">
-          <div>
-            <span class="text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase">Operational Suite</span>
-            <h2 class="text-3xl sm:text-5xl font-extrabold font-['Syne'] text-white mt-1">Active AI Engines</h2>
-          </div>
-          <button onclick="openCreateToolModal()" class="px-6 py-3 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs tracking-wider inline-flex items-center gap-2 shadow-[0_0_20px_rgba(56,189,248,0.35)] transition-all">
-            <i class="fa-solid fa-plus"></i>
-            <span>DEPLOY NEW TOOL</span>
-          </button>
-        </div>
-
-        <div id="userCustomToolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-      </div>
-    </section>
-
+  <!-- FLOATING DRAGGABLE QUICK CHAT -->
+  <div id="draggableFloatingChat" title="Click or Drag: Open HELLO AI CHAT">
+    <i class="fa-solid fa-grip-vertical text-cyan-400/50 text-xs"></i>
+    <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+    <span class="text-xs font-black tracking-wider text-cyan-300">HELLO AI CHAT</span>
   </div>
 
-  <!-- ALL TOOLS LAUNCHPAD MODAL -->
-  <div id="allAppsLaunchpad" onclick="if(event.target===this) closeAllAppsLaunchpad()">
-    <div class="launchpad-popup-box">
-      <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-5">
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-base border border-cyan-500/30">
-            ✦
-          </div>
-          <div>
-            <h3 class="text-lg font-bold font-['Syne'] text-white">HELLO AI TOOLS HUB</h3>
-            <p class="text-[11px] text-slate-400">Launch any operational system module</p>
-          </div>
+  <!-- MAIN WRAPPER -->
+  <div class="relative z-10 min-h-screen flex flex-col">
+
+    <!-- TOP HEADER -->
+    <header class="sticky top-0 z-50 bg-[#030712]/80 backdrop-blur-2xl border-b border-cyan-500/20 px-6 py-4 flex items-center justify-between">
+      <!-- Left: Logo -->
+      <a href="#" class="flex items-center gap-3.5 group">
+        <div class="w-10 h-10 rounded-2xl bg-[#090f1d] border border-cyan-500/40 flex items-center justify-center shadow-[0_0_20px_rgba(56,189,248,0.3)] group-hover:border-cyan-400 transition-all">
+          <i class="fa-solid fa-atom text-cyan-400 text-lg"></i>
         </div>
-        <button onclick="closeAllAppsLaunchpad()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors text-sm">
-          <i class="fa-solid fa-xmark"></i>
+        <div>
+          <div class="flex items-center gap-1.5 leading-none">
+            <span class="font-extrabold text-sm tracking-[0.24em] text-white">HELLO</span>
+            <span class="font-black text-base font-['Syne'] bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">AI</span>
+          </div>
+          <span class="text-[8px] font-mono tracking-[0.25em] text-cyan-400/80 font-bold uppercase">Quantum Core</span>
+        </div>
+      </a>
+
+      <!-- Middle: Direct HELLO AI CHAT Button -->
+      <div>
+        <button onclick="handleProtectedChatLaunch()" class="chat-pill-btn">
+          <i class="fa-solid fa-comments text-cyan-400"></i>
+          <span>HELLO AI CHAT</span>
         </button>
       </div>
 
-      <div class="space-y-2.5">
-        <div onclick="launchAppAction(openCodeStudioScreen)" class="compact-tool-item">
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm border border-blue-500/30">
-              <i class="fa-solid fa-video"></i>
-            </div>
-            <div>
-              <h4 class="text-xs font-bold font-['Syne'] text-white">HELLO CODE AI & VIDEO</h4>
-              <p class="text-[10px] text-slate-400">Run code, export HTML & live render WebM video</p>
-            </div>
-          </div>
-          <i class="fa-solid fa-arrow-right text-[11px] text-cyan-400"></i>
-        </div>
-
-        <div onclick="launchAppAction(openVoiceChangerModal)" class="compact-tool-item">
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-sm border border-rose-500/30">
-              <i class="fa-solid fa-microphone-lines"></i>
-            </div>
-            <div>
-              <h4 class="text-xs font-bold font-['Syne'] text-white">AI VOICE MATRIX</h4>
-              <p class="text-[10px] text-slate-400">DSP audio transformation with presets</p>
-            </div>
-          </div>
-          <i class="fa-solid fa-arrow-right text-[11px] text-cyan-400"></i>
-        </div>
-
-        <div onclick="launchAppAction(openHelloBrowser)" class="compact-tool-item">
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-sm border border-cyan-500/30">
-              <i class="fa-solid fa-compass"></i>
-            </div>
-            <div>
-              <h4 class="text-xs font-bold font-['Syne'] text-white">HELLO BROWSER</h4>
-              <p class="text-[10px] text-slate-400">Autonomous live browser with web search</p>
-            </div>
-          </div>
-          <i class="fa-solid fa-arrow-right text-[11px] text-cyan-400"></i>
-        </div>
-
-        <div onclick="launchAppAction(openChatScreen)" class="compact-tool-item">
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm border border-emerald-500/30">
-              <i class="fa-solid fa-comments"></i>
-            </div>
-            <div>
-              <h4 class="text-xs font-bold font-['Syne'] text-white">NEURAL CHAT STUDIO</h4>
-              <p class="text-[10px] text-slate-400">Direct Gemini 2.5 Flash intelligence</p>
-            </div>
-          </div>
-          <i class="fa-solid fa-arrow-right text-[11px] text-cyan-400"></i>
-        </div>
+      <!-- Right: User Auth State -->
+      <div id="authHeaderContainer">
+        <!-- Rendered dynamically via JS -->
       </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <main class="flex-1">
+      <section class="max-w-6xl mx-auto px-6 pt-20 pb-28 flex flex-col items-center text-center">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold tracking-widest uppercase mb-6 glow-cyan">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+          <span>AUTONOMOUS CYBER INTELLIGENCE 2026</span>
+        </div>
+
+        <!-- Main Headline -->
+        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black font-['Syne'] leading-tight mb-6 tracking-tight">
+          NEXT-GEN <br>
+          <span class="cyber-title">HELLO AI MATRIX</span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="text-slate-400 max-w-2xl text-sm sm:text-base leading-relaxed mb-10 font-normal">
+          High-performance GPU-accelerated computing environment. Equipped with client-side code execution, live WebM stream export, and decentralized multimodal intelligence.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <button onclick="handleProtectedChatLaunch()" class="px-8 py-4 rounded-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 hover:from-cyan-400 hover:to-blue-400 text-slate-950 font-black text-xs tracking-widest uppercase shadow-[0_0_35px_rgba(56,189,248,0.5)] transition-all hover:scale-105 flex items-center gap-3">
+            <i class="fa-solid fa-comments text-sm"></i>
+            <span>OPEN HELLO AI CHAT</span>
+            <span class="text-white">✦</span>
+          </button>
+
+          <button onclick="openCodeStudioScreen()" class="px-8 py-4 rounded-full bg-slate-900/90 hover:bg-slate-800 text-slate-200 font-bold text-xs tracking-widest uppercase border border-slate-700/80 transition-all hover:border-cyan-400/50 flex items-center gap-2.5">
+            <i class="fa-solid fa-code text-cyan-400"></i>
+            <span>CODE & VIDEO STUDIO</span>
+          </button>
+        </div>
+
+        <!-- Metric Cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-4xl mt-16 pt-10 border-t border-slate-800/80">
+          <div class="glass-card p-5 text-left">
+            <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider block mb-1">Architecture</span>
+            <strong class="text-sm font-bold text-cyan-400">GLSL / WEBGL</strong>
+          </div>
+          <div class="glass-card p-5 text-left">
+            <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider block mb-1">Neural Core</span>
+            <strong class="text-sm font-bold text-indigo-400">GEMINI 2.5 FLASH</strong>
+          </div>
+          <div class="glass-card p-5 text-left">
+            <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider block mb-1">Video Stream</span>
+            <strong class="text-sm font-bold text-emerald-400">CANVAS WEBM</strong>
+          </div>
+          <div class="glass-card p-5 text-left">
+            <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider block mb-1">Active User</span>
+            <strong id="metricUserName" class="text-sm font-bold text-white truncate block">GUEST MATRIX</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- OPERATIONAL AGENTS SECTION -->
+      <section class="max-w-6xl mx-auto px-6 py-20 border-t border-slate-800/80">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4 pb-6 border-b border-slate-800">
+          <div>
+            <span class="text-[11px] font-mono font-bold tracking-widest text-cyan-400 uppercase">Operational Matrix</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold font-['Syne'] text-white mt-1">Autonomous AI Engines</h2>
+          </div>
+          <button onclick="openCreateToolModal()" class="px-6 py-3 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs tracking-wider inline-flex items-center gap-2 shadow-[0_0_20px_rgba(56,189,248,0.35)] transition-all">
+            <i class="fa-solid fa-plus"></i>
+            <span>DEPLOY CUSTOM AGENT</span>
+          </button>
+        </div>
+
+        <div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800/80 py-8 px-6 text-center text-xs font-mono text-slate-500">
+      HELLO AI ARCHITECTURE • SECURE FIREBASE AUTHENTICATION • POWERED BY GOOGLE AI STUDIO
+    </footer>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- GOOGLE LOGIN MODAL (TRIGGERED WHEN CHATTING WITHOUT AUTH)-->
+  <!-- ======================================================== -->
+  <div id="authPromptModal" class="modal-backdrop">
+    <div class="bg-[#090f1d] border border-cyan-500/40 rounded-3xl p-8 max-w-sm w-full text-center shadow-[0_20px_70px_rgba(0,0,0,0.95)] relative">
+      <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="w-16 h-16 bg-cyan-500/10 rounded-2xl flex items-center justify-center mx-auto mb-5 text-cyan-400 text-2xl border border-cyan-500/30 glow-cyan">
+        <i class="fa-solid fa-lock"></i>
+      </div>
+
+      <h3 class="text-2xl font-black font-['Syne'] text-white mb-2">Connect Identity</h3>
+      <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+        Sign in with your Google account to unlock <strong>HELLO AI CHAT</strong>, save session history, and personalize your experience.
+      </p>
+
+      <button id="googleModalSignInBtn" onclick="executeGoogleSignIn()" class="w-full flex items-center justify-center gap-3 px-5 py-3.5 rounded-full border border-cyan-500/40 bg-slate-900 hover:bg-slate-800 text-slate-100 text-xs font-bold transition-all shadow-[0_0_20px_rgba(56,189,248,0.2)] hover:scale-[1.02]">
+        <svg class="w-4 h-4" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+        </svg>
+        <span>Sign in with Google</span>
+      </button>
+
+      <span class="block mt-4 text-[10px] font-mono text-slate-500">Fast & Zero Password Required</span>
     </div>
   </div>
 
-  <!-- FULL-SCREEN: HELLO AI CHAT STUDIO -->
+  <!-- ======================================================== -->
+  <!-- FULL SCREEN: HELLO AI CHAT STUDIO                        -->
+  <!-- ======================================================== -->
   <div id="helloAiChatScreen" class="full-studio-modal">
     <header class="p-4 bg-[#080d1a] border-b border-slate-800 flex items-center justify-between">
       <div class="flex items-center gap-4">
-        <button onclick="closeChatScreen()" class="px-4 py-2 rounded-xl bg-white/10 text-xs font-bold text-cyan-300 hover:bg-white/20 transition-all flex items-center gap-2">
+        <button onclick="closeChatScreen()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold text-cyan-300 flex items-center gap-2 transition-all">
           <i class="fa-solid fa-arrow-left"></i>
           <span>Exit Chat</span>
         </button>
         <div class="flex items-center gap-2.5">
-          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span class="font-extrabold text-sm font-['Syne'] text-white">NEURAL CHAT STUDIO</span>
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+          <span class="font-extrabold text-sm font-['Syne'] text-white">HELLO AI CHAT</span>
         </div>
       </div>
 
@@ -734,26 +350,26 @@
           <span id="apiKeyStatusLabel">Set API Key</span>
         </button>
 
-        <div id="chatUserBadge" class="flex items-center gap-2 bg-[#0f172a] px-3.5 py-1.5 rounded-full border border-slate-700">
-          <i class="fa-solid fa-user text-cyan-400 text-xs"></i>
-          <span id="chatUserDisplayName" class="text-xs font-bold text-slate-200">Surajit</span>
+        <div class="flex items-center gap-2 bg-[#0f172a] px-3.5 py-1.5 rounded-full border border-slate-700">
+          <img id="chatUserAvatar" src="" class="w-4 h-4 rounded-full object-cover" alt="User">
+          <span id="chatUserDisplayName" class="text-xs font-bold text-slate-200">User</span>
         </div>
       </div>
     </header>
 
-    <div class="flex-1 flex flex-col relative overflow-hidden bg-[#030712]">
-      <div id="chatStudioMessageContainer" class="flex-1 p-6 overflow-y-auto space-y-4 max-w-4xl w-full mx-auto"></div>
+    <div class="flex-1 flex flex-col relative overflow-hidden bg-[#02050e]">
+      <div id="chatMessageContainer" class="flex-1 p-6 overflow-y-auto space-y-4 max-w-4xl w-full mx-auto"></div>
 
       <div class="p-4 bg-[#080d1a] border-t border-slate-800">
         <div class="max-w-4xl mx-auto flex items-center gap-3">
           <input 
             type="text" 
-            id="chatStudioInput" 
-            placeholder="Type your query to Google Gemini 2.5..." 
+            id="chatInput" 
+            placeholder="Type your message to HELLO AI..." 
             class="flex-1 bg-[#0f172a] text-white px-5 py-3.5 rounded-2xl text-xs font-medium border border-slate-700 focus:outline-none focus:border-cyan-400 shadow-inner"
-            onkeypress="if(event.key==='Enter') sendStudioChatMessage()"
+            onkeypress="if(event.key==='Enter') sendChatMessage()"
           >
-          <button onclick="sendStudioChatMessage()" class="w-11 h-11 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 flex items-center justify-center font-bold text-sm shadow-[0_0_20px_rgba(56,189,248,0.4)] transition-transform active:scale-95">
+          <button onclick="sendChatMessage()" class="w-11 h-11 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 flex items-center justify-center font-bold text-sm shadow-[0_0_20px_rgba(56,189,248,0.4)] transition-transform active:scale-95">
             <i class="fa-solid fa-paper-plane"></i>
           </button>
         </div>
@@ -761,53 +377,36 @@
     </div>
   </div>
 
-  <!-- WORKSPACE: HELLO CODE AI STUDIO -->
+  <!-- ======================================================== -->
+  <!-- FULL SCREEN: CODE STUDIO & VIDEO GENERATOR               -->
+  <!-- ======================================================== -->
   <div id="helloCodeAiStudioScreen" class="full-studio-modal">
     <header class="p-4 bg-[#080d1a] border-b border-slate-800 flex flex-wrap gap-3 justify-between items-center">
       <div class="flex items-center gap-4">
         <button onclick="closeCodeStudioScreen()" class="px-4 py-2 rounded-xl bg-white/10 text-xs font-bold text-cyan-300">
           <i class="fa-solid fa-arrow-left"></i> Exit Studio
         </button>
-        <span class="font-extrabold text-sm font-['Syne'] text-white">HELLO CODE AI STUDIO</span>
+        <span class="font-extrabold text-sm font-['Syne'] text-white">CODE & VIDEO STUDIO</span>
       </div>
 
       <div class="flex items-center flex-wrap gap-2.5">
-        <button onclick="clearStudioCode()" class="px-3.5 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-xs font-bold flex items-center gap-1.5 border border-rose-500/30 transition-all">
-          <i class="fa-solid fa-eraser"></i>
-          <span>Erase Code</span>
-        </button>
-
-        <button onclick="exportHtmlFile()" class="px-3.5 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 text-xs font-bold flex items-center gap-1.5 border border-emerald-500/30 transition-all">
-          <i class="fa-solid fa-file-arrow-down"></i>
-          <span>Export HTML</span>
-        </button>
-
-        <label class="px-3.5 py-2 rounded-xl bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 text-xs font-bold flex items-center gap-1.5 border border-purple-500/30 cursor-pointer transition-all">
-          <i class="fa-solid fa-file-arrow-up"></i>
-          <span>Import HTML</span>
-          <input type="file" accept=".html" onchange="importHtmlFile(event)" class="hidden">
-        </label>
-
-        <button onclick="toggleWebSectorFullScreen()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold flex items-center gap-2 border border-slate-700 transition-all">
-          <i class="fa-solid fa-expand"></i>
-          <span>Full Screen Web</span>
+        <button onclick="exportHtmlFile()" class="px-3.5 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 text-xs font-bold flex items-center gap-1.5 border border-emerald-500/30">
+          <i class="fa-solid fa-file-arrow-down"></i> Export HTML
         </button>
 
         <button onclick="generateVideoFromCodeStudio()" class="px-5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-[0_0_20px_rgba(56,189,248,0.3)]">
-          <i class="fa-solid fa-video text-xs"></i>
-          <span>Generate Video</span>
+          <i class="fa-solid fa-video text-xs"></i> Generate Video
         </button>
         
         <button onclick="runLiveCodeFromStudio()" class="px-5 py-2 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 text-xs font-bold flex items-center gap-2 shadow-md">
-          <i class="fa-solid fa-play text-xs"></i>
-          <span>Run Live</span>
+          <i class="fa-solid fa-play text-xs"></i> Run Live
         </button>
       </div>
     </header>
 
     <main class="flex-1 p-6 flex flex-col lg:flex-row gap-6 overflow-hidden">
       <div class="flex-1 flex flex-col">
-        <textarea id="studioCodeTextarea" rows="18" class="flex-1 p-4 bg-[#050914] text-cyan-300 font-mono text-xs rounded-2xl border border-slate-800 focus:outline-none focus:border-cyan-500/50 resize-none" placeholder="// Insert HTML, CSS, JavaScript here..."></textarea>
+        <textarea id="studioCodeTextarea" rows="18" class="flex-1 p-4 bg-[#050914] text-cyan-300 font-mono text-xs rounded-2xl border border-slate-800 focus:outline-none focus:border-cyan-500/50 resize-none" placeholder="// Write HTML, CSS, JavaScript here..."></textarea>
       </div>
 
       <div class="flex-1 flex flex-col gap-4">
@@ -819,88 +418,19 @@
           <div class="flex items-center justify-between mb-3">
             <span class="text-xs font-bold text-cyan-400 flex items-center gap-2">
               <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              Live Video Render
+              Live Video Render Output
             </span>
             <a id="studioVideoDownloadBtn" href="#" download="render_output.webm" class="px-3.5 py-1.5 rounded-full bg-emerald-600 text-white font-bold text-[11px] flex items-center gap-1.5">
               <i class="fa-solid fa-download"></i> Download Video
             </a>
           </div>
-          <video id="studioOutputVideoPlayer" controls autoplay loop muted playsinline webkit-playsinline class="w-full rounded-xl max-h-56 bg-black"></video>
+          <video id="studioOutputVideoPlayer" controls autoplay loop muted playsinline class="w-full rounded-xl max-h-56 bg-black"></video>
         </div>
       </div>
     </main>
   </div>
 
-  <!-- WORKSPACE: HELLO AI VOICE CHANGER STUDIO -->
-  <div id="voiceChangerModal" class="full-studio-modal" style="display:none; place-items:center; background:rgba(3,7,18,0.92);">
-    <div class="w-[min(680px,94vw)] bg-[#090f1d] border border-cyan-500/30 rounded-3xl p-6 shadow-2xl">
-      <div class="flex justify-between items-center pb-4 border-b border-slate-800 mb-6">
-        <div class="flex items-center gap-3">
-          <i class="fa-solid fa-microphone-lines text-cyan-400 text-xl"></i>
-          <h3 class="text-xl font-bold font-['Syne'] text-white">AI VOICE MATRIX</h3>
-        </div>
-        <button onclick="closeVoiceChangerModal()" class="text-slate-400 hover:text-white text-lg">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <div class="w-full h-24 bg-[#050914] rounded-2xl border border-slate-800 mb-6 flex items-center justify-center">
-        <span id="voiceStatusText" class="text-xs font-mono font-bold text-slate-400">DSP AUDIO ENGINE STANDBY</span>
-      </div>
-
-      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-6">
-        <button onclick="setVoicePreset('deep', this)" class="p-3 rounded-xl bg-cyan-500/15 border border-cyan-500 text-xs font-bold text-cyan-300">Deep Titan</button>
-        <button onclick="setVoicePreset('chipmunk', this)" class="p-3 rounded-xl bg-white/5 border border-white/10 text-xs font-bold text-slate-300">Helium</button>
-        <button onclick="setVoicePreset('robot', this)" class="p-3 rounded-xl bg-white/5 border border-white/10 text-xs font-bold text-slate-300">Cyber Droid</button>
-      </div>
-
-      <div class="flex items-center gap-3">
-        <button id="btnStartRecord" onclick="toggleVoiceRecording()" class="px-6 py-3 rounded-full bg-cyan-400 text-slate-950 font-bold text-xs">Start Audio Capture</button>
-        <button id="btnPlayTransformed" onclick="playTransformedVoice()" disabled class="px-5 py-3 rounded-full bg-slate-800 text-slate-500 font-bold text-xs">Playback</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- WORKSPACE: HELLO AI BROWSER -->
-  <div id="helloAiBrowserScreen" class="full-studio-modal">
-    <div class="p-3 bg-[#080d1a] border-b border-slate-800 flex items-center justify-between">
-      <button onclick="closeHelloBrowser()" class="px-4 py-1.5 rounded-xl bg-white/10 text-xs font-bold text-cyan-300"><i class="fa-solid fa-arrow-left"></i> Exit</button>
-      <input type="text" id="browserOmniboxInput" value="https://google.com" class="w-96 px-4 py-1.5 rounded-full bg-[#0f172a] text-xs text-white border border-slate-700 focus:outline-none" onkeypress="if(event.key==='Enter') executeBrowserSearch()">
-      <span class="text-emerald-400 text-xs font-mono font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>ACTIVE</span>
-    </div>
-    <div class="flex-1 w-full bg-[#030712]">
-      <iframe id="browserWebIframe" src="https://www.google.com/search?igu=1" class="w-full h-full border-0"></iframe>
-    </div>
-  </div>
-
-  <!-- AUTH MODAL -->
-  <div id="authModal" class="modal-backdrop">
-    <div class="bg-[#090f1d] rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl border border-slate-800 relative">
-      <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-100">
-        <i class="fa-solid fa-xmark text-lg"></i>
-      </button>
-
-      <div class="w-14 h-14 bg-cyan-500/10 rounded-2xl flex items-center justify-center mx-auto mb-5 text-cyan-400 text-2xl font-bold border border-cyan-500/30">
-        ✦
-      </div>
-      <h3 class="text-xl font-bold font-['Syne'] text-white mb-2">Connect Identity</h3>
-      <p class="text-xs text-slate-400 mb-6 leading-relaxed">
-        Connect via Google Identity to synchronize personal AI configurations and tools.
-      </p>
-
-      <button onclick="signInWithGoogle()" class="w-full flex items-center justify-center gap-3 px-5 py-3.5 rounded-full border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition-all shadow-sm active:scale-98">
-        <svg class="w-4 h-4" viewBox="0 0 24 24">
-          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-        </svg>
-        <span>Authenticate with Google</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- CREATE TOOL MODAL -->
+  <!-- MODAL: CREATE AGENT -->
   <div id="createToolModal" class="modal-backdrop">
     <div class="bg-[#090f1d] rounded-3xl p-7 max-w-md w-full shadow-2xl border border-slate-800 relative">
       <div class="flex justify-between items-center pb-4 border-b border-slate-800 mb-5">
@@ -917,11 +447,11 @@
         </div>
         <div>
           <label class="block mb-1 text-slate-400 font-mono">Domain / Category:</label>
-          <input type="text" id="newToolCategory" placeholder="e.g. GLSL, AUTOMATION, LLM, CODE" class="w-full px-4 py-2.5 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-cyan-400">
+          <input type="text" id="newToolCategory" placeholder="e.g. AUTOMATION, LLM, CODE" class="w-full px-4 py-2.5 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-cyan-400">
         </div>
         <div>
           <label class="block mb-1 text-slate-400 font-mono">Engine Description:</label>
-          <textarea id="newToolDesc" rows="3" placeholder="Describe the autonomous capability..." class="w-full p-3 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-cyan-400"></textarea>
+          <textarea id="newToolDesc" rows="3" placeholder="Describe the capability..." class="w-full p-3 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-cyan-400"></textarea>
         </div>
         <div>
           <label class="block mb-1 text-slate-400 font-mono">Endpoint / Link:</label>
@@ -929,7 +459,7 @@
         </div>
 
         <button onclick="saveNewCustomTool()" class="w-full py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs shadow-[0_0_20px_rgba(56,189,248,0.3)] mt-2">
-          Save & Register In System
+          Save & Register In Matrix
         </button>
       </div>
     </div>
@@ -938,12 +468,11 @@
   <!-- FIREBASE MODULE -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js";
     import {
       getAuth,
       GoogleAuthProvider,
       signInWithPopup,
-      signOut as firebaseSignOut,
+      signOut as fbSignOut,
       onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
@@ -957,102 +486,183 @@
       measurementId: "G-SQXV58YZS6"
     };
 
-    const firebaseApp = initializeApp(firebaseConfig);
-    const firebaseAnalytics = getAnalytics(firebaseApp);
-    const firebaseAuth = getAuth(firebaseApp);
-    const googleProvider = new GoogleAuthProvider();
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
 
-    window.firebaseAuth = firebaseAuth;
-    window.googleProvider = googleProvider;
-    window.firebaseSignInWithPopup = signInWithPopup;
-    window.firebaseSignOut = firebaseSignOut;
+    window.firebaseAuth = auth;
+    window.googleProvider = provider;
+    window.signInWithPopup = signInWithPopup;
+    window.fbSignOut = fbSignOut;
 
-    onAuthStateChanged(firebaseAuth, (user) => {
-      window.currentFirebaseUser = user || null;
-      if (typeof window.renderFirebaseAuthState === "function") {
-        window.renderFirebaseAuthState(user);
-      }
+    // Listen to Google Auth State
+    onAuthStateChanged(auth, (user) => {
+      window.currentUser = user || null;
+      renderUserAuthState(user);
     });
   </script>
 
-  <!-- JAVASCRIPT CONTROLLERS -->
+  <!-- CONTROLLERS & ANIMATIONS -->
   <script>
-    // 1. FIREBASE AUTH CONTROLLER
-    const authHeaderBlock = document.getElementById('authHeaderBlock');
+    // 1. DYNAMIC 60FPS PARTICLE CANVAS
+    const canvas = document.getElementById('cyberCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height, particles = [];
+    let mouse = { x: -1000, y: -1000 };
 
-    window.renderFirebaseAuthState = function(user) {
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.7;
+        this.vy = (Math.random() - 0.5) * 0.7;
+        this.radius = Math.random() * 1.8 + 0.8;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > width) this.vx *= -1;
+        if (this.y < 0 || this.y > height) this.vy *= -1;
+
+        // Mouse attraction
+        const dx = mouse.x - this.x;
+        const dy = mouse.y - this.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) {
+          this.x += dx * 0.015;
+          this.y += dy * 0.015;
+        }
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.65)';
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 75; i++) particles.push(new Particle());
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, width, height);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 110) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(56, 189, 248, ${0.18 * (1 - distance / 110)})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // 2. AUTH STATE CONTROLLER
+    function renderUserAuthState(user) {
+      const container = document.getElementById('authHeaderContainer');
+      const metricLabel = document.getElementById('metricUserName');
+
       if (user) {
-        authHeaderBlock.innerHTML = `
-          <div class="flex items-center gap-2.5 bg-slate-900/90 px-3 py-1 rounded-full border border-cyan-500/30 transition-all">
-            <img src="${user.photoURL || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.displayName || 'User')}" class="w-5 h-5 rounded-full" alt="User">
-            <span class="text-xs font-bold text-cyan-300">${user.displayName || 'Google User'}</span>
-            <button onclick="signOut()" title="Sign Out" class="text-slate-400 hover:text-rose-400 text-xs ml-1">
+        const name = user.displayName || 'Google User';
+        const photo = user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=0284c7&color=fff`;
+
+        container.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 bg-slate-900/90 px-3 py-1.5 rounded-full border border-cyan-500/40 glow-cyan">
+              <img src="${photo}" class="w-5 h-5 rounded-full" alt="User">
+              <span class="text-xs font-bold text-cyan-300 max-w-[130px] truncate">${name}</span>
+            </div>
+            <button onclick="executeSignOut()" title="Sign Out" class="text-slate-400 hover:text-rose-400 text-xs">
               <i class="fa-solid fa-arrow-right-from-bracket"></i>
             </button>
           </div>
         `;
-        localStorage.setItem('hello_ai_user', JSON.stringify({
-          name: user.displayName || 'Google User',
-          email: user.email || '',
-          avatar: user.photoURL || ''
-        }));
+
+        if (metricLabel) metricLabel.innerText = name.toUpperCase();
+        document.getElementById('chatUserDisplayName').innerText = name;
+        document.getElementById('chatUserAvatar').src = photo;
       } else {
-        authHeaderBlock.innerHTML = `
-          <button onclick="openAuthModal()" class="px-3.5 py-1.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 border border-slate-700 transition-all">
+        container.innerHTML = `
+          <button onclick="openAuthModal()" class="px-4 py-2 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs font-bold flex items-center gap-2 border border-slate-700/80 transition-all hover:border-cyan-400">
             <i class="fa-brands fa-google text-cyan-400"></i>
             <span>Sign In</span>
           </button>
         `;
-        localStorage.removeItem('hello_ai_user');
-      }
-      updateKeyStatusLabel();
-    };
-
-    function checkAuthState() {
-      if (window.currentFirebaseUser) {
-        window.renderFirebaseAuthState(window.currentFirebaseUser);
-      } else if (window.firebaseAuth) {
-        window.renderFirebaseAuthState(null);
+        if (metricLabel) metricLabel.innerText = "GUEST MATRIX";
+        document.getElementById('chatUserDisplayName').innerText = "Guest User";
+        document.getElementById('chatUserAvatar').src = "https://ui-avatars.com/api/?name=Guest&background=0f172a&color=38bdf8";
       }
     }
 
+    // Modal Controls
     function openAuthModal() {
-      document.getElementById('authModal').style.display = 'grid';
+      document.getElementById('authPromptModal').style.display = 'grid';
     }
-
     function closeAuthModal() {
-      document.getElementById('authModal').style.display = 'none';
+      document.getElementById('authPromptModal').style.display = 'none';
     }
 
-    async function signInWithGoogle() {
-      if (!window.firebaseAuth || !window.googleProvider || !window.firebaseSignInWithPopup) {
-        showToast("Firebase is loading. Try again.");
-        return;
-      }
+    async function executeGoogleSignIn() {
+      const btn = document.getElementById('googleModalSignInBtn');
+      const original = btn.innerHTML;
       try {
-        const result = await window.firebaseSignInWithPopup(window.firebaseAuth, window.googleProvider);
+        btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Connecting...</span>`;
+        btn.disabled = true;
+        const res = await window.signInWithPopup(window.firebaseAuth, window.googleProvider);
         closeAuthModal();
-        showToast(`Connected as ${result.user.displayName || 'User'}!`);
-      } catch (error) {
-        showToast("Google sign-in cancelled or failed.");
+        showToast(`Connected as ${res.user.displayName || 'Google User'}`);
+        openChatScreen();
+      } catch (err) {
+        console.error(err);
+        showToast("Google sign-in was cancelled or failed.");
+      } finally {
+        btn.innerHTML = original;
+        btn.disabled = false;
       }
     }
 
-    async function signOut() {
-      if (!window.firebaseAuth || !window.firebaseSignOut) return;
+    async function executeSignOut() {
       if (confirm("Disconnect session?")) {
-        await window.firebaseSignOut(window.firebaseAuth);
-        showToast("Signed out.");
+        await window.fbSignOut(window.firebaseAuth);
+        showToast("Signed out successfully.");
       }
     }
 
-    setTimeout(checkAuthState, 500);
+    // PROTECTED LAUNCH: Opens Chat if logged in, else asks for Gmail Login
+    function handleProtectedChatLaunch() {
+      if (window.currentUser) {
+        openChatScreen();
+      } else {
+        openAuthModal();
+      }
+    }
 
-    // 2. GEMINI NEURAL CHAT
+    // 3. HELLO AI CHAT STUDIO (GEMINI 2.5)
     const chatScreen = document.getElementById('helloAiChatScreen');
-    const userDisplayName = document.getElementById('chatUserDisplayName');
-    const messageFeed = document.getElementById('chatStudioMessageContainer');
-    const chatInput = document.getElementById('chatStudioInput');
+    const messageFeed = document.getElementById('chatMessageContainer');
+    const chatInput = document.getElementById('chatInput');
 
     function getGeminiKey() {
       return localStorage.getItem('gemini_api_key') || '';
@@ -1065,31 +675,31 @@
 
     function promptGeminiKey() {
       const currentKey = getGeminiKey();
-      const newKey = prompt("Enter your Google Gemini API Key:", currentKey);
+      const newKey = prompt("Enter your Google Gemini API Key (aistudio.google.com):", currentKey);
       if (newKey !== null) {
         if (newKey.trim().startsWith("AIzaSy")) {
           localStorage.setItem('gemini_api_key', newKey.trim());
           updateKeyStatusLabel();
-          showToast("Gemini API connected!");
+          showToast("Gemini API connected successfully!");
         } else if (newKey.trim() === '') {
           localStorage.removeItem('gemini_api_key');
           updateKeyStatusLabel();
           showToast("API Key cleared.");
         } else {
-          alert("Invalid key format!");
+          alert("Key should typically start with 'AIzaSy'.");
         }
       }
     }
 
     function openChatScreen() {
-      const user = JSON.parse(localStorage.getItem('hello_ai_user'));
-      const activeName = user ? user.name : "Surajit";
-      userDisplayName.innerText = activeName;
+      const activeName = window.currentUser ? window.currentUser.displayName : "Guest";
       updateKeyStatusLabel();
       chatScreen.style.display = 'flex';
       document.body.style.overflow = 'hidden';
-      messageFeed.innerHTML = '';
-      appendAiBubble(`Identity verified: **${activeName}** ✦ Cybernetic matrix online. What neural task shall we execute?`);
+
+      if (!messageFeed.innerHTML.trim()) {
+        appendAiBubble(`Identity Verified: **${activeName}** ✦ HELLO AI CHAT is online. How can I assist you with code, reasoning, or projects today?`);
+      }
       chatInput.focus();
     }
 
@@ -1098,9 +708,15 @@
       document.body.style.overflow = 'auto';
     }
 
-    async function sendStudioChatMessage() {
+    async function sendChatMessage() {
       const text = chatInput.value.trim();
       if (!text) return;
+
+      // If user logs out during chat, enforce login
+      if (!window.currentUser) {
+        openAuthModal();
+        return;
+      }
 
       let apiKey = getGeminiKey();
       if (!apiKey) {
@@ -1109,14 +725,12 @@
         if (!apiKey) return;
       }
 
-      const user = JSON.parse(localStorage.getItem('hello_ai_user'));
-      const activeName = user ? user.name : "Surajit";
-
+      const activeName = window.currentUser.displayName || "User";
       appendUserBubble(activeName, text);
       chatInput.value = '';
 
-      const loadingId = "load-" + Date.now();
-      appendLoadingBubble(loadingId);
+      const loadId = "load-" + Date.now();
+      appendLoadingBubble(loadId);
 
       try {
         const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
@@ -1126,25 +740,25 @@
           body: JSON.stringify({
             contents: [{
               parts: [{
-                text: `You are HELLO AI, a helpful AI assistant. User: ${activeName}. Provide concise, technically brilliant answers. Match the user's language. User message: ${text}`
+                text: `You are HELLO AI, a world-class AI assistant operating inside a futuristic cyber environment. User: ${activeName}. Provide concise, technically brilliant, and precise answers. Match user language. User prompt: ${text}`
               }]
             }]
           })
         });
 
         const data = await response.json();
-        removeLoadingBubble(loadingId);
+        removeLoadingBubble(loadId);
 
         if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
           appendAiBubble(data.candidates[0].content.parts[0].text);
         } else if (data.error) {
-          appendAiBubble(`⚠️ **Error:** ${data.error.message || 'Key invalid or quota reached.'}`);
+          appendAiBubble(`⚠️ **Error:** ${data.error.message || 'Key quota exceeded or invalid.'}`);
         } else {
-          appendAiBubble("⚠️ Neural response empty.");
+          appendAiBubble("⚠️ Neural response empty. Verify prompt parameters.");
         }
       } catch (err) {
-        removeLoadingBubble(loadingId);
-        appendAiBubble("⚠️ Connection failure.");
+        removeLoadingBubble(loadId);
+        appendAiBubble("⚠️ Connection failure. Check network interface.");
       }
     }
 
@@ -1153,7 +767,7 @@
       div.className = "flex flex-col items-end";
       div.innerHTML = `
         <span class="text-[10px] text-cyan-400 font-mono font-bold mb-1">${userName}</span>
-        <div class="bg-gradient-to-r from-cyan-600 to-blue-700 text-white px-5 py-3 rounded-2xl rounded-tr-none text-xs max-w-[85%] shadow-md leading-relaxed whitespace-pre-wrap">
+        <div class="bg-gradient-to-r from-cyan-600 to-blue-700 text-white px-5 py-3 rounded-2xl rounded-tr-none text-xs max-w-[85%] shadow-md whitespace-pre-wrap leading-relaxed">
           ${escapeHtml(text)}
         </div>
       `;
@@ -1169,7 +783,7 @@
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
           HELLO CORE
         </span>
-        <div class="bg-[#0b1324] border border-cyan-500/20 text-slate-200 px-5 py-3 rounded-2xl rounded-tl-none text-xs max-w-[85%] shadow-md leading-relaxed whitespace-pre-wrap">
+        <div class="bg-[#090f1d] border border-cyan-500/20 text-slate-200 px-5 py-3 rounded-2xl rounded-tl-none text-xs max-w-[85%] shadow-md whitespace-pre-wrap leading-relaxed">
           ${text.replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>')}
         </div>
       `;
@@ -1182,15 +796,11 @@
       div.id = id;
       div.className = "flex flex-col items-start";
       div.innerHTML = `
-        <span class="text-[10px] text-slate-400 font-mono font-bold mb-1 flex items-center gap-1.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
-          HELLO CORE
-        </span>
-        <div class="bg-[#0b1324] border border-cyan-500/20 text-cyan-300 px-4 py-3 rounded-2xl rounded-tl-none text-xs flex items-center gap-2">
+        <div class="bg-[#090f1d] border border-cyan-500/20 text-cyan-300 px-4 py-2.5 rounded-2xl rounded-tl-none text-xs flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-cyan-400 animate-bounce"></span>
           <span class="w-2 h-2 rounded-full bg-cyan-400 animate-bounce [animation-delay:0.2s]"></span>
           <span class="w-2 h-2 rounded-full bg-cyan-400 animate-bounce [animation-delay:0.4s]"></span>
-          <span class="ml-1 text-[11px] font-semibold text-slate-400 font-mono">Synthesizing...</span>
+          <span class="ml-1 text-[11px] font-mono text-slate-400">Synthesizing...</span>
         </div>
       `;
       messageFeed.appendChild(div);
@@ -1202,100 +812,45 @@
       if (el) el.remove();
     }
 
-    function escapeHtml(text) {
-      return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    function escapeHtml(t) {
+      return t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
 
-    // 3. DRAGGABLE MASTER CONTROLLER
-    const masterTrigger = document.getElementById('masterAllToolsTrigger');
-    let isMasterDragging = false, hasMasterMoved = false;
-    let startX, startY, initLeft, initTop;
+    // 4. DRAGGABLE FLOATING CHAT BUTTON
+    const floatBtn = document.getElementById('draggableFloatingChat');
+    let isDragging = false, hasMoved = false, startX, startY, initLeft, initTop;
 
-    masterTrigger.addEventListener('pointerdown', (e) => {
-      isMasterDragging = true;
-      hasMasterMoved = false;
+    floatBtn.addEventListener('pointerdown', (e) => {
+      isDragging = true;
+      hasMoved = false;
       startX = e.clientX;
       startY = e.clientY;
-      const rect = masterTrigger.getBoundingClientRect();
+      const rect = floatBtn.getBoundingClientRect();
       initLeft = rect.left;
       initTop = rect.top;
-      masterTrigger.setPointerCapture(e.pointerId);
-      masterTrigger.style.transform = 'none';
-      masterTrigger.style.bottom = 'auto';
-      masterTrigger.style.left = `${initLeft}px`;
-      masterTrigger.style.top = `${initTop}px`;
+      floatBtn.setPointerCapture(e.pointerId);
+      floatBtn.style.bottom = 'auto';
+      floatBtn.style.right = 'auto';
+      floatBtn.style.left = `${initLeft}px`;
+      floatBtn.style.top = `${initTop}px`;
     });
 
-    masterTrigger.addEventListener('pointermove', (e) => {
-      if (!isMasterDragging) return;
+    floatBtn.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
       const dx = e.clientX - startX;
       const dy = e.clientY - startY;
-      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) hasMasterMoved = true;
-      let newLeft = Math.max(10, Math.min(window.innerWidth - masterTrigger.offsetWidth - 10, initLeft + dx));
-      let newTop = Math.max(50, Math.min(window.innerHeight - masterTrigger.offsetHeight - 10, initTop + dy));
-      masterTrigger.style.left = `${newLeft}px`;
-      masterTrigger.style.top = `${newTop}px`;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) hasMoved = true;
+      floatBtn.style.left = `${Math.max(10, Math.min(window.innerWidth - floatBtn.offsetWidth - 10, initLeft + dx))}px`;
+      floatBtn.style.top = `${Math.max(10, Math.min(window.innerHeight - floatBtn.offsetHeight - 10, initTop + dy))}px`;
     });
 
-    masterTrigger.addEventListener('pointerup', (e) => {
-      isMasterDragging = false;
-      try { masterTrigger.releasePointerCapture(e.pointerId); } catch(err){}
-      if (!hasMasterMoved) openAllAppsLaunchpad();
+    floatBtn.addEventListener('pointerup', (e) => {
+      isDragging = false;
+      try { floatBtn.releasePointerCapture(e.pointerId); } catch(err){}
+      if (!hasMoved) handleProtectedChatLaunch();
     });
 
-    // 4. DRAGGABLE CHAT TRIGGER
-    const sideChatTrigger = document.getElementById('draggableSideChatTrigger');
-    let isChatDragging = false, hasChatMoved = false;
-    let chatStartX, chatStartY, chatInitLeft, chatInitTop;
-
-    sideChatTrigger.addEventListener('pointerdown', (e) => {
-      isChatDragging = true;
-      hasChatMoved = false;
-      chatStartX = e.clientX;
-      chatStartY = e.clientY;
-      const rect = sideChatTrigger.getBoundingClientRect();
-      chatInitLeft = rect.left;
-      chatInitTop = rect.top;
-      sideChatTrigger.setPointerCapture(e.pointerId);
-      sideChatTrigger.style.transform = 'none';
-      sideChatTrigger.style.bottom = 'auto';
-      sideChatTrigger.style.left = `${chatInitLeft}px`;
-      sideChatTrigger.style.top = `${chatInitTop}px`;
-    });
-
-    sideChatTrigger.addEventListener('pointermove', (e) => {
-      if (!isChatDragging) return;
-      const dx = e.clientX - chatStartX;
-      const dy = e.clientY - chatStartY;
-      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) hasChatMoved = true;
-      let newLeft = Math.max(10, Math.min(window.innerWidth - sideChatTrigger.offsetWidth - 10, chatInitLeft + dx));
-      let newTop = Math.max(50, Math.min(window.innerHeight - sideChatTrigger.offsetHeight - 10, chatInitTop + dy));
-      sideChatTrigger.style.left = `${newLeft}px`;
-      sideChatTrigger.style.top = `${newTop}px`;
-    });
-
-    sideChatTrigger.addEventListener('pointerup', (e) => {
-      isChatDragging = false;
-      try { sideChatTrigger.releasePointerCapture(e.pointerId); } catch(err){}
-      if (!hasChatMoved) openChatScreen();
-    });
-
-    // 5. APPS LAUNCHPAD
-    const allAppsLaunchpad = document.getElementById('allAppsLaunchpad');
-    function openAllAppsLaunchpad() {
-      allAppsLaunchpad.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeAllAppsLaunchpad() {
-      allAppsLaunchpad.classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
-    function launchAppAction(fn) {
-      closeAllAppsLaunchpad();
-      fn();
-    }
-
-    // 6. CODE STUDIO FUNCTIONS
+    // 5. CODE STUDIO & VIDEO GENERATOR
     function openCodeStudioScreen() {
       document.getElementById('helloCodeAiStudioScreen').style.display = 'flex';
       document.body.style.overflow = 'hidden';
@@ -1308,18 +863,9 @@
       const code = document.getElementById('studioCodeTextarea').value;
       document.getElementById('studioLiveIframe').srcdoc = code;
     }
-
-    function clearStudioCode() {
-      if (confirm("Purge code buffer?")) {
-        document.getElementById('studioCodeTextarea').value = '';
-        document.getElementById('studioLiveIframe').srcdoc = '';
-        showToast("Code buffer cleared.");
-      }
-    }
-
     function exportHtmlFile() {
       const code = document.getElementById('studioCodeTextarea').value;
-      if (!code.trim()) return alert("Buffer empty.");
+      if (!code.trim()) return alert("Buffer is empty.");
       const blob = new Blob([code], { type: 'text/html;charset=utf-8;' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
@@ -1327,32 +873,8 @@
       a.click();
       showToast("File exported successfully.");
     }
-
-    function importHtmlFile(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(evt) {
-        document.getElementById('studioCodeTextarea').value = evt.target.result;
-        runLiveCodeFromStudio();
-        showToast("HTML project mounted.");
-      };
-      reader.readAsText(file);
-    }
-
-    function toggleWebSectorFullScreen() {
-      const webSector = document.getElementById('studioWebContainer');
-      runLiveCodeFromStudio();
-      if (!document.fullscreenElement) {
-        if (webSector.requestFullscreen) webSector.requestFullscreen();
-        showToast("Fullscreen output engaged.");
-      } else {
-        if (document.exitFullscreen) document.exitFullscreen();
-      }
-    }
-
     function generateVideoFromCodeStudio() {
-      showToast("Rendering 5s WebM frame stream...");
+      showToast("Rendering WebM video frames...");
       const hiddenCanvas = document.createElement('canvas');
       hiddenCanvas.width = 640; 
       hiddenCanvas.height = 360;
@@ -1360,29 +882,22 @@
       const stream = hiddenCanvas.captureStream(30);
 
       let recorder;
-      try { 
-        recorder = new MediaRecorder(stream, { mimeType: 'video/webm' }); 
-      } catch(e) { 
-        recorder = new MediaRecorder(stream); 
-      }
+      try { recorder = new MediaRecorder(stream, { mimeType: 'video/webm' }); }
+      catch(e) { recorder = new MediaRecorder(stream); }
 
       const chunks = [];
       recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
-      
       recorder.onstop = () => {
         const videoBlob = new Blob(chunks, { type: 'video/webm' });
         const videoUrl = URL.createObjectURL(videoBlob);
         const player = document.getElementById('studioOutputVideoPlayer');
-        
-        player.muted = true;
-        player.playsInline = true;
         player.src = videoUrl;
-        player.onloadedmetadata = () => { player.play().catch(e => console.log(e)); };
+        player.play().catch(e => console.log(e));
 
         document.getElementById('studioVideoDownloadBtn').href = videoUrl;
         document.getElementById('studioVideoContainer').classList.remove('hidden');
         document.getElementById('studioVideoContainer').classList.add('flex');
-        showToast("Video rendered!");
+        showToast("Video render complete!");
       };
 
       recorder.start();
@@ -1391,9 +906,9 @@
         frame++;
         ctx.fillStyle = '#030712'; 
         ctx.fillRect(0, 0, 640, 360);
-        for (let i = 0; i < 40; i++) {
-          const a = (i / 40) * Math.PI * 2 + frame * 0.06;
-          const r = 80 + Math.sin(frame * 0.08 + i) * 35;
+        for (let i = 0; i < 35; i++) {
+          const a = (i / 35) * Math.PI * 2 + frame * 0.05;
+          const r = 75 + Math.sin(frame * 0.08 + i) * 30;
           ctx.beginPath();
           ctx.arc(320 + Math.cos(a) * r, 180 + Math.sin(a) * r, 4, 0, Math.PI * 2);
           ctx.fillStyle = i % 2 === 0 ? '#38bdf8' : '#818cf8';
@@ -1401,50 +916,30 @@
         }
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 18px "Syne", sans-serif';
-        ctx.fillText("HELLO CODE AI — STREAM CAPTURE", 140, 185);
+        ctx.fillText("HELLO CODE AI — VIDEO STREAM", 155, 185);
         if (frame >= 150) { clearInterval(interval); recorder.stop(); }
       }, 1000 / 30);
     }
 
-    // 7. BROWSER, TOOLS & UTILITIES
-    function openHelloBrowser() { document.getElementById('helloAiBrowserScreen').style.display = 'flex'; }
-    function closeHelloBrowser() { document.getElementById('helloAiBrowserScreen').style.display = 'none'; }
-    function executeBrowserSearch() {
-      const val = document.getElementById('browserOmniboxInput').value.trim();
-      document.getElementById('browserWebIframe').src = val.startsWith('http') ? val : `https://www.google.com/search?q=${encodeURIComponent(val)}&igu=1`;
-    }
-
-    function openVoiceChangerModal() { document.getElementById('voiceChangerModal').style.display = 'grid'; }
-    function closeVoiceChangerModal() { document.getElementById('voiceChangerModal').style.display = 'none'; }
-    function setVoicePreset(p, btn) {}
-    function toggleVoiceRecording() { showToast("Audio stream captured."); }
-    function playTransformedVoice() {}
-
-    function switchDeviceView(device, btn) {
-      document.querySelectorAll('.device-pill-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('deviceSimulatorWrapper').className = `view-${device}`;
-      document.getElementById('activeDeviceLabel').innerText = device.toUpperCase() + (device === 'pc' ? ' FULLSCREEN' : ' MATRIX');
-    }
-
-    const initialCustomTools = [
+    // 6. TOOLS & CUSTOM AGENTS DIRECTORY
+    const defaultTools = [
       { id: 1, name: "HELLO Vision Core", category: "NEURAL GRAPHICS", desc: "Ultra-high resolution generative canvas models with direct WebGL acceleration.", url: "https://google.com" },
-      { id: 2, name: "HELLO Synth Voice", category: "DSP AUDIO", desc: "Low-latency contextual text-to-speech architecture and frequency shifting.", url: "https://google.com" },
+      { id: 2, name: "HELLO Voice Matrix", category: "DSP AUDIO", desc: "Low-latency contextual text-to-speech architecture and frequency transformation.", url: "https://google.com" },
       { id: 3, name: "HELLO Code Agent", category: "AUTONOMOUS DEV", desc: "Autonomous fullstack pipeline synthesis with direct in-browser compilation.", url: "https://google.com" }
     ];
 
     function getSavedTools() {
-      const data = localStorage.getItem('my_personal_ai_tools');
-      return data ? JSON.parse(data) : initialCustomTools;
+      const data = localStorage.getItem('cyber_ai_tools');
+      return data ? JSON.parse(data) : defaultTools;
     }
 
     function renderCustomTools() {
       const tools = getSavedTools();
-      const grid = document.getElementById('userCustomToolsGrid');
+      const grid = document.getElementById('toolsGrid');
       grid.innerHTML = '';
       tools.forEach((tool) => {
         const card = document.createElement('div');
-        card.className = "custom-tool-card";
+        card.className = "glass-card p-7 flex flex-col justify-between";
         card.innerHTML = `
           <div>
             <div class="flex justify-between items-center mb-3">
@@ -1454,7 +949,7 @@
             <h4 class="text-xl font-bold font-['Syne'] text-white mb-2">${tool.name}</h4>
             <p class="text-xs text-slate-400 leading-relaxed mb-6">${tool.desc}</p>
           </div>
-          <a href="${tool.url}" target="_blank" class="text-[10px] font-mono font-bold text-cyan-400 flex items-center justify-between pt-3 border-t border-slate-800 hover:text-white transition-colors">
+          <a href="${tool.url}" target="_blank" class="text-[10px] font-mono font-bold text-cyan-400 flex items-center justify-between pt-4 border-t border-slate-800 hover:text-white transition-colors">
             <span>RUN ENGINE</span>
             <span>↗</span>
           </a>
@@ -1476,7 +971,7 @@
 
       const tools = getSavedTools();
       tools.unshift({ name, category: category.toUpperCase(), desc, url });
-      localStorage.setItem('my_personal_ai_tools', JSON.stringify(tools));
+      localStorage.setItem('cyber_ai_tools', JSON.stringify(tools));
       renderCustomTools();
       closeCreateToolModal();
       showToast("Engine deployed to matrix!");
@@ -1488,21 +983,6 @@
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 2600);
     }
-
-    // MOUSE PARALLAX
-    const m = document.querySelector('#mainParallax');
-    let tx = 0, ty = 0, cx = 0, cy = 0;
-    window.addEventListener('pointermove', e => {
-      tx = (e.clientX / innerWidth - .5) * 60;
-      ty = (e.clientY / innerHeight - .5) * 45;
-    });
-    function r() {
-      cx += (tx - cx) * .03;
-      cy += (ty - cy) * .03;
-      if (m) m.style.transform = `translate(${cx}px,${cy}px)`;
-      requestAnimationFrame(r);
-    }
-    r();
   </script>
 </body>
 </html>
