@@ -11,23 +11,48 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- GSAP Animation Engine -->
+  <!-- GSAP Engine -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
   <!-- Google Web Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
 
   <style>
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
+    /* THEME COLORS (DYNAMIC) */
+    :root {
+      --bg-base: #02040a;
+      --bg-header: rgba(3, 7, 18, 0.82);
+      --bg-card: rgba(8, 14, 28, 0.72);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border-cyan: rgba(56, 189, 248, 0.2);
+      --editor-bg: #050914;
+      --particle-color: rgba(56, 189, 248, 0.65);
+    }
+
+    body.light-mode {
+      --bg-base: #f8fafc;
+      --bg-header: rgba(255, 255, 255, 0.88);
+      --bg-card: rgba(255, 255, 255, 0.85);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-cyan: rgba(14, 165, 233, 0.28);
+      --editor-bg: #0f172a;
+      --particle-color: rgba(14, 165, 233, 0.45);
+    }
+
     body {
       margin: 0;
-      background: #02040a;
-      color: #f1f5f9;
+      background: var(--bg-base);
+      color: var(--text-main);
       font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     /* BACKGROUND CANVAS */
@@ -41,38 +66,68 @@
       pointer-events: none;
     }
 
-    /* NEON GLOWS & TYPOGRAPHY */
-    .cyber-title {
+    /* 3D ANIMATED "HELLO AI" TITLE */
+    .title-motion-wrapper {
+      perspective: 1200px;
+      display: inline-block;
+    }
+
+    .cyber-title-animated {
+      display: inline-block;
       font-family: 'Syne', sans-serif;
-      background: linear-gradient(135deg, #ffffff 0%, #38bdf8 35%, #818cf8 70%, #c084fc 100%);
+      background: linear-gradient(120deg, #38bdf8 0%, #818cf8 35%, #c084fc 65%, #38bdf8 100%);
+      background-size: 250% 250%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 35px rgba(56, 189, 248, 0.45));
+      animation: dynamicTextMotion 7s ease-in-out infinite, gradientColorShift 5s linear infinite;
+      transform-style: preserve-3d;
+      will-change: transform, filter;
     }
-    
-    .glow-cyan {
-      box-shadow: 0 0 30px rgba(56, 189, 248, 0.35);
+
+    @keyframes dynamicTextMotion {
+      0% {
+        transform: translateY(0px) rotateX(0deg) rotateY(0deg) scale(1);
+        filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.45));
+      }
+      25% {
+        transform: translateY(-10px) rotateX(7deg) rotateY(-5deg) scale(1.025);
+        filter: drop-shadow(0 0 45px rgba(129, 140, 248, 0.65));
+      }
+      50% {
+        transform: translateY(-16px) rotateX(0deg) rotateY(6deg) scale(1.045);
+        filter: drop-shadow(0 0 60px rgba(192, 132, 252, 0.75));
+      }
+      75% {
+        transform: translateY(-8px) rotateX(-6deg) rotateY(-3deg) scale(1.02);
+        filter: drop-shadow(0 0 40px rgba(56, 189, 248, 0.6));
+      }
+      100% {
+        transform: translateY(0px) rotateX(0deg) rotateY(0deg) scale(1);
+        filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.45));
+      }
     }
-    .glow-purple {
-      box-shadow: 0 0 30px rgba(168, 85, 247, 0.35);
+
+    @keyframes gradientColorShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     /* GLASS PANELS */
     .glass-card {
-      background: rgba(8, 14, 28, 0.72);
+      background: var(--bg-card);
       backdrop-filter: blur(20px);
-      border: 1px solid rgba(56, 189, 248, 0.15);
+      border: 1px solid var(--border-cyan);
       border-radius: 24px;
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.3s ease;
     }
     .glass-card:hover {
-      background: rgba(13, 22, 44, 0.85);
-      border-color: rgba(56, 189, 248, 0.6);
+      border-color: rgba(56, 189, 248, 0.7);
       transform: translateY(-5px);
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 25px rgba(56, 189, 248, 0.25);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4), 0 0 25px rgba(56, 189, 248, 0.25);
     }
 
-    /* TOP BAR CHAT BUTTON */
+    /* PILL BUTTONS */
     .chat-pill-btn {
       padding: 8px 22px;
       border-radius: 999px;
@@ -92,36 +147,33 @@
     }
     .chat-pill-btn:hover {
       background: linear-gradient(90deg, rgba(56, 189, 248, 0.35), rgba(99, 102, 241, 0.35));
-      border-color: #38bdf8;
       color: #ffffff;
       transform: scale(1.04);
       box-shadow: 0 0 30px rgba(56, 189, 248, 0.6);
     }
 
-    /* DRAGGABLE FLOATING ACTION BUTTON */
+    /* DRAGGABLE FAB */
     #draggableFloatingChat {
       position: fixed;
       bottom: 26px;
       right: 26px;
       z-index: 99999;
-      background: rgba(9, 15, 30, 0.88);
+      background: var(--bg-card);
       backdrop-filter: blur(16px);
       border: 1.5px solid rgba(56, 189, 248, 0.65);
       padding: 12px 22px;
       border-radius: 999px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(56, 189, 248, 0.4);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(56, 189, 248, 0.4);
       cursor: grab;
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      color: #f8fafc;
+      color: var(--text-main);
       user-select: none;
       touch-action: none;
-      transition: box-shadow 0.25s ease, border-color 0.25s ease;
     }
     #draggableFloatingChat:active {
       cursor: grabbing;
-      border-color: #38bdf8;
       box-shadow: 0 0 35px rgba(56, 189, 248, 0.8);
     }
 
@@ -130,8 +182,8 @@
       position: fixed;
       inset: 0;
       z-index: 1000000;
-      background-color: #02050e;
-      color: #f3f4f6;
+      background-color: var(--bg-base);
+      color: var(--text-main);
       display: none;
       flex-direction: column;
     }
@@ -139,7 +191,7 @@
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(2, 5, 14, 0.85);
+      background: rgba(2, 5, 14, 0.88);
       backdrop-filter: blur(16px);
       z-index: 1000010;
       display: none;
@@ -172,32 +224,32 @@
 </head>
 <body>
 
-  <!-- INTERACTIVE CYBER BACKGROUND PARTICLES -->
+  <!-- DYNAMIC INTERACTIVE PARTICLES -->
   <canvas id="cyberCanvas"></canvas>
 
   <!-- TOAST NOTIFICATION -->
   <div id="copyToast">Notification</div>
 
-  <!-- FLOATING DRAGGABLE QUICK CHAT -->
+  <!-- FLOATING DRAGGABLE CHAT -->
   <div id="draggableFloatingChat" title="Click or Drag: Open HELLO AI CHAT">
     <i class="fa-solid fa-grip-vertical text-cyan-400/50 text-xs"></i>
     <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
-    <span class="text-xs font-black tracking-wider text-cyan-300">HELLO AI CHAT</span>
+    <span class="text-xs font-black tracking-wider text-cyan-400">HELLO AI CHAT</span>
   </div>
 
   <!-- MAIN WRAPPER -->
   <div class="relative z-10 min-h-screen flex flex-col">
 
     <!-- TOP HEADER -->
-    <header class="sticky top-0 z-50 bg-[#030712]/80 backdrop-blur-2xl border-b border-cyan-500/20 px-6 py-4 flex items-center justify-between">
+    <header class="sticky top-0 z-50 bg-[var(--bg-header)] backdrop-blur-2xl border-b border-[var(--border-cyan)] px-6 py-4 flex items-center justify-between">
       <!-- Left: Logo -->
       <a href="#" class="flex items-center gap-3.5 group">
-        <div class="w-10 h-10 rounded-2xl bg-[#090f1d] border border-cyan-500/40 flex items-center justify-center shadow-[0_0_20px_rgba(56,189,248,0.3)] group-hover:border-cyan-400 transition-all">
+        <div class="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/40 flex items-center justify-center shadow-[0_0_20px_rgba(56,189,248,0.3)]">
           <i class="fa-solid fa-atom text-cyan-400 text-lg"></i>
         </div>
         <div>
           <div class="flex items-center gap-1.5 leading-none">
-            <span class="font-extrabold text-sm tracking-[0.24em] text-white">HELLO</span>
+            <span class="font-extrabold text-sm tracking-[0.24em]">HELLO</span>
             <span class="font-black text-base font-['Syne'] bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">AI</span>
           </div>
           <span class="text-[8px] font-mono tracking-[0.25em] text-cyan-400/80 font-bold uppercase">Quantum Core</span>
@@ -212,30 +264,38 @@
         </button>
       </div>
 
-      <!-- Right: User Auth State -->
-      <div id="authHeaderContainer">
-        <!-- Rendered dynamically via JS -->
+      <!-- Right: Theme Switcher & User Auth -->
+      <div class="flex items-center gap-3">
+        <!-- Theme Toggle Button -->
+        <button onclick="toggleColorTheme()" id="themeToggleBtn" title="Toggle Light/Dark Mode" class="w-9 h-9 rounded-full bg-slate-800/20 dark:bg-white/5 border border-slate-700/50 flex items-center justify-center text-xs text-amber-400 hover:scale-105 transition-all">
+          <i class="fa-solid fa-moon" id="themeIcon"></i>
+        </button>
+
+        <div id="authHeaderContainer">
+          <!-- Rendered via JS -->
+        </div>
       </div>
     </header>
 
     <!-- HERO SECTION -->
     <main class="flex-1">
-      <section class="max-w-6xl mx-auto px-6 pt-20 pb-28 flex flex-col items-center text-center">
+      <section class="max-w-6xl mx-auto px-6 pt-24 pb-28 flex flex-col items-center text-center">
         <!-- Badge -->
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold tracking-widest uppercase mb-6 glow-cyan">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold tracking-widest uppercase mb-8 shadow-[0_0_20px_rgba(56,189,248,0.2)]">
           <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-          <span>AUTONOMOUS CYBER INTELLIGENCE 2026</span>
+          <span>AUTONOMOUS CYBER INTELLIGENCE</span>
         </div>
 
-        <!-- Main Headline -->
-        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black font-['Syne'] leading-tight mb-6 tracking-tight">
-          NEXT-GEN <br>
-          <span class="cyber-title">HELLO AI MATRIX</span>
+        <!-- MAIN TITLE: ONLY "HELLO AI" -->
+        <h1 class="text-6xl sm:text-8xl lg:text-9xl font-black font-['Syne'] leading-tight mb-8 tracking-tight">
+          <div class="title-motion-wrapper">
+            <span class="cyber-title-animated">HELLO AI</span>
+          </div>
         </h1>
 
         <!-- Subtitle -->
-        <p class="text-slate-400 max-w-2xl text-sm sm:text-base leading-relaxed mb-10 font-normal">
-          High-performance GPU-accelerated computing environment. Equipped with client-side code execution, live WebM stream export, and decentralized multimodal intelligence.
+        <p class="text-[var(--text-muted)] max-w-2xl text-sm sm:text-base leading-relaxed mb-10 font-normal">
+          Multi-language cloud studio environment supporting HTML5, JavaScript & Python. Client-side sandboxed execution with media recording and multimodal AI.
         </p>
 
         <!-- CTA Buttons -->
@@ -246,39 +306,40 @@
             <span class="text-white">✦</span>
           </button>
 
-          <button onclick="openCodeStudioScreen()" class="px-8 py-4 rounded-full bg-slate-900/90 hover:bg-slate-800 text-slate-200 font-bold text-xs tracking-widest uppercase border border-slate-700/80 transition-all hover:border-cyan-400/50 flex items-center gap-2.5">
+          <!-- Studio Trigger: Pops up language picker -->
+          <button onclick="openLanguagePickerModal()" class="px-8 py-4 rounded-full bg-slate-900/90 hover:bg-slate-800 text-slate-200 font-bold text-xs tracking-widest uppercase border border-slate-700/80 transition-all hover:border-cyan-400/50 flex items-center gap-2.5">
             <i class="fa-solid fa-code text-cyan-400"></i>
             <span>CODE & VIDEO STUDIO</span>
           </button>
         </div>
 
         <!-- Metric Cards -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-4xl mt-16 pt-10 border-t border-slate-800/80">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-4xl mt-16 pt-10 border-t border-[var(--border-cyan)]">
           <div class="glass-card p-5 text-left">
-            <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider block mb-1">Architecture</span>
-            <strong class="text-sm font-bold text-cyan-400">GLSL / WEBGL</strong>
+            <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Engines</span>
+            <strong class="text-sm font-bold text-cyan-400">HTML • JS • PYTHON</strong>
           </div>
           <div class="glass-card p-5 text-left">
-            <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider block mb-1">Neural Core</span>
+            <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Neural Core</span>
             <strong class="text-sm font-bold text-indigo-400">GEMINI 2.5 FLASH</strong>
           </div>
           <div class="glass-card p-5 text-left">
-            <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider block mb-1">Video Stream</span>
-            <strong class="text-sm font-bold text-emerald-400">CANVAS WEBM</strong>
+            <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Video Stream</span>
+            <strong class="text-sm font-bold text-emerald-400">WEBM PIPELINE</strong>
           </div>
           <div class="glass-card p-5 text-left">
-            <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider block mb-1">Active User</span>
-            <strong id="metricUserName" class="text-sm font-bold text-white truncate block">GUEST MATRIX</strong>
+            <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Theme</span>
+            <strong id="activeThemeLabel" class="text-sm font-bold text-amber-400">CYBER DARK</strong>
           </div>
         </div>
       </section>
 
-      <!-- OPERATIONAL AGENTS SECTION -->
-      <section class="max-w-6xl mx-auto px-6 py-20 border-t border-slate-800/80">
+      <!-- AGENTS DIRECTORY -->
+      <section class="max-w-6xl mx-auto px-6 py-20 border-t border-[var(--border-cyan)]">
         <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4 pb-6 border-b border-slate-800">
           <div>
             <span class="text-[11px] font-mono font-bold tracking-widest text-cyan-400 uppercase">Operational Matrix</span>
-            <h2 class="text-3xl sm:text-4xl font-extrabold font-['Syne'] text-white mt-1">Autonomous AI Engines</h2>
+            <h2 class="text-3xl sm:text-4xl font-extrabold font-['Syne'] mt-1">Autonomous Engines</h2>
           </div>
           <button onclick="openCreateToolModal()" class="px-6 py-3 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs tracking-wider inline-flex items-center gap-2 shadow-[0_0_20px_rgba(56,189,248,0.35)] transition-all">
             <i class="fa-solid fa-plus"></i>
@@ -291,45 +352,163 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="border-t border-slate-800/80 py-8 px-6 text-center text-xs font-mono text-slate-500">
-      HELLO AI ARCHITECTURE • SECURE FIREBASE AUTHENTICATION • POWERED BY GOOGLE AI STUDIO
+    <footer class="border-t border-[var(--border-cyan)] py-8 px-6 text-center text-xs font-mono text-slate-500">
+      HELLO AI UNIFIED WORKSPACE • HTML5 / JS / PYTHON VIRTUAL LAB
     </footer>
   </div>
 
   <!-- ======================================================== -->
-  <!-- GOOGLE LOGIN MODAL (TRIGGERED WHEN CHATTING WITHOUT AUTH)-->
+  <!-- 1. POPUP: LANGUAGE SELECTION MODAL                       -->
   <!-- ======================================================== -->
-  <div id="authPromptModal" class="modal-backdrop">
-    <div class="bg-[#090f1d] border border-cyan-500/40 rounded-3xl p-8 max-w-sm w-full text-center shadow-[0_20px_70px_rgba(0,0,0,0.95)] relative">
-      <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-lg">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-
-      <div class="w-16 h-16 bg-cyan-500/10 rounded-2xl flex items-center justify-center mx-auto mb-5 text-cyan-400 text-2xl border border-cyan-500/30 glow-cyan">
-        <i class="fa-solid fa-lock"></i>
+  <div id="languagePickerModal" class="modal-backdrop">
+    <div class="bg-[#090f1d] border border-cyan-500/40 rounded-3xl p-8 max-w-md w-full shadow-2xl relative text-left">
+      <div class="flex justify-between items-center pb-4 border-b border-slate-800 mb-6">
+        <div>
+          <span class="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-widest">Select Workspace</span>
+          <h3 class="text-xl font-bold font-['Syne'] text-white mt-0.5">What do you want to build?</h3>
+        </div>
+        <button onclick="closeLanguagePickerModal()" class="text-slate-400 hover:text-white text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
 
-      <h3 class="text-2xl font-black font-['Syne'] text-white mb-2">Connect Identity</h3>
-      <p class="text-xs text-slate-400 mb-6 leading-relaxed">
-        Sign in with your Google account to unlock <strong>HELLO AI CHAT</strong>, save session history, and personalize your experience.
-      </p>
+      <div class="space-y-3.5">
+        <!-- Option 1: HTML5 -->
+        <div onclick="selectLanguageMode('html')" class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-400 hover:bg-cyan-500/10 cursor-pointer transition-all flex items-center justify-between group">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center text-lg border border-orange-500/30">
+              <i class="fa-brands fa-html5"></i>
+            </div>
+            <div>
+              <h4 class="text-sm font-bold font-['Syne'] text-white group-hover:text-cyan-400 transition-colors">HTML5 & Web Canvas</h4>
+              <p class="text-[11px] text-slate-400">Live preview, CSS styling, 3D graphics & Video Export</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all"></i>
+        </div>
 
-      <button id="googleModalSignInBtn" onclick="executeGoogleSignIn()" class="w-full flex items-center justify-center gap-3 px-5 py-3.5 rounded-full border border-cyan-500/40 bg-slate-900 hover:bg-slate-800 text-slate-100 text-xs font-bold transition-all shadow-[0_0_20px_rgba(56,189,248,0.2)] hover:scale-[1.02]">
-        <svg class="w-4 h-4" viewBox="0 0 24 24">
-          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-        </svg>
-        <span>Sign in with Google</span>
-      </button>
+        <!-- Option 2: JavaScript -->
+        <div onclick="selectLanguageMode('javascript')" class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-yellow-400 hover:bg-yellow-500/10 cursor-pointer transition-all flex items-center justify-between group">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-yellow-500/20 text-yellow-400 flex items-center justify-center text-lg border border-yellow-500/30">
+              <i class="fa-brands fa-js"></i>
+            </div>
+            <div>
+              <h4 class="text-sm font-bold font-['Syne'] text-white group-hover:text-yellow-400 transition-colors">JavaScript Engine</h4>
+              <p class="text-[11px] text-slate-400">ES6+ execution, algorithms & interactive console logs</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-yellow-400 group-hover:translate-x-1 transition-all"></i>
+        </div>
 
-      <span class="block mt-4 text-[10px] font-mono text-slate-500">Fast & Zero Password Required</span>
+        <!-- Option 3: Python -->
+        <div onclick="selectLanguageMode('python')" class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-blue-400 hover:bg-blue-500/10 cursor-pointer transition-all flex items-center justify-between group">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-lg border border-blue-500/30">
+              <i class="fa-brands fa-python"></i>
+            </div>
+            <div>
+              <h4 class="text-sm font-bold font-['Syne'] text-white group-hover:text-blue-400 transition-colors">Python Matrix</h4>
+              <p class="text-[11px] text-slate-400">Scripts, calculations & simulated runtime terminal</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all"></i>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- ======================================================== -->
-  <!-- FULL SCREEN: HELLO AI CHAT STUDIO                        -->
+  <!-- 2. FULL SCREEN: CODE STUDIO WITH CONTROLS                -->
+  <!-- ======================================================== -->
+  <div id="helloCodeAiStudioScreen" class="full-studio-modal">
+    <!-- Studio Header with All Controls -->
+    <header class="p-4 bg-[#080d1a] border-b border-slate-800 flex flex-wrap gap-3 justify-between items-center">
+      <!-- Left: Exit & Language Badge -->
+      <div class="flex items-center gap-4">
+        <button onclick="closeCodeStudioScreen()" class="px-3.5 py-1.5 rounded-xl bg-white/10 text-xs font-bold text-cyan-300 hover:bg-white/20 transition-all flex items-center gap-2">
+          <i class="fa-solid fa-arrow-left"></i> Exit
+        </button>
+        <span class="font-extrabold text-sm font-['Syne'] text-white flex items-center gap-2">
+          <span>CODE STUDIO</span>
+          <span id="activeLangBadge" class="text-[10px] px-2 py-0.5 rounded-md bg-cyan-500/20 text-cyan-300 font-mono border border-cyan-500/30">HTML5</span>
+        </span>
+      </div>
+
+      <!-- Right: Action Buttons -->
+      <div class="flex items-center flex-wrap gap-2">
+        <!-- 1. Erase Code -->
+        <button onclick="eraseStudioCode()" title="Clear Buffer" class="px-3 py-1.5 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 text-xs font-bold flex items-center gap-1.5 border border-rose-500/30 transition-all">
+          <i class="fa-solid fa-eraser"></i> Erase
+        </button>
+
+        <!-- 2. Save / Download File -->
+        <button onclick="downloadStudioFile()" title="Download File" class="px-3 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 text-xs font-bold flex items-center gap-1.5 border border-emerald-500/30 transition-all">
+          <i class="fa-solid fa-file-arrow-down"></i> Save / Download
+        </button>
+
+        <!-- 3. Full Screen Output (HTML only) -->
+        <button id="btnWebFullScreen" onclick="toggleWebSectorFullScreen()" title="Full Screen Output" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 border border-slate-700 transition-all">
+          <i class="fa-solid fa-expand"></i> Full Screen
+        </button>
+
+        <!-- 4. Generate Video (WebM) -->
+        <button id="btnGenerateVideo" onclick="generateVideoFromCodeStudio()" class="px-3.5 py-1.5 rounded-xl bg-indigo-600/25 hover:bg-indigo-600/35 text-indigo-300 text-xs font-bold flex items-center gap-1.5 border border-indigo-500/30">
+          <i class="fa-solid fa-video"></i> Video Export
+        </button>
+        
+        <!-- 5. Run Live -->
+        <button onclick="executeActiveCode()" class="px-5 py-1.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 text-xs font-black flex items-center gap-2 shadow-[0_0_15px_rgba(56,189,248,0.4)]">
+          <i class="fa-solid fa-play"></i> Run Code
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Editor & View Area -->
+    <main class="flex-1 p-5 flex flex-col lg:flex-row gap-5 overflow-hidden bg-[#030712]">
+      <!-- Code Editor Textarea -->
+      <div class="flex-1 flex flex-col">
+        <textarea id="studioCodeTextarea" spellcheck="false" class="flex-1 p-4 bg-[#050914] text-cyan-300 font-mono text-xs rounded-2xl border border-slate-800 focus:outline-none focus:border-cyan-500/50 resize-none leading-relaxed" placeholder="// Insert code here..."></textarea>
+      </div>
+
+      <!-- Right Side Output Area -->
+      <div class="flex-1 flex flex-col gap-4">
+        <!-- 1. HTML Web Sandbox Iframe -->
+        <div id="studioWebContainer" class="flex-1 bg-white rounded-2xl overflow-hidden shadow-2xl min-h-[300px] relative border border-slate-800">
+          <iframe id="studioLiveIframe" class="w-full h-full border-0" allow="fullscreen"></iframe>
+        </div>
+
+        <!-- 2. Terminal / Console Box (Used for JS and Python) -->
+        <div id="studioTerminalContainer" class="flex-1 bg-[#050914] rounded-2xl border border-slate-800 p-4 font-mono text-xs overflow-y-auto hidden flex-col">
+          <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800 text-[11px] text-slate-400 font-bold">
+            <span class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              Execution Terminal
+            </span>
+            <button onclick="clearTerminalOutput()" class="text-slate-500 hover:text-slate-300 text-[10px]">Clear</button>
+          </div>
+          <div id="terminalLogFeed" class="space-y-1.5 text-slate-300 leading-relaxed"></div>
+        </div>
+
+        <!-- 3. WebM Video Renderer Box -->
+        <div id="studioVideoContainer" class="bg-[#050914] rounded-2xl border border-slate-800 p-4 hidden flex-col">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-cyan-400 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Live Video Render Output
+            </span>
+            <a id="studioVideoDownloadBtn" href="#" download="render_output.webm" class="px-3 py-1 rounded-full bg-emerald-600 text-white font-bold text-[10px] flex items-center gap-1">
+              <i class="fa-solid fa-download"></i> Download Video
+            </a>
+          </div>
+          <video id="studioOutputVideoPlayer" controls autoplay loop muted playsinline class="w-full rounded-xl max-h-48 bg-black"></video>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 3. FULL SCREEN: HELLO AI CHAT STUDIO                     -->
   <!-- ======================================================== -->
   <div id="helloAiChatScreen" class="full-studio-modal">
     <header class="p-4 bg-[#080d1a] border-b border-slate-800 flex items-center justify-between">
@@ -377,60 +556,35 @@
     </div>
   </div>
 
-  <!-- ======================================================== -->
-  <!-- FULL SCREEN: CODE STUDIO & VIDEO GENERATOR               -->
-  <!-- ======================================================== -->
-  <div id="helloCodeAiStudioScreen" class="full-studio-modal">
-    <header class="p-4 bg-[#080d1a] border-b border-slate-800 flex flex-wrap gap-3 justify-between items-center">
-      <div class="flex items-center gap-4">
-        <button onclick="closeCodeStudioScreen()" class="px-4 py-2 rounded-xl bg-white/10 text-xs font-bold text-cyan-300">
-          <i class="fa-solid fa-arrow-left"></i> Exit Studio
-        </button>
-        <span class="font-extrabold text-sm font-['Syne'] text-white">CODE & VIDEO STUDIO</span>
+  <!-- AUTH POPUP MODAL -->
+  <div id="authPromptModal" class="modal-backdrop">
+    <div class="bg-[#090f1d] border border-cyan-500/40 rounded-3xl p-8 max-w-sm w-full text-center shadow-[0_20px_70px_rgba(0,0,0,0.95)] relative">
+      <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="w-16 h-16 bg-cyan-500/10 rounded-2xl flex items-center justify-center mx-auto mb-5 text-cyan-400 text-2xl border border-cyan-500/30">
+        <i class="fa-solid fa-lock"></i>
       </div>
 
-      <div class="flex items-center flex-wrap gap-2.5">
-        <button onclick="exportHtmlFile()" class="px-3.5 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 text-xs font-bold flex items-center gap-1.5 border border-emerald-500/30">
-          <i class="fa-solid fa-file-arrow-down"></i> Export HTML
-        </button>
+      <h3 class="text-2xl font-black font-['Syne'] text-white mb-2">Connect Identity</h3>
+      <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+        Sign in with your Google account to unlock <strong>HELLO AI CHAT</strong> and personalize your session.
+      </p>
 
-        <button onclick="generateVideoFromCodeStudio()" class="px-5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-[0_0_20px_rgba(56,189,248,0.3)]">
-          <i class="fa-solid fa-video text-xs"></i> Generate Video
-        </button>
-        
-        <button onclick="runLiveCodeFromStudio()" class="px-5 py-2 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 text-xs font-bold flex items-center gap-2 shadow-md">
-          <i class="fa-solid fa-play text-xs"></i> Run Live
-        </button>
-      </div>
-    </header>
-
-    <main class="flex-1 p-6 flex flex-col lg:flex-row gap-6 overflow-hidden">
-      <div class="flex-1 flex flex-col">
-        <textarea id="studioCodeTextarea" rows="18" class="flex-1 p-4 bg-[#050914] text-cyan-300 font-mono text-xs rounded-2xl border border-slate-800 focus:outline-none focus:border-cyan-500/50 resize-none" placeholder="// Write HTML, CSS, JavaScript here..."></textarea>
-      </div>
-
-      <div class="flex-1 flex flex-col gap-4">
-        <div id="studioWebContainer" class="flex-1 bg-white rounded-2xl overflow-hidden shadow-2xl min-h-[300px] relative border border-slate-800">
-          <iframe id="studioLiveIframe" class="w-full h-full border-0" allow="fullscreen"></iframe>
-        </div>
-
-        <div id="studioVideoContainer" class="bg-[#050914] rounded-2xl border border-slate-800 p-4 hidden flex-col">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-bold text-cyan-400 flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              Live Video Render Output
-            </span>
-            <a id="studioVideoDownloadBtn" href="#" download="render_output.webm" class="px-3.5 py-1.5 rounded-full bg-emerald-600 text-white font-bold text-[11px] flex items-center gap-1.5">
-              <i class="fa-solid fa-download"></i> Download Video
-            </a>
-          </div>
-          <video id="studioOutputVideoPlayer" controls autoplay loop muted playsinline class="w-full rounded-xl max-h-56 bg-black"></video>
-        </div>
-      </div>
-    </main>
+      <button id="googleModalSignInBtn" onclick="executeGoogleSignIn()" class="w-full flex items-center justify-center gap-3 px-5 py-3.5 rounded-full border border-cyan-500/40 bg-slate-900 hover:bg-slate-800 text-slate-100 text-xs font-bold transition-all shadow-[0_0_20px_rgba(56,189,248,0.2)]">
+        <svg class="w-4 h-4" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+        </svg>
+        <span>Sign in with Google</span>
+      </button>
+    </div>
   </div>
 
-  <!-- MODAL: CREATE AGENT -->
+  <!-- DEPLOY AGENT MODAL -->
   <div id="createToolModal" class="modal-backdrop">
     <div class="bg-[#090f1d] rounded-3xl p-7 max-w-md w-full shadow-2xl border border-slate-800 relative">
       <div class="flex justify-between items-center pb-4 border-b border-slate-800 mb-5">
@@ -495,16 +649,338 @@
     window.signInWithPopup = signInWithPopup;
     window.fbSignOut = fbSignOut;
 
-    // Listen to Google Auth State
     onAuthStateChanged(auth, (user) => {
       window.currentUser = user || null;
       renderUserAuthState(user);
     });
   </script>
 
-  <!-- CONTROLLERS & ANIMATIONS -->
+  <!-- JAVASCRIPT CONTROLLER -->
   <script>
-    // 1. DYNAMIC 60FPS PARTICLE CANVAS
+    // ------------------------------------------------------------------
+    // 1. LIGHT / DARK THEME SYSTEM
+    // ------------------------------------------------------------------
+    let isLightMode = false;
+    function toggleColorTheme() {
+      isLightMode = !isLightMode;
+      document.body.classList.toggle('light-mode', isLightMode);
+      
+      const themeIcon = document.getElementById('themeIcon');
+      const activeThemeLabel = document.getElementById('activeThemeLabel');
+      
+      if (isLightMode) {
+        themeIcon.className = "fa-solid fa-sun";
+        activeThemeLabel.innerText = "PURE LIGHT";
+        showToast("Switched to Light Mode");
+      } else {
+        themeIcon.className = "fa-solid fa-moon";
+        activeThemeLabel.innerText = "CYBER DARK";
+        showToast("Switched to Dark Mode");
+      }
+    }
+
+    // ------------------------------------------------------------------
+    // 2. MULTI-LANGUAGE CODE STUDIO (HTML, JS, PYTHON)
+    // ------------------------------------------------------------------
+    let currentStudioLanguage = 'html'; // 'html', 'javascript', 'python'
+
+    const TEMPLATES = {
+      html: `<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle, #0f172a 0%, #020617 100%);
+      color: #38bdf8;
+      font-family: sans-serif;
+    }
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 8px;
+      text-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+    }
+    .badge {
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid #38bdf8;
+      padding: 6px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>HELLO WEB MATRIX</h1>
+  <div class="badge">Running in Live Isolated SandBox</div>
+</body>
+</html>`,
+      javascript: `// JavaScript ES6+ Execution Engine
+console.log("=== HELLO AI JAVASCRIPT CORE ===");
+
+function computeMatrix(size) {
+  let nodes = [];
+  for (let i = 1; i <= size; i++) {
+    nodes.push({ id: "NODE_" + i, latency: (Math.random() * 20).toFixed(2) + "ms" });
+  }
+  return nodes;
+}
+
+const network = computeMatrix(4);
+console.log("Network topology successfully mapped:");
+console.log(JSON.stringify(network, null, 2));
+
+console.log("Status: 100% Operational at 60 FPS.");`,
+      python: `# Python Matrix Script
+print("=== HELLO AI PYTHON ENVIRONMENT ===")
+
+data = ["Quantum Core", "GLSL Canvas", "Gemini 2.5", "WebM Stream"]
+
+for index, item in enumerate(data, start=1):
+    print(f"[{index}] Loaded Engine Component: {item}")
+
+def calculate_throughput(requests, time_sec):
+    return requests / time_sec
+
+rps = calculate_throughput(12000, 2)
+print(f"Processed: {rps} requests per second.")
+print("Python script completed successfully!")`
+    };
+
+    function openLanguagePickerModal() {
+      document.getElementById('languagePickerModal').style.display = 'grid';
+    }
+
+    function closeLanguagePickerModal() {
+      document.getElementById('languagePickerModal').style.display = 'none';
+    }
+
+    function selectLanguageMode(lang) {
+      currentStudioLanguage = lang;
+      closeLanguagePickerModal();
+      
+      const badge = document.getElementById('activeLangBadge');
+      const webBox = document.getElementById('studioWebContainer');
+      const termBox = document.getElementById('studioTerminalContainer');
+      const fullScreenBtn = document.getElementById('btnWebFullScreen');
+      const videoBtn = document.getElementById('btnGenerateVideo');
+
+      badge.innerText = lang.toUpperCase();
+      document.getElementById('studioCodeTextarea').value = TEMPLATES[lang];
+
+      if (lang === 'html') {
+        webBox.classList.remove('hidden');
+        webBox.classList.add('flex');
+        termBox.classList.add('hidden');
+        fullScreenBtn.style.display = 'inline-flex';
+        videoBtn.style.display = 'inline-flex';
+      } else {
+        webBox.classList.add('hidden');
+        termBox.classList.remove('hidden');
+        termBox.classList.add('flex');
+        fullScreenBtn.style.display = 'none';
+        videoBtn.style.display = 'none';
+        clearTerminalOutput();
+      }
+
+      openCodeStudioScreen();
+      executeActiveCode();
+      showToast(`Mounted ${lang.toUpperCase()} Studio`);
+    }
+
+    function openCodeStudioScreen() {
+      document.getElementById('helloCodeAiStudioScreen').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCodeStudioScreen() {
+      document.getElementById('helloCodeAiStudioScreen').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    // Erase Function
+    function eraseStudioCode() {
+      if (confirm("Erase all code in editor?")) {
+        document.getElementById('studioCodeTextarea').value = '';
+        if (currentStudioLanguage === 'html') {
+          document.getElementById('studioLiveIframe').srcdoc = '';
+        } else {
+          clearTerminalOutput();
+        }
+        showToast("Code buffer erased.");
+      }
+    }
+
+    // Save & Download File
+    function downloadStudioFile() {
+      const code = document.getElementById('studioCodeTextarea').value;
+      if (!code.trim()) return alert("Buffer is empty.");
+
+      let extension = 'html';
+      let mime = 'text/html';
+      if (currentStudioLanguage === 'javascript') { extension = 'js'; mime = 'application/javascript'; }
+      if (currentStudioLanguage === 'python') { extension = 'py'; mime = 'text/x-python'; }
+
+      const blob = new Blob([code], { type: `${mime};charset=utf-8;` });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `project_${currentStudioLanguage}.${extension}`;
+      a.click();
+      showToast(`Downloaded project_${currentStudioLanguage}.${extension}`);
+    }
+
+    // Full Screen Preview (HTML)
+    function toggleWebSectorFullScreen() {
+      const webSector = document.getElementById('studioWebContainer');
+      executeActiveCode();
+      if (!document.fullscreenElement) {
+        if (webSector.requestFullscreen) webSector.requestFullscreen();
+        showToast("Full Screen Engaged");
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    // Execute active code
+    function executeActiveCode() {
+      const code = document.getElementById('studioCodeTextarea').value;
+
+      if (currentStudioLanguage === 'html') {
+        document.getElementById('studioLiveIframe').srcdoc = code;
+      } else if (currentStudioLanguage === 'javascript') {
+        clearTerminalOutput();
+        executeJavaScriptSandbox(code);
+      } else if (currentStudioLanguage === 'python') {
+        clearTerminalOutput();
+        executePythonSimulation(code);
+      }
+    }
+
+    // JavaScript Console Sandbox
+    function executeJavaScriptSandbox(code) {
+      const feed = document.getElementById('terminalLogFeed');
+      const originalLog = console.log;
+      const originalError = console.error;
+
+      console.log = function(...args) {
+        const text = args.map(a => typeof a === 'object' ? JSON.stringify(a) : a).join(' ');
+        const line = document.createElement('div');
+        line.innerHTML = `<span class="text-cyan-400">❯</span> ${escapeHtml(text)}`;
+        feed.appendChild(line);
+        originalLog.apply(console, args);
+      };
+
+      console.error = function(...args) {
+        const text = args.join(' ');
+        const line = document.createElement('div');
+        line.innerHTML = `<span class="text-rose-400">✖</span> <span class="text-rose-300">${escapeHtml(text)}</span>`;
+        feed.appendChild(line);
+        originalError.apply(console, args);
+      };
+
+      try {
+        new Function(code)();
+      } catch (err) {
+        console.error("Runtime Error: " + err.message);
+      } finally {
+        console.log = originalLog;
+        console.error = originalError;
+      }
+    }
+
+    // Python Parser / Runner
+    function executePythonSimulation(code) {
+      const feed = document.getElementById('terminalLogFeed');
+      const lines = code.split('\n');
+
+      let variables = {};
+      lines.forEach(line => {
+        let clean = line.trim();
+        if (!clean || clean.startsWith('#')) return;
+
+        // Print match
+        if (clean.startsWith('print(') && clean.endsWith(')')) {
+          let content = clean.slice(6, -1).trim();
+          if ((content.startsWith('"') && content.endsWith('"')) || (content.startsWith("'") && content.endsWith("'"))) {
+            content = content.slice(1, -1);
+          } else if (content.startsWith('f"') || content.startsWith("f'")) {
+            content = content.slice(2, -1).replace(/{([^}]+)}/g, (_, expr) => {
+              try { return eval(expr); } catch(e) { return expr; }
+            });
+          }
+          const div = document.createElement('div');
+          div.innerHTML = `<span class="text-emerald-400">❯</span> ${escapeHtml(content)}`;
+          feed.appendChild(div);
+        }
+      });
+
+      const finishDiv = document.createElement('div');
+      finishDiv.className = "text-slate-500 text-[10px] mt-2 pt-2 border-t border-slate-800";
+      finishDiv.innerText = ">>> Process finished with exit code 0";
+      feed.appendChild(finishDiv);
+    }
+
+    function clearTerminalOutput() {
+      document.getElementById('terminalLogFeed').innerHTML = '';
+    }
+
+    // Generate WebM Video
+    function generateVideoFromCodeStudio() {
+      showToast("Rendering WebM video frames...");
+      const hiddenCanvas = document.createElement('canvas');
+      hiddenCanvas.width = 640; 
+      hiddenCanvas.height = 360;
+      const ctx = hiddenCanvas.getContext('2d');
+      const stream = hiddenCanvas.captureStream(30);
+
+      let recorder;
+      try { recorder = new MediaRecorder(stream, { mimeType: 'video/webm' }); }
+      catch(e) { recorder = new MediaRecorder(stream); }
+
+      const chunks = [];
+      recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
+      recorder.onstop = () => {
+        const videoBlob = new Blob(chunks, { type: 'video/webm' });
+        const videoUrl = URL.createObjectURL(videoBlob);
+        const player = document.getElementById('studioOutputVideoPlayer');
+        player.src = videoUrl;
+        player.play().catch(e => console.log(e));
+
+        document.getElementById('studioVideoDownloadBtn').href = videoUrl;
+        document.getElementById('studioVideoContainer').classList.remove('hidden');
+        document.getElementById('studioVideoContainer').classList.add('flex');
+        showToast("Video render complete!");
+      };
+
+      recorder.start();
+      let frame = 0;
+      const interval = setInterval(() => {
+        frame++;
+        ctx.fillStyle = '#030712'; 
+        ctx.fillRect(0, 0, 640, 360);
+        for (let i = 0; i < 35; i++) {
+          const a = (i / 35) * Math.PI * 2 + frame * 0.05;
+          const r = 75 + Math.sin(frame * 0.08 + i) * 30;
+          ctx.beginPath();
+          ctx.arc(320 + Math.cos(a) * r, 180 + Math.sin(a) * r, 4, 0, Math.PI * 2);
+          ctx.fillStyle = i % 2 === 0 ? '#38bdf8' : '#818cf8';
+          ctx.fill();
+        }
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 18px "Syne", sans-serif';
+        ctx.fillText("HELLO CODE STUDIO — WEBM OUTPUT", 125, 185);
+        if (frame >= 120) { clearInterval(interval); recorder.stop(); }
+      }, 1000 / 30);
+    }
+
+    // ------------------------------------------------------------------
+    // 3. BACKGROUND CANVAS PARTICLES (RESPONSIVE TO THEME)
+    // ------------------------------------------------------------------
     const canvas = document.getElementById('cyberCanvas');
     const ctx = canvas.getContext('2d');
     let width, height, particles = [];
@@ -536,7 +1012,6 @@
         if (this.x < 0 || this.x > width) this.vx *= -1;
         if (this.y < 0 || this.y > height) this.vy *= -1;
 
-        // Mouse attraction
         const dx = mouse.x - this.x;
         const dy = mouse.y - this.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -548,12 +1023,12 @@
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(56, 189, 248, 0.65)';
+        ctx.fillStyle = isLightMode ? 'rgba(14, 165, 233, 0.45)' : 'rgba(56, 189, 248, 0.65)';
         ctx.fill();
       }
     }
 
-    for (let i = 0; i < 75; i++) particles.push(new Particle());
+    for (let i = 0; i < 70; i++) particles.push(new Particle());
 
     function animateParticles() {
       ctx.clearRect(0, 0, width, height);
@@ -569,7 +1044,9 @@
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(56, 189, 248, ${0.18 * (1 - distance / 110)})`;
+            ctx.strokeStyle = isLightMode 
+              ? `rgba(14, 165, 233, ${0.15 * (1 - distance / 110)})`
+              : `rgba(56, 189, 248, ${0.18 * (1 - distance / 110)})`;
             ctx.lineWidth = 1;
             ctx.stroke();
           }
@@ -579,18 +1056,18 @@
     }
     animateParticles();
 
-    // 2. AUTH STATE CONTROLLER
+    // ------------------------------------------------------------------
+    // 4. AUTH & CHAT LOGIC (GEMINI 2.5)
+    // ------------------------------------------------------------------
     function renderUserAuthState(user) {
       const container = document.getElementById('authHeaderContainer');
-      const metricLabel = document.getElementById('metricUserName');
-
       if (user) {
         const name = user.displayName || 'Google User';
         const photo = user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=0284c7&color=fff`;
 
         container.innerHTML = `
           <div class="flex items-center gap-3">
-            <div class="flex items-center gap-2 bg-slate-900/90 px-3 py-1.5 rounded-full border border-cyan-500/40 glow-cyan">
+            <div class="flex items-center gap-2 bg-slate-900/90 px-3 py-1.5 rounded-full border border-cyan-500/40">
               <img src="${photo}" class="w-5 h-5 rounded-full" alt="User">
               <span class="text-xs font-bold text-cyan-300 max-w-[130px] truncate">${name}</span>
             </div>
@@ -599,8 +1076,6 @@
             </button>
           </div>
         `;
-
-        if (metricLabel) metricLabel.innerText = name.toUpperCase();
         document.getElementById('chatUserDisplayName').innerText = name;
         document.getElementById('chatUserAvatar').src = photo;
       } else {
@@ -610,19 +1085,13 @@
             <span>Sign In</span>
           </button>
         `;
-        if (metricLabel) metricLabel.innerText = "GUEST MATRIX";
         document.getElementById('chatUserDisplayName').innerText = "Guest User";
         document.getElementById('chatUserAvatar').src = "https://ui-avatars.com/api/?name=Guest&background=0f172a&color=38bdf8";
       }
     }
 
-    // Modal Controls
-    function openAuthModal() {
-      document.getElementById('authPromptModal').style.display = 'grid';
-    }
-    function closeAuthModal() {
-      document.getElementById('authPromptModal').style.display = 'none';
-    }
+    function openAuthModal() { document.getElementById('authPromptModal').style.display = 'grid'; }
+    function closeAuthModal() { document.getElementById('authPromptModal').style.display = 'none'; }
 
     async function executeGoogleSignIn() {
       const btn = document.getElementById('googleModalSignInBtn');
@@ -635,8 +1104,7 @@
         showToast(`Connected as ${res.user.displayName || 'Google User'}`);
         openChatScreen();
       } catch (err) {
-        console.error(err);
-        showToast("Google sign-in was cancelled or failed.");
+        showToast("Google sign-in cancelled or failed.");
       } finally {
         btn.innerHTML = original;
         btn.disabled = false;
@@ -650,7 +1118,6 @@
       }
     }
 
-    // PROTECTED LAUNCH: Opens Chat if logged in, else asks for Gmail Login
     function handleProtectedChatLaunch() {
       if (window.currentUser) {
         openChatScreen();
@@ -659,15 +1126,11 @@
       }
     }
 
-    // 3. HELLO AI CHAT STUDIO (GEMINI 2.5)
     const chatScreen = document.getElementById('helloAiChatScreen');
     const messageFeed = document.getElementById('chatMessageContainer');
     const chatInput = document.getElementById('chatInput');
 
-    function getGeminiKey() {
-      return localStorage.getItem('gemini_api_key') || '';
-    }
-
+    function getGeminiKey() { return localStorage.getItem('gemini_api_key') || ''; }
     function updateKeyStatusLabel() {
       const lbl = document.getElementById('apiKeyStatusLabel');
       if (lbl) lbl.innerText = getGeminiKey() ? "API Active ✦" : "Set API Key";
@@ -675,12 +1138,12 @@
 
     function promptGeminiKey() {
       const currentKey = getGeminiKey();
-      const newKey = prompt("Enter your Google Gemini API Key (aistudio.google.com):", currentKey);
+      const newKey = prompt("Enter your Google Gemini API Key:", currentKey);
       if (newKey !== null) {
         if (newKey.trim().startsWith("AIzaSy")) {
           localStorage.setItem('gemini_api_key', newKey.trim());
           updateKeyStatusLabel();
-          showToast("Gemini API connected successfully!");
+          showToast("Gemini API connected!");
         } else if (newKey.trim() === '') {
           localStorage.removeItem('gemini_api_key');
           updateKeyStatusLabel();
@@ -698,7 +1161,7 @@
       document.body.style.overflow = 'hidden';
 
       if (!messageFeed.innerHTML.trim()) {
-        appendAiBubble(`Identity Verified: **${activeName}** ✦ HELLO AI CHAT is online. How can I assist you with code, reasoning, or projects today?`);
+        appendAiBubble(`Identity Verified: **${activeName}** ✦ HELLO AI CHAT is online. How can I assist you today?`);
       }
       chatInput.focus();
     }
@@ -712,7 +1175,6 @@
       const text = chatInput.value.trim();
       if (!text) return;
 
-      // If user logs out during chat, enforce login
       if (!window.currentUser) {
         openAuthModal();
         return;
@@ -740,7 +1202,7 @@
           body: JSON.stringify({
             contents: [{
               parts: [{
-                text: `You are HELLO AI, a world-class AI assistant operating inside a futuristic cyber environment. User: ${activeName}. Provide concise, technically brilliant, and precise answers. Match user language. User prompt: ${text}`
+                text: `You are HELLO AI, a world-class AI developer and assistant. User: ${activeName}. Provide concise, precise and helpful answers. Match user language. Message: ${text}`
               }]
             }]
           })
@@ -751,10 +1213,8 @@
 
         if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
           appendAiBubble(data.candidates[0].content.parts[0].text);
-        } else if (data.error) {
-          appendAiBubble(`⚠️ **Error:** ${data.error.message || 'Key quota exceeded or invalid.'}`);
         } else {
-          appendAiBubble("⚠️ Neural response empty. Verify prompt parameters.");
+          appendAiBubble(`⚠️ **Error:** ${data.error?.message || 'Empty response.'}`);
         }
       } catch (err) {
         removeLoadingBubble(loadId);
@@ -816,7 +1276,9 @@
       return t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
 
-    // 4. DRAGGABLE FLOATING CHAT BUTTON
+    // ------------------------------------------------------------------
+    // 5. DRAGGABLE FLOATING CHAT BUTTON
+    // ------------------------------------------------------------------
     const floatBtn = document.getElementById('draggableFloatingChat');
     let isDragging = false, hasMoved = false, startX, startY, initLeft, initTop;
 
@@ -850,78 +1312,9 @@
       if (!hasMoved) handleProtectedChatLaunch();
     });
 
-    // 5. CODE STUDIO & VIDEO GENERATOR
-    function openCodeStudioScreen() {
-      document.getElementById('helloCodeAiStudioScreen').style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    }
-    function closeCodeStudioScreen() {
-      document.getElementById('helloCodeAiStudioScreen').style.display = 'none';
-      document.body.style.overflow = 'auto';
-    }
-    function runLiveCodeFromStudio() {
-      const code = document.getElementById('studioCodeTextarea').value;
-      document.getElementById('studioLiveIframe').srcdoc = code;
-    }
-    function exportHtmlFile() {
-      const code = document.getElementById('studioCodeTextarea').value;
-      if (!code.trim()) return alert("Buffer is empty.");
-      const blob = new Blob([code], { type: 'text/html;charset=utf-8;' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'cyber_project.html';
-      a.click();
-      showToast("File exported successfully.");
-    }
-    function generateVideoFromCodeStudio() {
-      showToast("Rendering WebM video frames...");
-      const hiddenCanvas = document.createElement('canvas');
-      hiddenCanvas.width = 640; 
-      hiddenCanvas.height = 360;
-      const ctx = hiddenCanvas.getContext('2d');
-      const stream = hiddenCanvas.captureStream(30);
-
-      let recorder;
-      try { recorder = new MediaRecorder(stream, { mimeType: 'video/webm' }); }
-      catch(e) { recorder = new MediaRecorder(stream); }
-
-      const chunks = [];
-      recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
-      recorder.onstop = () => {
-        const videoBlob = new Blob(chunks, { type: 'video/webm' });
-        const videoUrl = URL.createObjectURL(videoBlob);
-        const player = document.getElementById('studioOutputVideoPlayer');
-        player.src = videoUrl;
-        player.play().catch(e => console.log(e));
-
-        document.getElementById('studioVideoDownloadBtn').href = videoUrl;
-        document.getElementById('studioVideoContainer').classList.remove('hidden');
-        document.getElementById('studioVideoContainer').classList.add('flex');
-        showToast("Video render complete!");
-      };
-
-      recorder.start();
-      let frame = 0;
-      const interval = setInterval(() => {
-        frame++;
-        ctx.fillStyle = '#030712'; 
-        ctx.fillRect(0, 0, 640, 360);
-        for (let i = 0; i < 35; i++) {
-          const a = (i / 35) * Math.PI * 2 + frame * 0.05;
-          const r = 75 + Math.sin(frame * 0.08 + i) * 30;
-          ctx.beginPath();
-          ctx.arc(320 + Math.cos(a) * r, 180 + Math.sin(a) * r, 4, 0, Math.PI * 2);
-          ctx.fillStyle = i % 2 === 0 ? '#38bdf8' : '#818cf8';
-          ctx.fill();
-        }
-        ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 18px "Syne", sans-serif';
-        ctx.fillText("HELLO CODE AI — VIDEO STREAM", 155, 185);
-        if (frame >= 150) { clearInterval(interval); recorder.stop(); }
-      }, 1000 / 30);
-    }
-
-    // 6. TOOLS & CUSTOM AGENTS DIRECTORY
+    // ------------------------------------------------------------------
+    // 6. TOOLS DIRECTORY & CUSTOM AGENT SYSTEM
+    // ------------------------------------------------------------------
     const defaultTools = [
       { id: 1, name: "HELLO Vision Core", category: "NEURAL GRAPHICS", desc: "Ultra-high resolution generative canvas models with direct WebGL acceleration.", url: "https://google.com" },
       { id: 2, name: "HELLO Voice Matrix", category: "DSP AUDIO", desc: "Low-latency contextual text-to-speech architecture and frequency transformation.", url: "https://google.com" },
@@ -946,10 +1339,10 @@
               <span class="text-[9.5px] font-mono font-bold text-cyan-400 tracking-wider">${tool.category}</span>
               <span class="text-[8px] px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 font-bold">ONLINE</span>
             </div>
-            <h4 class="text-xl font-bold font-['Syne'] text-white mb-2">${tool.name}</h4>
-            <p class="text-xs text-slate-400 leading-relaxed mb-6">${tool.desc}</p>
+            <h4 class="text-xl font-bold font-['Syne'] mb-2">${tool.name}</h4>
+            <p class="text-xs text-[var(--text-muted)] leading-relaxed mb-6">${tool.desc}</p>
           </div>
-          <a href="${tool.url}" target="_blank" class="text-[10px] font-mono font-bold text-cyan-400 flex items-center justify-between pt-4 border-t border-slate-800 hover:text-white transition-colors">
+          <a href="${tool.url}" target="_blank" class="text-[10px] font-mono font-bold text-cyan-400 flex items-center justify-between pt-4 border-t border-[var(--border-cyan)] hover:opacity-80 transition-opacity">
             <span>RUN ENGINE</span>
             <span>↗</span>
           </a>
