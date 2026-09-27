@@ -253,6 +253,39 @@
     .ad-small-btn.reject { background: rgba(244,63,94,.1); color: #fda4af; border-color: rgba(244,63,94,.3); }
     .ad-small-btn.delete { background: rgba(244,63,94,.08); color: #fb7185; border-color: rgba(244,63,94,.25); }
     .ad-note { font-size: 10px; line-height: 1.6; color: #94a3b8; }
+
+    /* LIBRARY STYLES */
+    .library-panel {
+      width: min(1000px, 95vw);
+      max-height: 90vh;
+      overflow-y: auto;
+      background: #090f1d;
+      border: 1.5px solid rgba(56, 189, 248, 0.4);
+      border-radius: 28px;
+      box-shadow: 0 30px 100px rgba(0,0,0,0.9);
+    }
+    .library-card {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+    .library-card:hover {
+      border-color: rgba(56, 189, 248, 0.7);
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    }
+    .library-preview-frame {
+      width: 100%;
+      height: 160px;
+      border: 0;
+      background: #000;
+      pointer-events: none;
+    }
+
     @media (max-width: 640px) {
       .ad-shell { padding: 0 16px; }
       .ad-price { font-size: 24px; }
@@ -280,7 +313,7 @@
     <!-- TOP HEADER -->
     <header class="sticky top-0 z-50 bg-[var(--bg-header)] backdrop-blur-2xl border-b border-[var(--border-cyan)] px-6 py-4 flex items-center justify-between">
       
-      <!-- Left: RESTORED ORIGINAL CYBER SVG LOGO -->
+      <!-- Left: RESTORED ORIGINAL CYBER SVG LOGO[span_2](start_span)[span_2](end_span) -->
       <a href="#" class="flex items-center gap-3.5 group">
         <div class="w-11 h-11 rounded-2xl bg-[#090f1d] border border-cyan-500/40 flex items-center justify-center shadow-[0_0_25px_rgba(56,189,248,0.25)] group-hover:scale-105 group-hover:border-cyan-400 transition-all duration-300">
           <svg viewBox="0 0 80 80" class="w-7 h-7 drop-shadow-[0_0_10px_rgba(56,189,248,0.8)]">
@@ -305,9 +338,16 @@
         </div>
       </a>
 
-      <!-- Right: Theme Switcher, Advertise & User Auth -->
+      <!-- Right: Library Button, Theme Switcher, Advertise & User Auth -->
       <div class="flex items-center gap-3">
-        <!-- Theme Toggle Button -->
+        
+        <!-- NEW: HELLO AI LIBRARY BUTTON -->
+        <button onclick="openLibraryModal()" title="HELLO AI Library" class="px-3.5 py-2 rounded-full bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 text-[10px] font-black tracking-wider uppercase transition-all flex items-center gap-1.5 shadow-[0_0_15px_rgba(56,189,248,0.2)]">
+          <i class="fa-solid fa-layer-group text-cyan-400"></i>
+          <span>LIBRARY</span>
+        </button>
+
+        <!-- Theme Toggle Button[span_3](start_span)[span_3](end_span) -->
         <button onclick="toggleColorTheme()" id="themeToggleBtn" title="Toggle Light/Dark Mode" class="theme-toggle-btn">
           <i class="fa-solid fa-moon text-sm text-cyan-400" id="themeIcon"></i>
         </button>
@@ -317,7 +357,7 @@
         </button>
 
         <div id="authHeaderContainer">
-          <!-- Rendered via JS -->
+          <!-- Rendered via JS[span_4](start_span)[span_4](end_span) -->
         </div>
       </div>
     </header>
@@ -331,7 +371,7 @@
           <span>AUTONOMOUS CYBER INTELLIGENCE</span>
         </div>
 
-        <!-- MAIN TITLE: ONLY "HELLO AI" -->
+        <!-- MAIN TITLE: ONLY "HELLO AI[span_5](start_span)"[span_5](end_span) -->
         <h1 class="text-6xl sm:text-8xl lg:text-9xl font-black font-['Syne'] leading-tight mb-8 tracking-tight">
           <div class="title-motion-wrapper">
             <span class="cyber-title-animated">HELLO AI</span>
@@ -351,10 +391,16 @@
             <span class="text-white">✦</span>
           </button>
 
-          <!-- Studio Trigger -->
+          <!-- Studio Trigger[span_6](start_span)[span_6](end_span) -->
           <button onclick="openLanguagePickerModal()" class="px-8 py-4 rounded-full bg-slate-900/90 hover:bg-slate-800 text-slate-200 font-bold text-xs tracking-widest uppercase border border-slate-700/80 transition-all hover:border-cyan-400/50 flex items-center gap-2.5">
             <i class="fa-solid fa-code text-cyan-400"></i>
             <span>CODE & VIDEO STUDIO</span>
+          </button>
+
+          <!-- NEW: HERO LIBRARY BUTTON -->
+          <button onclick="openLibraryModal()" class="px-8 py-4 rounded-full bg-slate-900/90 hover:bg-slate-800 text-cyan-300 font-bold text-xs tracking-widest uppercase border border-cyan-500/40 transition-all hover:border-cyan-400 flex items-center gap-2.5 shadow-[0_0_20px_rgba(56,189,248,0.2)]">
+            <i class="fa-solid fa-layer-group text-cyan-400"></i>
+            <span>HELLO AI LIBRARY</span>
           </button>
         </div>
 
@@ -395,7 +441,7 @@
         <div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
       </section>
 
-      <!-- ADVERTISEMENT SYSTEM -->
+      <!-- ADVERTISEMENT SYSTEM[span_7](start_span)[span_7](end_span) -->
       <section id="advertisingSection" class="ad-shell py-10">
         <div class="ad-banner-slot" id="topAdSlot">
           <div class="ad-placeholder">
@@ -460,7 +506,65 @@
     </footer>
   </div>
 
-  <!-- 1. POPUP: LANGUAGE SELECTION MODAL -->
+  <!-- ======================================================== -->
+  <!-- 1. POPUP: HELLO AI LIBRARY MODAL                         -->
+  <!-- ======================================================== -->
+  <div id="projectLibraryModal" class="modal-backdrop">
+    <div class="library-panel p-6 sm:p-8 relative text-left">
+      <!-- Library Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-800 gap-4 mb-6">
+        <div>
+          <span class="text-[10px] font-mono font-bold text-cyan-400 tracking-widest uppercase">Project & Code Repository</span>
+          <h3 class="text-2xl sm:text-3xl font-black font-['Syne'] text-white mt-1">HELLO AI LIBRARY</h3>
+          <p class="text-xs text-slate-400 mt-1">Explore, run and copy standalone HTML / Canvas animations or open directly in the Code Studio.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <button onclick="openSubmitLibraryModal()" class="px-4 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-xs font-bold transition-all flex items-center gap-2">
+            <i class="fa-solid fa-plus"></i> Add HTML
+          </button>
+          <button onclick="closeLibraryModal()" class="w-9 h-9 rounded-full bg-slate-800/60 hover:bg-slate-700 flex items-center justify-center text-slate-300 hover:text-white transition-colors">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Library Grid -->
+      <div id="libraryItemsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </div>
+  </div>
+
+  <!-- 2. POPUP: ADD CUSTOM HTML TO LIBRARY -->
+  <div id="addLibraryProjectModal" class="modal-backdrop">
+    <div class="bg-[#090f1d] border border-cyan-500/40 rounded-3xl p-7 max-w-lg w-full shadow-2xl relative">
+      <div class="flex justify-between items-center pb-4 border-b border-slate-800 mb-5">
+        <h3 class="text-lg font-bold font-['Syne'] text-white">Add Project to HELLO AI Library</h3>
+        <button onclick="closeSubmitLibraryModal()" class="text-slate-400 hover:text-white text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-xs font-semibold text-slate-300">
+        <div>
+          <label class="block mb-1 text-slate-400 font-mono">Project Title:</label>
+          <input type="text" id="libProjTitle" placeholder="e.g. Neon Wave Visualizer" class="w-full px-4 py-2.5 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-cyan-400">
+        </div>
+        <div>
+          <label class="block mb-1 text-slate-400 font-mono">Tag / Category:</label>
+          <input type="text" id="libProjTag" placeholder="e.g. 3D CANVAS, ANIMATION, GAME" class="w-full px-4 py-2.5 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-cyan-400">
+        </div>
+        <div>
+          <label class="block mb-1 text-slate-400 font-mono">HTML Source Code:</label>
+          <textarea id="libProjCode" rows="8" placeholder="Paste full HTML, CSS, JS code here..." class="w-full p-3 rounded-xl bg-[#050914] border border-slate-700 text-cyan-300 font-mono text-[11px] focus:outline-none focus:border-cyan-400 resize-none"></textarea>
+        </div>
+
+        <button onclick="saveCustomLibraryProject()" class="w-full py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs shadow-[0_0_20px_rgba(56,189,248,0.3)] mt-2">
+          Save Into HELLO AI Library
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. POPUP: LANGUAGE SELECTION MODAL[span_8](start_span)[span_8](end_span) -->
   <div id="languagePickerModal" class="modal-backdrop">
     <div class="bg-[#090f1d] border border-cyan-500/40 rounded-3xl p-8 max-w-md w-full shadow-2xl relative text-left">
       <div class="flex justify-between items-center pb-4 border-b border-slate-800 mb-6">
@@ -519,7 +623,7 @@
     </div>
   </div>
 
-  <!-- 2. FULL SCREEN: CODE STUDIO WITH CONTROLS -->
+  <!-- 4. FULL SCREEN: CODE STUDIO WITH CONTROLS[span_9](start_span)[span_9](end_span) -->
   <div id="helloCodeAiStudioScreen" class="full-studio-modal">
     <header class="p-4 bg-[#080d1a] border-b border-slate-800 flex flex-wrap gap-3 justify-between items-center">
       <div class="flex items-center gap-4">
@@ -592,7 +696,7 @@
     </main>
   </div>
 
-  <!-- 3. FULL SCREEN: HELLO AI CHAT STUDIO -->
+  <!-- 5. FULL SCREEN: HELLO AI CHAT STUDIO[span_10](start_span)[span_10](end_span) -->
   <div id="helloAiChatScreen" class="full-studio-modal">
     <header class="p-4 bg-[#080d1a] border-b border-slate-800 flex items-center justify-between">
       <div class="flex items-center gap-4">
@@ -639,7 +743,7 @@
     </div>
   </div>
 
-  <!-- AUTH POPUP MODAL -->
+  <!-- AUTH POPUP MODAL[span_11](start_span)[span_11](end_span) -->
   <div id="authPromptModal" class="modal-backdrop">
     <div class="bg-[#090f1d] border border-cyan-500/40 rounded-3xl p-8 max-w-sm w-full text-center shadow-[0_20px_70px_rgba(0,0,0,0.95)] relative">
       <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-lg">
@@ -667,7 +771,7 @@
     </div>
   </div>
 
-  <!-- DEPLOY AGENT MODAL -->
+  <!-- DEPLOY AGENT MODAL[span_12](start_span)[span_12](end_span) -->
   <div id="createToolModal" class="modal-backdrop">
     <div class="bg-[#090f1d] rounded-3xl p-7 max-w-md w-full shadow-2xl border border-slate-800 relative">
       <div class="flex justify-between items-center pb-4 border-b border-slate-800 mb-5">
@@ -702,7 +806,7 @@
     </div>
   </div>
 
-  <!-- ADVERTISER BOOKING MODAL -->
+  <!-- ADVERTISER BOOKING MODAL[span_13](start_span)[span_13](end_span) -->
   <div id="advertiserModal" class="ad-modal">
     <div class="ad-panel">
       <div class="p-6 border-b border-slate-800 flex items-center justify-between">
@@ -762,10 +866,6 @@
           <span class="ad-status">Payment Required</span>
         </div>
 
-        <div class="p-4 rounded-2xl bg-amber-500/5 border border-amber-500/20">
-          <p class="ad-note"><strong class="text-amber-300">Payment note:</strong> Real payment gateways (e.g. Razorpay) require backend signature verification. Client requests are currently stored locally.</p>
-        </div>
-
         <button type="submit" class="w-full py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs uppercase tracking-widest">
           <i class="fa-solid fa-paper-plane mr-2"></i>Submit Ad Request
         </button>
@@ -773,7 +873,7 @@
     </div>
   </div>
 
-  <!-- AD ADMIN MODAL -->
+  <!-- AD ADMIN MODAL[span_14](start_span)[span_14](end_span) -->
   <div id="adAdminModal" class="ad-modal">
     <div class="ad-panel">
       <div class="p-6 border-b border-slate-800 flex items-center justify-between">
@@ -795,7 +895,7 @@
     </div>
   </div>
 
-  <!-- FIREBASE MODULE -->
+  <!-- FIREBASE MODULE[span_15](start_span)[span_15](end_span) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
     import {
@@ -834,7 +934,7 @@
   <!-- JAVASCRIPT CONTROLLER -->
   <script>
     // ------------------------------------------------------------------
-    // 1. LIGHT / DARK THEME SYSTEM
+    // 1. LIGHT / DARK THEME SYSTEM[span_16](start_span)[span_16](end_span)
     // ------------------------------------------------------------------
     let isLightMode = false;
     function toggleColorTheme() {
@@ -856,7 +956,227 @@
     }
 
     // ------------------------------------------------------------------
-    // 2. MULTI-LANGUAGE CODE STUDIO (HTML, JS, PYTHON)
+    // 2. HELLO AI LIBRARY ENGINE (RUN & COPY STANDALONE HTML)
+    // ------------------------------------------------------------------
+    const DEFAULT_LIBRARY_PROJECTS = [
+      {
+        id: "LIB-1",
+        title: "3D Matrix Rotating Cube",
+        tag: "CSS 3D / ANIMATION",
+        code: `<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; background:#020617; overflow:hidden; }
+    .scene { width:140px; height:140px; perspective:600px; }
+    .cube { width:100%; height:100%; position:relative; transform-style:preserve-3d; animation:spin 8s linear infinite; }
+    .face { position:absolute; width:140px; height:140px; border:2px solid #38bdf8; background:rgba(56,189,248,0.15); box-shadow:0 0 20px rgba(56,189,248,0.5); display:flex; align-items:center; justify-content:center; color:#fff; font-family:sans-serif; font-weight:bold; }
+    .front  { transform:rotateY(0deg) translateZ(70px); }
+    .back   { transform:rotateY(180deg) translateZ(70px); }
+    .right  { transform:rotateY(90deg) translateZ(70px); }
+    .left   { transform:rotateY(-90deg) translateZ(70px); }
+    .top    { transform:rotateX(90deg) translateZ(70px); }
+    .bottom { transform:rotateX(-90deg) translateZ(70px); }
+    @keyframes spin { 0%{transform:rotateX(0deg) rotateY(0deg);} 100%{transform:rotateX(360deg) rotateY(360deg);} }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <div class="cube">
+      <div class="face front">HELLO</div>
+      <div class="face back">AI</div>
+      <div class="face right">3D</div>
+      <div class="face left">CORE</div>
+      <div class="face top">GLOW</div>
+      <div class="face bottom">MATRIX</div>
+    </div>
+  </div>
+</body>
+</html>`
+      },
+      {
+        id: "LIB-2",
+        title: "Quantum Neon Canvas Pulse",
+        tag: "CANVAS / 60FPS",
+        code: `<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { margin:0; background:#010208; overflow:hidden; display:flex; align-items:center; justify-content:center; min-height:100vh; }
+    canvas { display:block; }
+  </style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <script>
+    const c = document.getElementById('c'), x = c.getContext('2d');
+    c.width = window.innerWidth; c.height = window.innerHeight;
+    let t = 0;
+    function draw() {
+      x.fillStyle = 'rgba(1,2,8,0.2)'; x.fillRect(0,0,c.width,c.height);
+      const cx = c.width/2, cy = c.height/2;
+      for(let i=0; i<36; i++) {
+        const a = i * (Math.PI*2/36) + t*0.02;
+        const r = 110 + Math.sin(t*0.05 + i)*45;
+        x.beginPath();
+        x.arc(cx + Math.cos(a)*r, cy + Math.sin(a)*r, 6, 0, Math.PI*2);
+        x.fillStyle = i%2===0 ? '#38bdf8' : '#c084fc';
+        x.shadowColor = '#38bdf8'; x.shadowBlur = 15;
+        x.fill();
+      }
+      t++; requestAnimationFrame(draw);
+    }
+    draw();
+  <\/script>
+</body>
+</html>`
+      },
+      {
+        id: "LIB-3",
+        title: "Cybernetic Digital Glow Clock",
+        tag: "UI / REALTIME",
+        code: `<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { margin:0; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#030712; color:#38bdf8; font-family:'Courier New',monospace; }
+    .box { border:2px solid #38bdf8; border-radius:24px; padding:30px 45px; background:rgba(56,189,248,0.06); box-shadow:0 0 40px rgba(56,189,248,0.3); text-align:center; }
+    #time { font-size:3.5rem; font-weight:900; letter-spacing:4px; text-shadow:0 0 25px rgba(56,189,248,0.8); }
+    .sub { font-size:12px; letter-spacing:3px; color:#818cf8; margin-top:10px; text-transform:uppercase; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div id="time">00:00:00</div>
+    <div class="sub">QUANTUM LOCAL TIME</div>
+  </div>
+  <script>
+    function tick() {
+      const d = new Date();
+      document.getElementById('time').innerText = d.toTimeString().split(' ')[0];
+    }
+    setInterval(tick, 1000); tick();
+  <\/script>
+</body>
+</html>`
+      }
+    ];
+
+    function getLibraryProjects() {
+      const data = localStorage.getItem('hello_ai_library_projects');
+      return data ? JSON.parse(data) : DEFAULT_LIBRARY_PROJECTS;
+    }
+
+    function saveLibraryProjects(list) {
+      localStorage.setItem('hello_ai_library_projects', JSON.stringify(list));
+    }
+
+    function openLibraryModal() {
+      renderLibraryCards();
+      document.getElementById('projectLibraryModal').style.display = 'grid';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLibraryModal() {
+      document.getElementById('projectLibraryModal').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    function renderLibraryCards() {
+      const list = getLibraryProjects();
+      const grid = document.getElementById('libraryItemsGrid');
+      grid.innerHTML = '';
+
+      list.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'library-card';
+        card.innerHTML = `
+          <div class="relative bg-black overflow-hidden border-b border-slate-800">
+            <iframe id="libFrame_${index}" class="library-preview-frame"></iframe>
+            <div class="absolute top-2.5 right-2.5 bg-black/70 px-2.5 py-0.5 rounded-full border border-cyan-400/40 text-[9px] font-mono text-cyan-300 font-bold uppercase">
+              ${escapeHtml(item.tag || 'HTML')}
+            </div>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <h4 class="text-base font-bold font-['Syne'] text-white mb-4">${escapeHtml(item.title)}</h4>
+            <div class="grid grid-cols-2 gap-2 pt-3 border-t border-slate-800">
+              <button onclick="copyLibraryCode(${index})" class="py-2 px-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-[11px] font-bold flex items-center justify-center gap-1.5 transition-all">
+                <i class="fa-solid fa-copy text-xs"></i> Copy HTML
+              </button>
+              <button onclick="loadLibraryIntoStudio(${index})" class="py-2 px-3 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 text-[11px] font-black flex items-center justify-center gap-1.5 transition-all shadow-[0_0_15px_rgba(56,189,248,0.3)]">
+                <i class="fa-solid fa-code text-xs"></i> Open Studio
+              </button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+
+        // Mount preview iframe with isolated srcdoc
+        setTimeout(() => {
+          const frame = document.getElementById(`libFrame_${index}`);
+          if (frame) frame.srcdoc = item.code;
+        }, 50);
+      });
+    }
+
+    function copyLibraryCode(index) {
+      const list = getLibraryProjects();
+      const item = list[index];
+      if (!item) return;
+
+      navigator.clipboard.writeText(item.code).then(() => {
+        showToast(`HTML for "${item.title}" copied!`);
+      }).catch(() => {
+        showToast("Clipboard copy failed");
+      });
+    }
+
+    function loadLibraryIntoStudio(index) {
+      const list = getLibraryProjects();
+      const item = list[index];
+      if (!item) return;
+
+      closeLibraryModal();
+      selectLanguageMode('html');
+      document.getElementById('studioCodeTextarea').value = item.code;
+      executeActiveCode();
+      showToast(`Loaded "${item.title}" into Code Studio!`);
+    }
+
+    function openSubmitLibraryModal() {
+      document.getElementById('addLibraryProjectModal').style.display = 'grid';
+    }
+
+    function closeSubmitLibraryModal() {
+      document.getElementById('addLibraryProjectModal').style.display = 'none';
+    }
+
+    function saveCustomLibraryProject() {
+      const title = document.getElementById('libProjTitle').value.trim();
+      const tag = document.getElementById('libProjTag').value.trim() || 'HTML5';
+      const code = document.getElementById('libProjCode').value.trim();
+
+      if (!title || !code) return alert("Please specify both Title and HTML Code!");
+
+      const list = getLibraryProjects();
+      list.unshift({
+        id: 'LIB-' + Date.now(),
+        title,
+        tag: tag.toUpperCase(),
+        code
+      });
+
+      saveLibraryProjects(list);
+      closeSubmitLibraryModal();
+      renderLibraryCards();
+      document.getElementById('libProjTitle').value = '';
+      document.getElementById('libProjTag').value = '';
+      document.getElementById('libProjCode').value = '';
+      showToast("New project added to HELLO AI Library!");
+    }
+
+    // ------------------------------------------------------------------
+    // 3. MULTI-LANGUAGE CODE STUDIO (HTML, JS, PYTHON)[span_17](start_span)[span_17](end_span)
     // ------------------------------------------------------------------
     let currentStudioLanguage = 'html';
 
@@ -1146,7 +1466,7 @@ print("Python script completed successfully!")`
     }
 
     // ------------------------------------------------------------------
-    // 3. BACKGROUND CANVAS PARTICLES (RESPONSIVE TO THEME)
+    // 4. BACKGROUND CANVAS PARTICLES (RESPONSIVE TO THEME)[span_18](start_span)[span_18](end_span)
     // ------------------------------------------------------------------
     const canvas = document.getElementById('cyberCanvas');
     const ctx = canvas.getContext('2d');
@@ -1224,7 +1544,7 @@ print("Python script completed successfully!")`
     animateParticles();
 
     // ------------------------------------------------------------------
-    // 4. AUTH & CHAT LOGIC (GEMINI 2.5)
+    // 5. AUTH & CHAT LOGIC (GEMINI 2.5)[span_19](start_span)[span_19](end_span)
     // ------------------------------------------------------------------
     function renderUserAuthState(user) {
       const container = document.getElementById('authHeaderContainer');
@@ -1444,7 +1764,7 @@ print("Python script completed successfully!")`
     }
 
     // ------------------------------------------------------------------
-    // 5. DRAGGABLE FLOATING CHAT BUTTON
+    // 6. DRAGGABLE FLOATING CHAT BUTTON[span_20](start_span)[span_20](end_span)
     // ------------------------------------------------------------------
     const floatBtn = document.getElementById('draggableFloatingChat');
     let isDragging = false, hasMoved = false, startX, startY, initLeft, initTop;
@@ -1480,7 +1800,7 @@ print("Python script completed successfully!")`
     });
 
     // ------------------------------------------------------------------
-    // 6. TOOLS DIRECTORY & CUSTOM AGENT SYSTEM
+    // 7. TOOLS DIRECTORY & CUSTOM AGENT SYSTEM[span_21](start_span)[span_21](end_span)
     // ------------------------------------------------------------------
     const defaultTools = [
       { id: 1, name: "HELLO Vision Core", category: "NEURAL GRAPHICS", desc: "Ultra-high resolution generative canvas models with direct WebGL acceleration.", url: "https://google.com" },
@@ -1538,7 +1858,7 @@ print("Python script completed successfully!")`
     }
 
     // ------------------------------------------------------------------
-    // 7. ADVERTISING / SPONSORED CAMPAIGN SYSTEM
+    // 8. ADVERTISING / SPONSORED CAMPAIGN SYSTEM[span_22](start_span)[span_22](end_span)
     // ------------------------------------------------------------------
     const AD_STORAGE_KEY = 'hello_ai_ad_campaigns_v1';
 
@@ -1740,6 +2060,12 @@ print("Python script completed successfully!")`
     });
     document.getElementById('adAdminModal')?.addEventListener('click', e => {
       if (e.target.id === 'adAdminModal') closeAdAdminModal();
+    });
+    document.getElementById('projectLibraryModal')?.addEventListener('click', e => {
+      if (e.target.id === 'projectLibraryModal') closeLibraryModal();
+    });
+    document.getElementById('addLibraryProjectModal')?.addEventListener('click', e => {
+      if (e.target.id === 'addLibraryProjectModal') closeSubmitLibraryModal();
     });
 
     renderLiveAd();
