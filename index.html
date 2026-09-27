@@ -1118,23 +1118,70 @@
     </div>
   </div>
 
+
+  <!-- FIREBASE -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js";
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup,
+      signOut as firebaseSignOut,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAqLDynHgrWxBrZhJoUu3kOOaBgRfsbWfc",
+      authDomain: "hello-ai-7d77e.firebaseapp.com",
+      projectId: "hello-ai-7d77e",
+      storageBucket: "hello-ai-7d77e.firebasestorage.app",
+      messagingSenderId: "1019861858572",
+      appId: "1:1019861858572:web:f70351410fcae61f847129",
+      measurementId: "G-SQXV58YZS6"
+    };
+
+    const firebaseApp = initializeApp(firebaseConfig);
+    const firebaseAnalytics = getAnalytics(firebaseApp);
+    const firebaseAuth = getAuth(firebaseApp);
+    const googleProvider = new GoogleAuthProvider();
+
+    // Make Firebase services available to the existing HTML controller.
+    window.firebaseAuth = firebaseAuth;
+    window.googleProvider = googleProvider;
+    window.firebaseSignInWithPopup = signInWithPopup;
+    window.firebaseSignOut = firebaseSignOut;
+
+    onAuthStateChanged(firebaseAuth, (user) => {
+      window.currentFirebaseUser = user || null;
+
+      if (typeof window.renderFirebaseAuthState === "function") {
+        window.renderFirebaseAuthState(user);
+      }
+    });
+  </script>
+
   <!-- JAVASCRIPT CONTROLLERS -->
   <script>
-    // 1. GMAIL AUTH & USER STATE
+    // 1. FIREBASE GOOGLE AUTH & USER STATE
     const authHeaderBlock = document.getElementById('authHeaderBlock');
 
-    function checkAuthState() {
-      const user = JSON.parse(localStorage.getItem('hello_ai_user'));
+    window.renderFirebaseAuthState = function(user) {
       if (user) {
         authHeaderBlock.innerHTML = `
           <div class="flex items-center gap-2.5 bg-slate-900/90 px-3 py-1 rounded-full border border-cyan-500/30 transition-all">
-            <img src="${user.avatar}" class="w-5 h-5 rounded-full" alt="User">
-            <span class="text-xs font-bold text-cyan-300">${user.name}</span>
+            <img src="${user.photoURL || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.displayName || 'User')}" class="w-5 h-5 rounded-full" alt="User">
+            <span class="text-xs font-bold text-cyan-300">${user.displayName || 'Google User'}</span>
             <button onclick="signOut()" title="Sign Out" class="text-slate-400 hover:text-rose-400 text-xs ml-1">
               <i class="fa-solid fa-arrow-right-from-bracket"></i>
             </button>
           </div>
         `;
+        localStorage.setItem('hello_ai_user', JSON.stringify({
+          name: user.displayName || 'Google User',
+          email: user.email || '',
+          avatar: user.photoURL || ''
+        }));
       } else {
         authHeaderBlock.innerHTML = `
           <button onclick="openAuthModal()" class="px-3.5 py-1.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 border border-slate-700 transition-all">
@@ -1142,42 +1189,84 @@
             <span>Sign In</span>
           </button>
         `;
+        localStorage.removeItem('hello_ai_user');
       }
       updateKeyStatusLabel();
+    };
+
+    function checkAuthState() {
+      if (window.currentFirebaseUser) {
+        window.renderFirebaseAuthState(window.currentFirebaseUser);
+      } else if (window.firebaseAuth) {
+        window.renderFirebaseAuthState(null);
+      }
     }
-    checkAuthState();
 
-    function openAuthModal() { document.getElementById('authModal').style.display = 'grid'; }
-    function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
+    function openAuthModal() {
+      document.getElementById('authModal').style.display = 'grid';
+    }
 
-    function signInWithGoogle() {
-      const defaultEmail = "surajitdeyjgm235@gmail.com";
-      const email = prompt("Enter your Gmail address to sign in:", defaultEmail);
-      if (email && email.includes("@")) {
-        const username = email.split('@')[0];
-        let formattedName = username.replace(/[0-9]/g, '');
-        formattedName = formattedName.charAt(0).toUpperCase() + formattedName.slice(1);
-        if (!formattedName) formattedName = "Surajit";
+    function closeAuthModal() {
+      document.getElementById('authModal').style.display = 'none';
+    }
 
-        const userData = {
-          name: formattedName,
-          email: email.trim(),
-          avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${formattedName}&backgroundColor=0284c7`
-        };
-        localStorage.setItem('hello_ai_user', JSON.stringify(userData));
-        checkAuthState();
+    async function signInWithGoogle() {
+      if (!window.firebaseAuth || !window.googleProvider || !window.firebaseSignInWithPopup) {
+        showToast("Firebase is still loading. Please try again.");
+        return;
+      }
+
+      const button = document.querySelector('#authModal button[onclick="signInWithGoogle()"]');
+      const originalText = button ? button.innerHTML : '';
+
+      try {
+        if (button) {
+          button.disabled = true;
+          button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Connecting to Google...</span>';
+        }
+
+        const result = await window.firebaseSignInWithPopup(
+          window.firebaseAuth,
+          window.googleProvider
+        );
+
+        const user = result.user;
         closeAuthModal();
-        showToast(`Connected as ${userData.name}!`);
+        showToast(`Connected as ${user.displayName || 'Google User'}!`);
+      } catch (error) {
+        console.error("Firebase Google Sign-In Error:", error);
+
+        if (error.code === 'auth/popup-closed-by-user') {
+          showToast("Google sign-in was cancelled.");
+        } else if (error.code === 'auth/popup-blocked') {
+          showToast("Popup was blocked. Please allow popups for this site.");
+        } else {
+          showToast(error.message || "Google sign-in failed.");
+        }
+      } finally {
+        if (button) {
+          button.disabled = false;
+          button.innerHTML = originalText;
+        }
       }
     }
 
-    function signOut() {
+    async function signOut() {
+      if (!window.firebaseAuth || !window.firebaseSignOut) return;
+
       if (confirm("Disconnect from HELLO AI session?")) {
-        localStorage.removeItem('hello_ai_user');
-        checkAuthState();
-        showToast("Signed out successfully.");
+        try {
+          await window.firebaseSignOut(window.firebaseAuth);
+          showToast("Signed out successfully.");
+        } catch (error) {
+          console.error("Firebase Sign-Out Error:", error);
+          showToast("Sign out failed.");
+        }
       }
     }
+
+    // Firebase is loaded as a module, so wait briefly for its initial auth state.
+    setTimeout(checkAuthState, 500);
 
     // 2. GEMINI 2.5 NEURAL ENGINE
     const chatScreen = document.getElementById('helloAiChatScreen');
