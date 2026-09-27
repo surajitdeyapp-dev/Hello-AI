@@ -1,0 +1,2544 @@
+<!doctype html>
+<html lang="en">
+<head><script src="https://cdn.tailwindcss.com"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Tailwind CSS & FontAwesome Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- GSAP Engine -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- ES Module Shims & Three.js Import Map -->
+  <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.174.0/build/three.module.js"
+      }
+    }
+  </script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HELLO AI — Autonomous Cyber Intelligence & 3D Labs</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+      background: #030712;
+      color: #f1f5f9;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+    
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+
+    /* CYBER GLOW TYPOGRAPHY */
+    .cyber-glow-title {
+      color: #ffffff;
+      text-shadow: 0 0 20px rgba(56, 189, 248, 0.75), 0 0 45px rgba(14, 165, 233, 0.45);
+    }
+
+    /* TOP BAR */
+    #deviceControlBar {
+      position: sticky;
+      top: 0;
+      z-index: 1000005;
+      background: rgba(3, 7, 18, 0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #fff;
+    }
+    .device-pill-btn {
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+      transition: all 0.25s ease;
+    }
+    .device-pill-btn:hover, .device-pill-btn.active {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: rgba(56, 189, 248, 0.7);
+      color: #38bdf8;
+      transform: translateY(-1px);
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.35);
+    }
+
+    /* DEVICE SIMULATION WRAPPER */
+    #deviceSimulatorWrapper {
+      width: 100%;
+      min-height: 100vh;
+      margin: 0 auto;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      background: radial-gradient(circle at 15% 15%, #081028 0%, #030712 60%, #02040a 100%);
+      position: relative;
+    }
+    .view-pc { width: 100% !important; border: 0 !important; }
+    .view-laptop { max-width: 1200px !important; margin: 24px auto !important; border-radius: 24px !important; border: 3px solid rgba(56, 189, 248, 0.3) !important; box-shadow: 0 0 40px rgba(0,0,0,0.8); }
+    .view-tablet { max-width: 768px !important; margin: 24px auto !important; border-radius: 30px !important; border: 6px solid #0f172a !important; box-shadow: 0 0 40px rgba(0,0,0,0.8); }
+    .view-mobile { max-width: 395px !important; margin: 24px auto !important; border-radius: 38px !important; border: 8px solid #0f172a !important; box-shadow: 0 0 40px rgba(0,0,0,0.8); }
+
+    /* HERO SECTION */
+    .hero {
+      position: relative;
+      width: 100%;
+      min-height: 94vh;
+      overflow: hidden;
+      padding: 30px clamp(24px, 4vw, 70px) 40px;
+      isolation: isolate;
+      background: 
+        radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 20% 70%, rgba(168, 85, 247, 0.12) 0%, transparent 50%),
+        linear-gradient(145deg, #030712 0%, #060b19 40%, #02040a 100%);
+    }
+    .hero:before {
+      content: "";
+      position: absolute;
+      z-index: -2;
+      width: 60vw;
+      height: 60vw;
+      min-width: 750px;
+      min-height: 750px;
+      top: 10%;
+      right: -10%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, rgba(99, 102, 241, 0.08) 50%, transparent 75%);
+      filter: blur(120px);
+    }
+
+    .header {
+      position: relative;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hero__body {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: calc(94vh - 120px);
+    }
+
+    .hero-text-content {
+      position: relative;
+      z-index: 50;
+      width: 100%;
+      max-width: clamp(380px, 48vw, 620px);
+    }
+
+    /* 3D REVOLVING "HELLO AI" TITLE */
+    .revolve-container {
+      perspective: 1100px;
+      display: inline-block;
+      margin: 8px 0;
+    }
+    .revolving-cyber-title {
+      display: inline-block;
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(48px, 5.8vw, 108px);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      transform-style: preserve-3d;
+      animation: spin3DOrbit 9s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+      background: linear-gradient(
+        110deg,
+        #38bdf8 0%,
+        #818cf8 25%,
+        #c084fc 45%,
+        #ffffff 55%,
+        #38bdf8 75%,
+        #0284c7 100%
+      );
+      background-size: 260% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 35px rgba(56, 189, 248, 0.65)) drop-shadow(0 0 75px rgba(168, 85, 247, 0.4));
+    }
+
+    @keyframes spin3DOrbit {
+      0% { transform: rotateY(-26deg) rotateX(8deg); background-position: 220% 0; }
+      50% { transform: rotateY(26deg) rotateX(-8deg) scale(1.03); background-position: 0% 0; }
+      100% { transform: rotateY(-26deg) rotateX(8deg); background-position: -220% 0; }
+    }
+
+    .intro {
+      max-width: 520px;
+      margin: clamp(18px, 2.8vh, 30px) 0 0;
+      font-size: clamp(14px, 1.05vw, 17px);
+      line-height: 1.75;
+      color: #94a3b8;
+    }
+
+    /* RIGHT PARALLAX VISUAL SCENE */
+    .visual {
+      position: absolute;
+      z-index: 10;
+      top: 50%;
+      right: clamp(-30px, 1vw, 30px);
+      width: clamp(500px, 52vw, 1050px);
+      aspect-ratio: 1.29;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+    .liquid-scene { width: 100%; height: 100%; display: block; overflow: visible; }
+    .bubble-edge {
+      fill: rgba(56, 189, 248, 0.03);
+      stroke: url(#cyberStroke);
+      stroke-width: 3.5;
+      filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.75)) drop-shadow(0 0 35px rgba(168, 85, 247, 0.5));
+    }
+    .marquee__text { fill: #38bdf8; font-size: 17px; font-weight: 800; letter-spacing: 6px; filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.8)); }
+
+    /* DOCKED DRAGGABLE BUTTONS */
+    #masterAllToolsTrigger {
+      position: fixed;
+      left: 24px;
+      bottom: 28px;
+      z-index: 99999;
+      background: rgba(11, 19, 43, 0.85);
+      backdrop-filter: blur(14px);
+      border: 1.5px solid rgba(56, 189, 248, 0.6);
+      padding: 12px 22px;
+      border-radius: 999px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(56, 189, 248, 0.35);
+      cursor: grab;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #f8fafc;
+      user-select: none;
+      touch-action: none;
+      transition: box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    #masterAllToolsTrigger:active {
+      cursor: grabbing;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.9), 0 0 35px rgba(56, 189, 248, 0.7);
+      border-color: #38bdf8;
+    }
+
+    #draggableSideChatTrigger {
+      position: fixed;
+      right: 24px;
+      bottom: 28px;
+      z-index: 99999;
+      background: rgba(11, 19, 43, 0.85);
+      backdrop-filter: blur(14px);
+      border: 1.5px solid rgba(168, 85, 247, 0.6);
+      padding: 12px 22px;
+      border-radius: 999px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(168, 85, 247, 0.35);
+      cursor: grab;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #f8fafc;
+      user-select: none;
+      touch-action: none;
+      transition: box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    #draggableSideChatTrigger:active {
+      cursor: grabbing;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.9), 0 0 38px rgba(168, 85, 247, 0.7);
+      border-color: #c084fc;
+    }
+
+    /* COMPACT POPUP MODAL */
+    #allAppsLaunchpad {
+      position: fixed;
+      inset: 0;
+      z-index: 1000008;
+      background: rgba(2, 6, 23, 0.85);
+      backdrop-filter: blur(16px);
+      display: none;
+      place-items: center;
+      padding: 16px;
+      opacity: 0;
+      transition: opacity 0.28s ease;
+    }
+    #allAppsLaunchpad.active {
+      display: grid;
+      opacity: 1;
+    }
+    .launchpad-popup-box {
+      width: min(540px, 94vw);
+      max-height: 85vh;
+      overflow-y: auto;
+      background: #090e1a;
+      border: 1.5px solid rgba(56, 189, 248, 0.35);
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.95), 0 0 45px rgba(56, 189, 248, 0.15);
+      border-radius: 28px;
+      padding: 24px;
+      color: #fff;
+      transform: translateY(25px) scale(0.96);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #allAppsLaunchpad.active .launchpad-popup-box {
+      transform: translateY(0) scale(1);
+    }
+
+    .compact-tool-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 18px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .compact-tool-item:hover {
+      background: rgba(56, 189, 248, 0.08);
+      border-color: rgba(56, 189, 248, 0.6);
+      transform: translateX(5px);
+      box-shadow: 0 8px 24px rgba(56, 189, 248, 0.2);
+    }
+
+    /* SECTIONS */
+    .spacious-section {
+      padding: 100px clamp(24px, 4vw, 70px);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* DISPLAY FRAMES */
+    .lab-display-frame {
+      width: 100%;
+      height: 640px;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1.5px solid rgba(56, 189, 248, 0.35);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 35px rgba(56, 189, 248, 0.15);
+      background: #010103;
+      position: relative;
+    }
+
+    /* ARCHITECTURE STORY CARD */
+    .build-story-card {
+      background: rgba(11, 17, 32, 0.65);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 26px;
+      padding: 32px 28px;
+      transition: all 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .build-story-card:hover {
+      background: rgba(15, 23, 42, 0.9);
+      border-color: rgba(56, 189, 248, 0.6);
+      transform: translateY(-6px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(56, 189, 248, 0.18);
+    }
+
+    /* CUSTOM TOOL CARD */
+    .custom-tool-card {
+      background: rgba(11, 17, 32, 0.65);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 26px;
+      padding: 28px;
+      transition: all 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .custom-tool-card:hover {
+      background: rgba(15, 23, 42, 0.9);
+      border-color: rgba(168, 85, 247, 0.6);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(168, 85, 247, 0.2);
+    }
+
+    /* FULL MODALS */
+    .full-studio-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000009;
+      background-color: #030712;
+      color: #f3f4f6;
+      display: none;
+      flex-direction: column;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.85);
+      backdrop-filter: blur(14px);
+      z-index: 1000010;
+      display: none;
+      place-items: center;
+      padding: 20px;
+    }
+
+    #copyToast {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #090e1a;
+      color: #38bdf8;
+      border: 1px solid #38bdf8;
+      padding: 12px 28px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(56, 189, 248, 0.4);
+      z-index: 2000000;
+      opacity: 0;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+    #copyToast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="copyToast">Notification</div>
+
+  <!-- TOP BAR -->
+  <header id="deviceControlBar">
+    <div class="flex items-center gap-3">
+      <span class="text-cyan-400 font-extrabold text-sm tracking-wider flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+        HELLO AI
+      </span>
+      <span class="hidden sm:inline text-slate-700 text-xs">|</span>
+      <span class="hidden sm:inline text-slate-400 text-xs font-semibold">View Matrix:</span>
+    </div>
+
+    <!-- Screen Size Switcher -->
+    <div class="flex items-center gap-2">
+      <button onclick="switchDeviceView('pc', this)" class="device-pill-btn active" title="PC View (Full)">
+        <i class="fa-solid fa-desktop"></i>
+        <span class="hidden sm:inline">Desktop</span>
+      </button>
+
+      <button onclick="switchDeviceView('laptop', this)" class="device-pill-btn" title="Laptop View">
+        <i class="fa-solid fa-laptop"></i>
+        <span class="hidden sm:inline">Laptop</span>
+      </button>
+
+      <button onclick="switchDeviceView('tablet', this)" class="device-pill-btn" title="Tablet View">
+        <i class="fa-solid fa-tablet-screen-button"></i>
+        <span class="hidden sm:inline">Tablet</span>
+      </button>
+
+      <button onclick="switchDeviceView('mobile', this)" class="device-pill-btn" title="Mobile View">
+        <i class="fa-solid fa-mobile-screen"></i>
+        <span class="hidden sm:inline">Mobile</span>
+      </button>
+    </div>
+
+    <!-- User Auth Status -->
+    <div id="authHeaderBlock" class="flex items-center gap-2"></div>
+  </header>
+
+  <!-- MAIN SIMULATOR WRAPPER -->
+  <div id="deviceSimulatorWrapper" class="view-pc">
+
+    <!-- DOCKED DRAGGABLE BUTTONS -->
+    <div id="masterAllToolsTrigger" title="Drag anywhere or click to open ALL TOOLS">
+      <i class="fa-solid fa-grip-vertical text-cyan-400/50 text-xs"></i>
+      <span class="text-cyan-400 font-black text-sm">✦</span>
+      <span class="text-xs font-extrabold tracking-wider">ALL TOOLS HUB</span>
+    </div>
+
+    <div id="draggableSideChatTrigger" title="Drag anywhere or click to open AI Chat Studio">
+      <i class="fa-solid fa-grip-vertical text-purple-400/50 text-xs"></i>
+      <i class="fa-solid fa-comments text-purple-400 text-xs"></i>
+      <span class="text-xs font-extrabold tracking-wider">NEURAL CHAT</span>
+    </div>
+
+    <!-- HERO SECTION -->
+    <div class="hero">
+      <header class="header">
+        <a href="#" class="inline-flex items-center gap-3.5 group cursor-pointer">
+          <div class="w-11 h-11 rounded-2xl bg-[#090f1d] border border-cyan-500/40 flex items-center justify-center shadow-[0_0_25px_rgba(56,189,248,0.25)] group-hover:scale-105 group-hover:border-cyan-400 transition-all duration-300">
+            <svg viewBox="0 0 80 80" class="w-7 h-7 drop-shadow-[0_0_10px_rgba(56,189,248,0.8)]">
+              <defs>
+                <linearGradient id="logoCyberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#38bdf8"/>
+                  <stop offset="50%" stop-color="#ffffff"/>
+                  <stop offset="100%" stop-color="#818cf8"/>
+                </linearGradient>
+              </defs>
+              <polygon points="40,6 68,22 68,58 40,74 12,58 12,22" fill="none" stroke="url(#logoCyberGrad)" stroke-width="4.5" stroke-linejoin="round"/>
+              <polygon points="40,18 58,40 40,62 22,40" fill="rgba(8,16,32,0.9)" stroke="url(#logoCyberGrad)" stroke-width="2.5"/>
+              <path d="M40,26 Q40,40 54,40 Q40,40 40,54 Q40,40 26,40 Q40,40 40,26 Z" fill="url(#logoCyberGrad)"/>
+            </svg>
+          </div>
+
+          <div class="flex flex-col">
+            <div class="flex items-center gap-1.5 leading-none">
+              <span class="font-extrabold text-[15px] tracking-[0.24em] text-white">HELLO</span>
+              <span class="font-black text-lg font-['Syne'] bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(56,189,248,0.6)]">AI</span>
+            </div>
+            <span class="text-[8.5px] font-mono tracking-[0.26em] text-cyan-400 font-bold mt-1 uppercase">Cybernetic Engine</span>
+          </div>
+        </a>
+      </header>
+
+      <main class="hero__body">
+        <section class="hero-text-content">
+          <div class="flex items-center gap-2 mb-4 text-[10px] font-bold tracking-[0.25em] text-cyan-400 font-mono">
+            <span class="w-8 h-[2px] bg-cyan-400 shadow-[0_0_8px_#38bdf8] inline-block"></span>
+            <span>NEXT-GEN SYNTHETIC MATRIX</span>
+          </div>
+
+          <h1 class="font-bold">
+            <span class="block text-4xl sm:text-6xl text-slate-100 font-['Syne'] cyber-glow-title">AUTONOMOUS</span>
+            <div class="revolve-container">
+              <span class="revolving-cyber-title">HELLO AI</span>
+            </div>
+          </h1>
+
+          <p class="intro" id="introText">
+            Full-stack GPU-accelerated computing environment. Equipped with 3 interactive WebGL physics engines, real-time code-to-video export pipeline in <strong>HELLO CODE AI</strong>, and decentralized agent workflows.
+          </p>
+
+          <div class="flex flex-wrap gap-4 mt-8">
+            <button onclick="openAllAppsLaunchpad()" class="px-8 py-3.5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-extrabold text-xs tracking-wider shadow-[0_0_30px_rgba(56,189,248,0.4)] hover:scale-105 transition-all flex items-center gap-3">
+              <span>EXPLORE ALL TOOLS</span>
+              <span class="text-white text-sm">✦</span>
+            </button>
+            <a href="#how-i-built-section" class="px-8 py-3.5 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-200 font-extrabold text-xs tracking-wider border border-slate-700/60 transition-all flex items-center gap-2">
+              <span>SYSTEM ARCHITECTURE</span>
+              <span>↓</span>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-3 w-full max-w-lg mt-12 pt-6 border-t border-slate-800/80">
+            <div class="flex flex-col gap-1">
+              <small class="text-[9px] font-mono font-bold tracking-wider text-slate-500 uppercase">Architecture</small>
+              <strong class="text-xs font-bold text-slate-200 tracking-wide">SHADERS / GLSL</strong>
+            </div>
+            <div class="flex flex-col gap-1">
+              <small class="text-[9px] font-mono font-bold tracking-wider text-slate-500 uppercase">3D Physics</small>
+              <strong class="text-xs font-bold text-slate-200 tracking-wide">60 FPS WEBGL</strong>
+            </div>
+            <div class="flex flex-col gap-1">
+              <small class="text-[9px] font-mono font-bold tracking-wider text-slate-500 uppercase">Active Core</small>
+              <strong id="activeDeviceLabel" class="text-xs font-bold text-cyan-400 tracking-wide">DESKTOP MATRIX</strong>
+            </div>
+          </div>
+        </section>
+
+        <!-- RIGHT: COMPLETE SVG LIQUID MORPHING SCENE -->
+        <section class="visual" id="visual">
+          <svg class="liquid-scene" viewBox="0 0 1100 850" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <path id="mainBubblePath" d="M305 154C430 88 638 77 781 126C906 169 978 281 961 405C945 524 858 620 735 651C631 678 558 647 494 620C434 595 380 592 322 552C247 501 204 426 218 345C231 267 258 196 305 154Z">
+                <animate attributeName="d" dur="14s" repeatCount="indefinite" values="M305 154C430 88 638 77 781 126C906 169 978 281 961 405C945 524 858 620 735 651C631 678 558 647 494 620C434 595 380 592 322 552C247 501 204 426 218 345C231 267 258 196 305 154Z;M286 171C411 91 626 68 792 135C922 187 966 296 949 420C929 552 829 622 722 649C614 677 541 627 478 617C405 605 345 612 297 553C242 486 192 415 218 324C241 244 244 207 286 171Z;M305 154C430 88 638 77 781 126C906 169 978 281 961 405C945 524 858 620 735 651C631 678 558 647 494 620C434 595 380 592 322 552C247 501 204 426 218 345C231 267 258 196 305 154Z"/>
+              </path>
+              <clipPath id="mainClip"><use href="#mainBubblePath"/></clipPath>
+              <linearGradient id="cyberStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#38bdf8"/>
+                <stop offset="50%" stop-color="#818cf8"/>
+                <stop offset="100%" stop-color="#c084fc"/>
+              </linearGradient>
+            </defs>
+
+            <g id="mainParallax">
+              <g clip-path="url(#mainClip)">
+                <image href="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1800&q=90" x="125" y="40" width="930" height="720" preserveAspectRatio="xMidYMid slice" opacity="0.6"/>
+                <rect width="1100" height="850" fill="rgba(8, 16, 36, 0.4)"/>
+              </g>
+              <g class="marquee">
+                <text class="marquee__text" dy="-14">
+                  <textPath href="#mainBubblePath">
+                    HELLO AI ✦ CYBER COMPUTATION MATRIX ✦ 100K GLSL ENGINE ✦ 4D CELESTIAL ORBITS ✦
+                    <animate attributeName="startOffset" from="0%" to="100%" dur="24s" repeatCount="indefinite"/>
+                  </textPath>
+                </text>
+              </g>
+              <use href="#mainBubblePath" class="bubble-edge"/>
+            </g>
+          </svg>
+        </section>
+      </main>
+    </div>
+
+    <!-- MODULE 1: 3D COOTIE CATCHER -->
+    <section id="cootie-catcher-section" class="spacious-section">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4 pb-6 border-b border-slate-800">
+          <div>
+            <span class="text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase">
+              Interactive Module #1 • 3D Origami Light Suite
+            </span>
+            <h2 class="text-3xl sm:text-5xl font-extrabold font-['Syne'] text-white mt-1">
+              Cootie Catcher Lab
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-400 mt-2 max-w-xl leading-relaxed">
+              Interactive 3D paper fortune teller with automated flowchart logic. Click to play or clone and edit the source code in HELLO CODE AI.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <button onclick="loadCootieIntoStudio()" class="px-5 py-2.5 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs tracking-wider inline-flex items-center gap-2 shadow-[0_0_20px_rgba(56,189,248,0.35)] transition-all">
+              <i class="fa-solid fa-code"></i>
+              <span>EDIT IN CODE STUDIO</span>
+            </button>
+
+            <button onclick="copyCootieSourceCode()" class="px-5 py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold text-xs tracking-wider inline-flex items-center gap-2 transition-all">
+              <i class="fa-solid fa-copy text-cyan-400"></i>
+              <span>COPY HTML</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="lab-display-frame" style="background:#ffecbb;">
+          <iframe id="cootieLiveIframe" class="w-full h-full border-0"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 2: 100K GLSL PARTICLE SWARM LAB -->
+    <section id="particle-lab-section" class="spacious-section">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4 pb-6 border-b border-slate-800">
+          <div>
+            <span class="text-xs font-mono font-bold tracking-widest text-indigo-400 uppercase">
+              Interactive Module #2 • GLSL 100K Particle Swarm
+            </span>
+            <h2 class="text-3xl sm:text-5xl font-extrabold font-['Syne'] text-white mt-1">
+              100K Particle Swarm Lab
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-400 mt-2 max-w-xl leading-relaxed">
+              GPU-accelerated GLSL shader particle swarm morphing through Astrolabe, DNA, and Heart structures.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <button onclick="loadParticlesIntoStudio()" class="px-5 py-2.5 rounded-full bg-indigo-500 hover:bg-indigo-400 text-white font-bold text-xs tracking-wider inline-flex items-center gap-2 shadow-[0_0_20px_rgba(99,102,241,0.4)] transition-all">
+              <i class="fa-solid fa-code"></i>
+              <span>EDIT IN CODE STUDIO</span>
+            </button>
+
+            <button onclick="copyParticleSourceCode()" class="px-5 py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold text-xs tracking-wider inline-flex items-center gap-2 transition-all">
+              <i class="fa-solid fa-copy text-indigo-400"></i>
+              <span>COPY HTML</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="lab-display-frame">
+          <iframe id="particleLiveIframe" class="w-full h-full border-0"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 3: 4D GALAXY CELESTIAL SYSTEM LAB (ORIGINAL RESTORED 100%) -->
+    <section id="galaxy-lab-section" class="spacious-section">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4 pb-6 border-b border-slate-800">
+          <div>
+            <span class="text-xs font-mono font-bold tracking-widest text-amber-400 uppercase">
+              Interactive Module #3 • 4D Celestial Solar Engine
+            </span>
+            <h2 class="text-3xl sm:text-5xl font-extrabold font-['Syne'] text-white mt-1">
+              Galaxy Solar System Lab
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-400 mt-2 max-w-xl leading-relaxed">
+              Ultra-realistic 4D Solar System simulation with procedural textures, 45,000 galaxy particles, planetary orbits, and cinematic flight camera.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <button onclick="loadGalaxyIntoStudio()" class="px-5 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs tracking-wider inline-flex items-center gap-2 shadow-[0_0_20px_rgba(245,158,11,0.4)] transition-all">
+              <i class="fa-solid fa-code"></i>
+              <span>EDIT IN HELLO CODE AI</span>
+            </button>
+
+            <button onclick="copyGalaxySourceCode()" class="px-5 py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold text-xs tracking-wider inline-flex items-center gap-2 transition-all">
+              <i class="fa-solid fa-copy text-amber-400"></i>
+              <span>COPY HTML CODE</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="lab-display-frame">
+          <iframe id="galaxyLiveIframe" class="w-full h-full border-0"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE BREAKDOWN TIMELINE -->
+    <section id="how-i-built-section" class="spacious-section bg-slate-950/60">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase">Engineering Matrix</span>
+          <h2 class="text-3xl sm:text-5xl font-extrabold font-['Syne'] text-white mt-1">How HELLO AI Operates</h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-3 leading-relaxed">
+            Direct breakdown of the core systems driving real-time 3D computation and zero-latency client sandboxing.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="build-story-card">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xl font-bold mb-5 border border-cyan-500/30">
+                01
+              </div>
+              <h4 class="text-lg font-bold font-['Syne'] text-white mb-2">GLSL Shader Core</h4>
+              <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                Three.js WebGL and custom GLSL vertex shaders compute 100K particle dynamics completely on GPU threads at locked 60 FPS.
+              </p>
+            </div>
+            <span class="text-[10px] font-mono font-bold text-cyan-400 tracking-wider uppercase">WebGL Shaders</span>
+          </div>
+
+          <div class="build-story-card">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl font-bold mb-5 border border-blue-500/30">
+                02
+              </div>
+              <h4 class="text-lg font-bold font-['Syne'] text-white mb-2">Canvas Video Pipeline</h4>
+              <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                Integrated MediaStream & Canvas MediaRecorder captures live frames to generate downloadable WebM video files instantly.
+              </p>
+            </div>
+            <span class="text-[10px] font-mono font-bold text-blue-400 tracking-wider uppercase">MediaStream Pipeline</span>
+          </div>
+
+          <div class="build-story-card">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-xl font-bold mb-5 border border-purple-500/30">
+                03
+              </div>
+              <h4 class="text-lg font-bold font-['Syne'] text-white mb-2">Gemini 2.5 Neural API</h4>
+              <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                Direct client-side async fetch connecting Google AI Studio's Gemini 2.5 Flash model for sub-second contextual answers.
+              </p>
+            </div>
+            <span class="text-[10px] font-mono font-bold text-purple-400 tracking-wider uppercase">Gemini Neural API</span>
+          </div>
+
+          <div class="build-story-card">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl font-bold mb-5 border border-emerald-500/30">
+                04
+              </div>
+              <h4 class="text-lg font-bold font-['Syne'] text-white mb-2">Zero-Leak Sandboxing</h4>
+              <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                Fully isolated execution contexts for each 3D viewport eliminate script collisions and UI thread locks.
+              </p>
+            </div>
+            <span class="text-[10px] font-mono font-bold text-emerald-400 tracking-wider uppercase">Isolated Sandboxes</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MY CREATED AI TOOLS DIRECTORY -->
+    <section id="my-tools-section" class="spacious-section">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4 pb-6 border-b border-slate-800">
+          <div>
+            <span class="text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase">Operational Suite</span>
+            <h2 class="text-3xl sm:text-5xl font-extrabold font-['Syne'] text-white mt-1">Active AI Engines</h2>
+          </div>
+          <button onclick="openCreateToolModal()" class="px-6 py-3 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs tracking-wider inline-flex items-center gap-2 shadow-[0_0_20px_rgba(56,189,248,0.35)] transition-all">
+            <i class="fa-solid fa-plus"></i>
+            <span>DEPLOY NEW TOOL</span>
+          </button>
+        </div>
+
+        <div id="userCustomToolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ALL TOOLS LAUNCHPAD MODAL -->
+  <div id="allAppsLaunchpad" onclick="if(event.target===this) closeAllAppsLaunchpad()">
+    <div class="launchpad-popup-box">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-5">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-base border border-cyan-500/30">
+            ✦
+          </div>
+          <div>
+            <h3 class="text-lg font-bold font-['Syne'] text-white">HELLO AI TOOLS HUB</h3>
+            <p class="text-[11px] text-slate-400">Launch any operational system module</p>
+          </div>
+        </div>
+        <button onclick="closeAllAppsLaunchpad()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors text-sm">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-2.5">
+        <div onclick="launchAppAction(openCodeStudioScreen)" class="compact-tool-item">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm border border-blue-500/30">
+              <i class="fa-solid fa-video"></i>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold font-['Syne'] text-white">HELLO CODE AI & VIDEO</h4>
+              <p class="text-[10px] text-slate-400">Run code, export HTML & live render WebM video</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-[11px] text-cyan-400"></i>
+        </div>
+
+        <a href="#cootie-catcher-section" onclick="closeAllAppsLaunchpad()" class="compact-tool-item">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-yellow-500/20 text-yellow-400 flex items-center justify-center text-sm border border-yellow-500/30">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold font-['Syne'] text-white">3D ORIGAMI LAB</h4>
+              <p class="text-[10px] text-slate-400">Interactive Cootie Catcher fortune simulation</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-[11px] text-cyan-400"></i>
+        </a>
+
+        <a href="#particle-lab-section" onclick="closeAllAppsLaunchpad()" class="compact-tool-item">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-sm border border-indigo-500/30">
+              <i class="fa-solid fa-atom"></i>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold font-['Syne'] text-white">100K PARTICLE SWARM</h4>
+              <p class="text-[10px] text-slate-400">GLSL morphing: Astrolabe, DNA, Heart</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-[11px] text-cyan-400"></i>
+        </a>
+
+        <a href="#galaxy-lab-section" onclick="closeAllAppsLaunchpad()" class="compact-tool-item">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-sm border border-purple-500/30">
+              <i class="fa-solid fa-globe"></i>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold font-['Syne'] text-white">4D GALAXY CELESTIAL</h4>
+              <p class="text-[10px] text-slate-400">Solar System orbits with 45,000 galaxy stars</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-[11px] text-cyan-400"></i>
+        </a>
+
+        <div onclick="launchAppAction(openVoiceChangerModal)" class="compact-tool-item">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-sm border border-rose-500/30">
+              <i class="fa-solid fa-microphone-lines"></i>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold font-['Syne'] text-white">AI VOICE MATRIX</h4>
+              <p class="text-[10px] text-slate-400">DSP audio transformation with Titan & Robot modes</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-[11px] text-cyan-400"></i>
+        </div>
+
+        <div onclick="launchAppAction(openHelloBrowser)" class="compact-tool-item">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-sm border border-cyan-500/30">
+              <i class="fa-solid fa-compass"></i>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold font-['Syne'] text-white">HELLO BROWSER</h4>
+              <p class="text-[10px] text-slate-400">Autonomous live browser with web search</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-[11px] text-cyan-400"></i>
+        </div>
+
+        <div onclick="launchAppAction(openChatScreen)" class="compact-tool-item">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm border border-emerald-500/30">
+              <i class="fa-solid fa-comments"></i>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold font-['Syne'] text-white">NEURAL CHAT STUDIO</h4>
+              <p class="text-[10px] text-slate-400">Direct Gemini 2.5 Flash multimodal intelligence</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-[11px] text-cyan-400"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULL-SCREEN: HELLO AI CHAT STUDIO -->
+  <div id="helloAiChatScreen" class="full-studio-modal">
+    <header class="p-4 bg-[#080d1a] border-b border-slate-800 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <button onclick="closeChatScreen()" class="px-4 py-2 rounded-xl bg-white/10 text-xs font-bold text-cyan-300 hover:bg-white/20 transition-all flex items-center gap-2">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Exit Chat</span>
+        </button>
+        <div class="flex items-center gap-2.5">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="font-extrabold text-sm font-['Syne'] text-white">NEURAL CHAT STUDIO</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2.5">
+        <button onclick="promptGeminiKey()" class="flex items-center gap-1.5 bg-[#0f172a] hover:bg-[#1e293b] px-3.5 py-1.5 rounded-full border border-cyan-500/40 text-xs font-bold text-cyan-300 transition-colors shadow-sm">
+          <i class="fa-solid fa-key text-[10px]"></i>
+          <span id="apiKeyStatusLabel">Set API Key</span>
+        </button>
+
+        <div id="chatUserBadge" class="flex items-center gap-2 bg-[#0f172a] px-3.5 py-1.5 rounded-full border border-slate-700">
+          <i class="fa-solid fa-user text-cyan-400 text-xs"></i>
+          <span id="chatUserDisplayName" class="text-xs font-bold text-slate-200">Surajit</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="flex-1 flex flex-col relative overflow-hidden bg-[#030712]">
+      <div id="chatStudioMessageContainer" class="flex-1 p-6 overflow-y-auto space-y-4 max-w-4xl w-full mx-auto"></div>
+
+      <div class="p-4 bg-[#080d1a] border-t border-slate-800">
+        <div class="max-w-4xl mx-auto flex items-center gap-3">
+          <input 
+            type="text" 
+            id="chatStudioInput" 
+            placeholder="Type your query to Google Gemini 2.5..." 
+            class="flex-1 bg-[#0f172a] text-white px-5 py-3.5 rounded-2xl text-xs font-medium border border-slate-700 focus:outline-none focus:border-cyan-400 shadow-inner"
+            onkeypress="if(event.key==='Enter') sendStudioChatMessage()"
+          >
+          <button onclick="sendStudioChatMessage()" class="w-11 h-11 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 flex items-center justify-center font-bold text-sm shadow-[0_0_20px_rgba(56,189,248,0.4)] transition-transform active:scale-95">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORKSPACE: HELLO CODE AI STUDIO -->
+  <div id="helloCodeAiStudioScreen" class="full-studio-modal">
+    <header class="p-4 bg-[#080d1a] border-b border-slate-800 flex flex-wrap gap-3 justify-between items-center">
+      <div class="flex items-center gap-4">
+        <button onclick="closeCodeStudioScreen()" class="px-4 py-2 rounded-xl bg-white/10 text-xs font-bold text-cyan-300">
+          <i class="fa-solid fa-arrow-left"></i> Exit Studio
+        </button>
+        <span class="font-extrabold text-sm font-['Syne'] text-white">HELLO CODE AI STUDIO</span>
+      </div>
+
+      <div class="flex items-center flex-wrap gap-2.5">
+        <button onclick="clearStudioCode()" class="px-3.5 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-xs font-bold flex items-center gap-1.5 border border-rose-500/30 transition-all">
+          <i class="fa-solid fa-eraser"></i>
+          <span>Erase Code</span>
+        </button>
+
+        <button onclick="exportHtmlFile()" class="px-3.5 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 text-xs font-bold flex items-center gap-1.5 border border-emerald-500/30 transition-all">
+          <i class="fa-solid fa-file-arrow-down"></i>
+          <span>Export HTML</span>
+        </button>
+
+        <label class="px-3.5 py-2 rounded-xl bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 text-xs font-bold flex items-center gap-1.5 border border-purple-500/30 cursor-pointer transition-all">
+          <i class="fa-solid fa-file-arrow-up"></i>
+          <span>Import HTML</span>
+          <input type="file" accept=".html" onchange="importHtmlFile(event)" class="hidden">
+        </label>
+
+        <button onclick="toggleWebSectorFullScreen()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold flex items-center gap-2 border border-slate-700 transition-all">
+          <i class="fa-solid fa-expand"></i>
+          <span>Full Screen Web</span>
+        </button>
+
+        <button onclick="generateVideoFromCodeStudio()" class="px-5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-[0_0_20px_rgba(56,189,248,0.3)]">
+          <i class="fa-solid fa-video text-xs"></i>
+          <span>Generate Video</span>
+        </button>
+        
+        <button onclick="runLiveCodeFromStudio()" class="px-5 py-2 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 text-xs font-bold flex items-center gap-2 shadow-md">
+          <i class="fa-solid fa-play text-xs"></i>
+          <span>Run Live</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="flex-1 p-6 flex flex-col lg:flex-row gap-6 overflow-hidden">
+      <div class="flex-1 flex flex-col">
+        <textarea id="studioCodeTextarea" rows="18" class="flex-1 p-4 bg-[#050914] text-cyan-300 font-mono text-xs rounded-2xl border border-slate-800 focus:outline-none focus:border-cyan-500/50 resize-none" placeholder="// Insert HTML, CSS, JavaScript, or Three.js code here..."></textarea>
+      </div>
+
+      <div class="flex-1 flex flex-col gap-4">
+        <div id="studioWebContainer" class="flex-1 bg-white rounded-2xl overflow-hidden shadow-2xl min-h-[300px] relative border border-slate-800">
+          <iframe id="studioLiveIframe" class="w-full h-full border-0" allow="fullscreen"></iframe>
+        </div>
+
+        <div id="studioVideoContainer" class="bg-[#050914] rounded-2xl border border-slate-800 p-4 hidden flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold text-cyan-400 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Live Video Render
+            </span>
+            <a id="studioVideoDownloadBtn" href="#" download="render_output.webm" class="px-3.5 py-1.5 rounded-full bg-emerald-600 text-white font-bold text-[11px] flex items-center gap-1.5">
+              <i class="fa-solid fa-download"></i> Download Video
+            </a>
+          </div>
+          <video id="studioOutputVideoPlayer" controls autoplay loop muted playsinline webkit-playsinline class="w-full rounded-xl max-h-56 bg-black"></video>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- WORKSPACE: HELLO AI VOICE CHANGER STUDIO -->
+  <div id="voiceChangerModal" class="full-studio-modal" style="display:none; place-items:center; background:rgba(3,7,18,0.92);">
+    <div class="w-[min(680px,94vw)] bg-[#090f1d] border border-cyan-500/30 rounded-3xl p-6 shadow-2xl">
+      <div class="flex justify-between items-center pb-4 border-b border-slate-800 mb-6">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-microphone-lines text-cyan-400 text-xl"></i>
+          <h3 class="text-xl font-bold font-['Syne'] text-white">AI VOICE MATRIX</h3>
+        </div>
+        <button onclick="closeVoiceChangerModal()" class="text-slate-400 hover:text-white text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="w-full h-24 bg-[#050914] rounded-2xl border border-slate-800 mb-6 flex items-center justify-center">
+        <span id="voiceStatusText" class="text-xs font-mono font-bold text-slate-400">DSP AUDIO ENGINE STANDBY</span>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-6">
+        <button onclick="setVoicePreset('deep', this)" class="p-3 rounded-xl bg-cyan-500/15 border border-cyan-500 text-xs font-bold text-cyan-300">Deep Titan</button>
+        <button onclick="setVoicePreset('chipmunk', this)" class="p-3 rounded-xl bg-white/5 border border-white/10 text-xs font-bold text-slate-300">Helium</button>
+        <button onclick="setVoicePreset('robot', this)" class="p-3 rounded-xl bg-white/5 border border-white/10 text-xs font-bold text-slate-300">Cyber Droid</button>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button id="btnStartRecord" onclick="toggleVoiceRecording()" class="px-6 py-3 rounded-full bg-cyan-400 text-slate-950 font-bold text-xs">Start Audio Capture</button>
+        <button id="btnPlayTransformed" onclick="playTransformedVoice()" disabled class="px-5 py-3 rounded-full bg-slate-800 text-slate-500 font-bold text-xs">Playback</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORKSPACE: HELLO AI BROWSER -->
+  <div id="helloAiBrowserScreen" class="full-studio-modal">
+    <div class="p-3 bg-[#080d1a] border-b border-slate-800 flex items-center justify-between">
+      <button onclick="closeHelloBrowser()" class="px-4 py-1.5 rounded-xl bg-white/10 text-xs font-bold text-cyan-300"><i class="fa-solid fa-arrow-left"></i> Exit</button>
+      <input type="text" id="browserOmniboxInput" value="https://google.com" class="w-96 px-4 py-1.5 rounded-full bg-[#0f172a] text-xs text-white border border-slate-700 focus:outline-none" onkeypress="if(event.key==='Enter') executeBrowserSearch()">
+      <span class="text-emerald-400 text-xs font-mono font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>ACTIVE</span>
+    </div>
+    <div class="flex-1 w-full bg-[#030712]">
+      <iframe id="browserWebIframe" src="https://www.google.com/search?igu=1" class="w-full h-full border-0"></iframe>
+    </div>
+  </div>
+
+  <!-- AUTH MODAL -->
+  <div id="authModal" class="modal-backdrop">
+    <div class="bg-[#090f1d] rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl border border-slate-800 relative">
+      <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-100">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="w-14 h-14 bg-cyan-500/10 rounded-2xl flex items-center justify-center mx-auto mb-5 text-cyan-400 text-2xl font-bold border border-cyan-500/30">
+        ✦
+      </div>
+      <h3 class="text-xl font-bold font-['Syne'] text-white mb-2">Connect Identity</h3>
+      <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+        Connect via Google Identity to synchronize personal AI configurations and tools.
+      </p>
+
+      <button onclick="signInWithGoogle()" class="w-full flex items-center justify-center gap-3 px-5 py-3.5 rounded-full border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition-all shadow-sm active:scale-98">
+        <svg class="w-4 h-4" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+        </svg>
+        <span>Authenticate with Google</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- CREATE TOOL MODAL -->
+  <div id="createToolModal" class="modal-backdrop">
+    <div class="bg-[#090f1d] rounded-3xl p-7 max-w-md w-full shadow-2xl border border-slate-800 relative">
+      <div class="flex justify-between items-center pb-4 border-b border-slate-800 mb-5">
+        <h3 class="text-lg font-bold font-['Syne'] text-white">Deploy Custom Agent</h3>
+        <button onclick="closeCreateToolModal()" class="text-slate-400 hover:text-white text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-xs font-semibold text-slate-300">
+        <div>
+          <label class="block mb-1 text-slate-400 font-mono">Tool Title:</label>
+          <input type="text" id="newToolName" placeholder="e.g. Cyber Neural Visualizer" class="w-full px-4 py-2.5 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-cyan-400">
+        </div>
+        <div>
+          <label class="block mb-1 text-slate-400 font-mono">Domain / Category:</label>
+          <input type="text" id="newToolCategory" placeholder="e.g. GLSL, AUTOMATION, LLM, CODE" class="w-full px-4 py-2.5 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-cyan-400">
+        </div>
+        <div>
+          <label class="block mb-1 text-slate-400 font-mono">Engine Description:</label>
+          <textarea id="newToolDesc" rows="3" placeholder="Describe the autonomous capability..." class="w-full p-3 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-cyan-400"></textarea>
+        </div>
+        <div>
+          <label class="block mb-1 text-slate-400 font-mono">Endpoint / Link:</label>
+          <input type="text" id="newToolUrl" placeholder="https://..." class="w-full px-4 py-2.5 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <button onclick="saveNewCustomTool()" class="w-full py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs shadow-[0_0_20px_rgba(56,189,248,0.3)] mt-2">
+          Save & Register In System
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT CONTROLLERS -->
+  <script>
+    // 1. GMAIL AUTH & USER STATE
+    const authHeaderBlock = document.getElementById('authHeaderBlock');
+
+    function checkAuthState() {
+      const user = JSON.parse(localStorage.getItem('hello_ai_user'));
+      if (user) {
+        authHeaderBlock.innerHTML = `
+          <div class="flex items-center gap-2.5 bg-slate-900/90 px-3 py-1 rounded-full border border-cyan-500/30 transition-all">
+            <img src="${user.avatar}" class="w-5 h-5 rounded-full" alt="User">
+            <span class="text-xs font-bold text-cyan-300">${user.name}</span>
+            <button onclick="signOut()" title="Sign Out" class="text-slate-400 hover:text-rose-400 text-xs ml-1">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+          </div>
+        `;
+      } else {
+        authHeaderBlock.innerHTML = `
+          <button onclick="openAuthModal()" class="px-3.5 py-1.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 border border-slate-700 transition-all">
+            <i class="fa-brands fa-google text-cyan-400"></i>
+            <span>Sign In</span>
+          </button>
+        `;
+      }
+      updateKeyStatusLabel();
+    }
+    checkAuthState();
+
+    function openAuthModal() { document.getElementById('authModal').style.display = 'grid'; }
+    function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
+
+    function signInWithGoogle() {
+      const defaultEmail = "surajitdeyjgm235@gmail.com";
+      const email = prompt("Enter your Gmail address to sign in:", defaultEmail);
+      if (email && email.includes("@")) {
+        const username = email.split('@')[0];
+        let formattedName = username.replace(/[0-9]/g, '');
+        formattedName = formattedName.charAt(0).toUpperCase() + formattedName.slice(1);
+        if (!formattedName) formattedName = "Surajit";
+
+        const userData = {
+          name: formattedName,
+          email: email.trim(),
+          avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${formattedName}&backgroundColor=0284c7`
+        };
+        localStorage.setItem('hello_ai_user', JSON.stringify(userData));
+        checkAuthState();
+        closeAuthModal();
+        showToast(`Connected as ${userData.name}!`);
+      }
+    }
+
+    function signOut() {
+      if (confirm("Disconnect from HELLO AI session?")) {
+        localStorage.removeItem('hello_ai_user');
+        checkAuthState();
+        showToast("Signed out successfully.");
+      }
+    }
+
+    // 2. GEMINI 2.5 NEURAL ENGINE
+    const chatScreen = document.getElementById('helloAiChatScreen');
+    const userDisplayName = document.getElementById('chatUserDisplayName');
+    const messageFeed = document.getElementById('chatStudioMessageContainer');
+    const chatInput = document.getElementById('chatStudioInput');
+
+    function getGeminiKey() {
+      return localStorage.getItem('gemini_api_key') || '';
+    }
+
+    function updateKeyStatusLabel() {
+      const lbl = document.getElementById('apiKeyStatusLabel');
+      if (lbl) {
+        lbl.innerText = getGeminiKey() ? "API Active ✦" : "Set API Key";
+      }
+    }
+
+    function promptGeminiKey() {
+      const currentKey = getGeminiKey();
+      const newKey = prompt("Enter your Google Gemini API Key (aistudio.google.com):", currentKey);
+      if (newKey !== null) {
+        if (newKey.trim().startsWith("AIzaSy")) {
+          localStorage.setItem('gemini_api_key', newKey.trim());
+          updateKeyStatusLabel();
+          showToast("Gemini API connected successfully!");
+        } else if (newKey.trim() === '') {
+          localStorage.removeItem('gemini_api_key');
+          updateKeyStatusLabel();
+          showToast("API Key cleared.");
+        } else {
+          alert("Invalid API key format! Keys typically start with 'AIzaSy'.");
+        }
+      }
+    }
+
+    function openChatScreen() {
+      const user = JSON.parse(localStorage.getItem('hello_ai_user'));
+      const activeName = user ? user.name : "Surajit";
+
+      userDisplayName.innerText = activeName;
+      updateKeyStatusLabel();
+      chatScreen.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+
+      messageFeed.innerHTML = '';
+      appendAiBubble(`Identity verified: **${activeName}** ✦ Cybernetic matrix online. What neural task or code synthesis shall we execute?`);
+      chatInput.focus();
+    }
+
+    function closeChatScreen() {
+      chatScreen.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    async function sendStudioChatMessage() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+
+      let apiKey = getGeminiKey();
+      if (!apiKey) {
+        promptGeminiKey();
+        apiKey = getGeminiKey();
+        if (!apiKey) return;
+      }
+
+      const user = JSON.parse(localStorage.getItem('hello_ai_user'));
+      const activeName = user ? user.name : "Surajit";
+
+      appendUserBubble(activeName, text);
+      chatInput.value = '';
+
+      const loadingId = "load-" + Date.now();
+      appendLoadingBubble(loadingId);
+
+      try {
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{
+              parts: [{
+                text: `You are HELLO AI, a high-tech, razor-sharp AI operating within an ultra-sleek cyber-dark portfolio. User: ${activeName}. Provide concise, technically brilliant, and precise answers. Language: Match the user's language. User message: ${text}`
+              }]
+            }]
+          })
+        });
+
+        const data = await response.json();
+        removeLoadingBubble(loadingId);
+
+        if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+          appendAiBubble(data.candidates[0].content.parts[0].text);
+        } else if (data.error) {
+          appendAiBubble(`⚠️ **Error:** ${data.error.message || 'Key quota exceeded or invalid.'}`);
+        } else {
+          appendAiBubble("⚠️ Neural response empty. Verify prompt parameters.");
+        }
+      } catch (err) {
+        removeLoadingBubble(loadingId);
+        appendAiBubble("⚠️ Connection failure. Check network interface.");
+      }
+    }
+
+    function appendUserBubble(userName, text) {
+      const div = document.createElement('div');
+      div.className = "flex flex-col items-end";
+      div.innerHTML = `
+        <span class="text-[10px] text-cyan-400 font-mono font-bold mb-1">${userName}</span>
+        <div class="bg-gradient-to-r from-cyan-600 to-blue-700 text-white px-5 py-3 rounded-2xl rounded-tr-none text-xs max-w-[85%] shadow-md leading-relaxed whitespace-pre-wrap">
+          ${escapeHtml(text)}
+        </div>
+      `;
+      messageFeed.appendChild(div);
+      messageFeed.scrollTop = messageFeed.scrollHeight;
+    }
+
+    function appendAiBubble(text) {
+      const div = document.createElement('div');
+      div.className = "flex flex-col items-start";
+      div.innerHTML = `
+        <span class="text-[10px] text-slate-400 font-mono font-bold mb-1 flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+          HELLO CORE
+        </span>
+        <div class="bg-[#0b1324] border border-cyan-500/20 text-slate-200 px-5 py-3 rounded-2xl rounded-tl-none text-xs max-w-[85%] shadow-md leading-relaxed whitespace-pre-wrap">
+          ${text.replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>')}
+        </div>
+      `;
+      messageFeed.appendChild(div);
+      messageFeed.scrollTop = messageFeed.scrollHeight;
+    }
+
+    function appendLoadingBubble(id) {
+      const div = document.createElement('div');
+      div.id = id;
+      div.className = "flex flex-col items-start";
+      div.innerHTML = `
+        <span class="text-[10px] text-slate-400 font-mono font-bold mb-1 flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
+          HELLO CORE
+        </span>
+        <div class="bg-[#0b1324] border border-cyan-500/20 text-cyan-300 px-4 py-3 rounded-2xl rounded-tl-none text-xs flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-bounce"></span>
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-bounce [animation-delay:0.2s]"></span>
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-bounce [animation-delay:0.4s]"></span>
+          <span class="ml-1 text-[11px] font-semibold text-slate-400 font-mono">Synthesizing...</span>
+        </div>
+      `;
+      messageFeed.appendChild(div);
+      messageFeed.scrollTop = messageFeed.scrollHeight;
+    }
+
+    function removeLoadingBubble(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+
+    function escapeHtml(text) {
+      return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    // 3. DRAGGABLE MASTER CONTROLLER (BOTTOM-LEFT)
+    const masterTrigger = document.getElementById('masterAllToolsTrigger');
+    let isMasterDragging = false, hasMasterMoved = false;
+    let startX, startY, initLeft, initTop;
+
+    masterTrigger.addEventListener('pointerdown', (e) => {
+      isMasterDragging = true;
+      hasMasterMoved = false;
+      startX = e.clientX;
+      startY = e.clientY;
+      const rect = masterTrigger.getBoundingClientRect();
+      initLeft = rect.left;
+      initTop = rect.top;
+      masterTrigger.setPointerCapture(e.pointerId);
+      masterTrigger.style.transform = 'none';
+      masterTrigger.style.bottom = 'auto';
+      masterTrigger.style.left = `${initLeft}px`;
+      masterTrigger.style.top = `${initTop}px`;
+    });
+
+    masterTrigger.addEventListener('pointermove', (e) => {
+      if (!isMasterDragging) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) hasMasterMoved = true;
+      let newLeft = Math.max(10, Math.min(window.innerWidth - masterTrigger.offsetWidth - 10, initLeft + dx));
+      let newTop = Math.max(50, Math.min(window.innerHeight - masterTrigger.offsetHeight - 10, initTop + dy));
+      masterTrigger.style.left = `${newLeft}px`;
+      masterTrigger.style.top = `${newTop}px`;
+    });
+
+    masterTrigger.addEventListener('pointerup', (e) => {
+      isMasterDragging = false;
+      try { masterTrigger.releasePointerCapture(e.pointerId); } catch(err){}
+      if (!hasMasterMoved) openAllAppsLaunchpad();
+    });
+
+    // 4. DRAGGABLE CHAT BUTTON (BOTTOM-RIGHT)
+    const sideChatTrigger = document.getElementById('draggableSideChatTrigger');
+    let isChatDragging = false, hasChatMoved = false;
+    let chatStartX, chatStartY, chatInitLeft, chatInitTop;
+
+    sideChatTrigger.addEventListener('pointerdown', (e) => {
+      isChatDragging = true;
+      hasChatMoved = false;
+      chatStartX = e.clientX;
+      chatStartY = e.clientY;
+      const rect = sideChatTrigger.getBoundingClientRect();
+      chatInitLeft = rect.left;
+      chatInitTop = rect.top;
+      sideChatTrigger.setPointerCapture(e.pointerId);
+      sideChatTrigger.style.transform = 'none';
+      sideChatTrigger.style.bottom = 'auto';
+      sideChatTrigger.style.left = `${chatInitLeft}px`;
+      sideChatTrigger.style.top = `${chatInitTop}px`;
+    });
+
+    sideChatTrigger.addEventListener('pointermove', (e) => {
+      if (!isChatDragging) return;
+      const dx = e.clientX - chatStartX;
+      const dy = e.clientY - chatStartY;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) hasChatMoved = true;
+      let newLeft = Math.max(10, Math.min(window.innerWidth - sideChatTrigger.offsetWidth - 10, chatInitLeft + dx));
+      let newTop = Math.max(50, Math.min(window.innerHeight - sideChatTrigger.offsetHeight - 10, chatInitTop + dy));
+      sideChatTrigger.style.left = `${newLeft}px`;
+      sideChatTrigger.style.top = `${newTop}px`;
+    });
+
+    sideChatTrigger.addEventListener('pointerup', (e) => {
+      isChatDragging = false;
+      try { sideChatTrigger.releasePointerCapture(e.pointerId); } catch(err){}
+      if (!hasChatMoved) openChatScreen();
+    });
+
+    // 5. APPS LAUNCHPAD
+    const allAppsLaunchpad = document.getElementById('allAppsLaunchpad');
+    function openAllAppsLaunchpad() {
+      allAppsLaunchpad.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeAllAppsLaunchpad() {
+      allAppsLaunchpad.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+    function launchAppAction(fn) {
+      closeAllAppsLaunchpad();
+      fn();
+    }
+
+    // 6. CODE STUDIO FUNCTIONS
+    function openCodeStudioScreen() {
+      document.getElementById('helloCodeAiStudioScreen').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCodeStudioScreen() {
+      document.getElementById('helloCodeAiStudioScreen').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+    function runLiveCodeFromStudio() {
+      const code = document.getElementById('studioCodeTextarea').value;
+      document.getElementById('studioLiveIframe').srcdoc = code;
+    }
+
+    function clearStudioCode() {
+      if (confirm("Purge code buffer?")) {
+        document.getElementById('studioCodeTextarea').value = '';
+        document.getElementById('studioLiveIframe').srcdoc = '';
+        showToast("Code buffer cleared.");
+      }
+    }
+
+    function exportHtmlFile() {
+      const code = document.getElementById('studioCodeTextarea').value;
+      if (!code.trim()) return alert("Buffer empty.");
+      const blob = new Blob([code], { type: 'text/html;charset=utf-8;' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'cyber_project.html';
+      a.click();
+      showToast("File exported successfully.");
+    }
+
+    function importHtmlFile(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        document.getElementById('studioCodeTextarea').value = evt.target.result;
+        runLiveCodeFromStudio();
+        showToast("HTML project mounted.");
+      };
+      reader.readAsText(file);
+    }
+
+    function toggleWebSectorFullScreen() {
+      const webSector = document.getElementById('studioWebContainer');
+      runLiveCodeFromStudio();
+
+      if (!document.fullscreenElement) {
+        if (webSector.requestFullscreen) webSector.requestFullscreen();
+        else if (webSector.webkitRequestFullscreen) webSector.webkitRequestFullscreen();
+        showToast("Fullscreen output engaged.");
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    function generateVideoFromCodeStudio() {
+      showToast("Rendering 5s WebM frame stream...");
+      const hiddenCanvas = document.createElement('canvas');
+      hiddenCanvas.width = 640; 
+      hiddenCanvas.height = 360;
+      const ctx = hiddenCanvas.getContext('2d');
+      const stream = hiddenCanvas.captureStream(30);
+
+      let recorder;
+      try { 
+        recorder = new MediaRecorder(stream, { mimeType: 'video/webm' }); 
+      } catch(e) { 
+        recorder = new MediaRecorder(stream); 
+      }
+
+      const chunks = [];
+      recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
+      
+      recorder.onstop = () => {
+        const videoBlob = new Blob(chunks, { type: 'video/webm' });
+        const videoUrl = URL.createObjectURL(videoBlob);
+        const player = document.getElementById('studioOutputVideoPlayer');
+        
+        player.muted = true;
+        player.playsInline = true;
+        player.src = videoUrl;
+        player.onloadedmetadata = () => { player.play().catch(e => console.log(e)); };
+
+        document.getElementById('studioVideoDownloadBtn').href = videoUrl;
+        document.getElementById('studioVideoContainer').classList.remove('hidden');
+        document.getElementById('studioVideoContainer').classList.add('flex');
+        showToast("Video rendered and streaming!");
+      };
+
+      recorder.start();
+      let frame = 0;
+      const interval = setInterval(() => {
+        frame++;
+        ctx.fillStyle = '#030712'; 
+        ctx.fillRect(0, 0, 640, 360);
+        for (let i = 0; i < 40; i++) {
+          const a = (i / 40) * Math.PI * 2 + frame * 0.06;
+          const r = 80 + Math.sin(frame * 0.08 + i) * 35;
+          ctx.beginPath();
+          ctx.arc(320 + Math.cos(a) * r, 180 + Math.sin(a) * r, 4, 0, Math.PI * 2);
+          ctx.fillStyle = i % 2 === 0 ? '#38bdf8' : '#818cf8';
+          ctx.fill();
+        }
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 18px "Syne", sans-serif';
+        ctx.fillText("HELLO CODE AI — STREAM CAPTURE", 140, 185);
+        if (frame >= 150) { clearInterval(interval); recorder.stop(); }
+      }, 1000 / 30);
+    }
+
+    // ==========================================================
+    // 7. EMBEDDED COMPLETE SOURCE CODES
+    // ==========================================================
+    
+    // Lab 1: 3D Origami Cootie Catcher
+    const COOTIE_CATCHER_SOURCE = `<!doctype html><html lang="en"><head><script src="https://cdn.tailwindcss.com"><\/script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cootie Catcher — Interactive Fortune</title><style>@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Hanken+Grotesk:wght@500&display=swap');
+:root{--bg:#ffecbb;--blue:#0275d4;--red:#db2822;--text:#404040;--scan:#fff6dc}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--text);font:500 16px "Hanken Grotesk",system-ui,sans-serif}
+main{display:grid;grid-template-columns:1fr 1fr;height:100%}
+.stage{position:relative;overflow:hidden}.stage canvas{position:absolute;inset:0;display:block;touch-action:none;cursor:grab}.stage canvas:active{cursor:grabbing}
+.chart{overflow:hidden auto;scrollbar-width:none}.chart::-webkit-scrollbar{display:none}
+.board{position:relative;min-height:100%;padding:clamp(18px,3.5vh,40px) clamp(14px,3vw,40px) 48px}
+.wires{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;transition:opacity .4s}
+.wire{fill:none;stroke:var(--blue);stroke-width:1.5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:.6;transition:stroke-dashoffset .45s,opacity .3s,stroke-width .2s}
+.wire.in{stroke-dashoffset:0}.wire.on{stroke-width:2.5;opacity:1}.wire.off{opacity:.2}
+.tree{display:flex;flex-direction:column;align-items:center;gap:clamp(20px,3.6vh,36px);transition:opacity .4s}.tree.out,.wires.out{opacity:0}
+.row{display:flex;justify-content:center;gap:clamp(8px,1.2vw,14px);width:100%}
+.node,.chip,.pip{border:1.5px solid var(--blue);border-radius:50px;color:var(--blue);text-transform:uppercase}
+.node,.chip{background:var(--bg);opacity:0;translate:0 10px;transition:opacity .3s,translate .3s,background-color .15s,color .15s}
+.node.in,.chip.in{opacity:1;translate:0 0}
+.node{display:flex;flex-direction:column;align-items:center;gap:.35em;max-width:92%;padding:.6em 1.4em;font-size:clamp(14px,1.3vw,17px);text-align:center}.node.bare{padding:.5em .8em}
+.node.start,.chip.pick{background:var(--blue);color:var(--bg)}
+.node.fortune{padding:.8em 1.8em;border-color:var(--red);background:var(--red);color:var(--bg);font-size:clamp(21px,1.95vw,25px);line-height:1.1;text-transform:none}
+.chip{display:flex;align-items:center;gap:.45em;padding:.4em .95em;font-size:clamp(12px,1.1vw,15px)}.chip i{width:.7em;height:.7em;border-radius:50%}.chip.scan{background:var(--scan)}.chip.off{opacity:.3}
+.pips{display:flex;flex-wrap:wrap;justify-content:center;gap:5px}.pip{display:grid;place-items:center;min-width:1.7em;height:1.7em;padding:0 .3em;font-size:.78em;transition:background-color .12s,color .12s,border-color .12s}.pip.on{border-color:var(--red);background:var(--red);color:var(--bg)}
+@media (max-width:760px){main{grid-template-columns:1fr;grid-template-rows:46vh 1fr}}</style></head><body><main><section class="stage"></section><aside class="chart"><div class="board"><svg class="wires"></svg><div class="tree"></div></div></aside></main><script type="module">import * as THREE from 'https://unpkg.com/three@0.169.0/build/three.module.js';
+const DEG = Math.PI / 180, HALF = Math.SQRT1_2, THICK = 0.007, GAP = 0.02, LIFT = 165 * DEG, OPEN = [58 * DEG, 45 * DEG], SHUT = [66 * DEG, 86 * DEG], SWAP = [66 * DEG, 4 * DEG], MOUTH = -0.6, LOOK = 0.55, W = 1024, PAPER = '#fbee9e', INK = '#2b2622';
+const COLOURS = [{ word: 'RED', ink: '#d23b27' }, { word: 'BLUE', ink: '#2a8bc5' }, { word: 'YELLOW', ink: '#eba314' }, { word: 'GREEN', ink: '#4faa43' }];
+const VISIBLE = { shut: [2, 3, 6, 7], swap: [1, 4, 5, 8] };
+const FORTUNES = ['You will have\\na great day.', 'A surprise\\nis coming.', 'Someone is\\nthinking of you.', 'Good news\\nby text.', 'Good fortune\\nis yours!', 'Welcome\\nchange.', 'Do a\\nsilly dance.', 'Sing your\\nfavorite song.', 'You will spill\\nketchup soon.', 'You will dream\\nyou can fly.', 'A bug will fly\\nin your mouth.', 'Soon life gets\\ninteresting.'];
+const V = (x, y, z) => new THREE.Vector3(x, y, z), C = V(0, 0, 0), mod = (a, m) => (a % m + m) % m, rand = n => Math.floor(Math.random() * n), sleep = ms => new Promise(d => setTimeout(d, ms)), ease = k => k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2, mix = (p, q, k) => p.map((v, i) => v + (q[i] - v) * k);
+const normal = (a, b, c) => new THREE.Vector3().crossVectors(b.clone().sub(a), c.clone().sub(a)).normalize(), away = (n, from, other) => n.dot(other.clone().sub(from)) > 0 ? n.negate() : n, corners = flipped => flipped ? [[0, 1], [1, 0]] : [[1, 0], [0, 1]], numberOf = face => mod(1 - face, 8) + 1, faceOf = number => mod(2 - number, 8);
+const stage = document.querySelector('.stage'), renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(2, devicePixelRatio)); renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap; stage.appendChild(renderer.domElement);
+const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(34, 1, 0.1, 60); camera.up.set(0, 0, 1);
+const sun = new THREE.DirectionalLight(0xfff6e6, 2.4); sun.position.set(2.4, -1.6, 5.4); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
+const fill = new THREE.DirectionalLight(0xe6ecff, 0.7); fill.position.set(-3.5, -2.5, 2);
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), new THREE.ShadowMaterial({ opacity: 0.18 })); floor.receiveShadow = true;
+const spin = new THREE.Group(), model = new THREE.Group(); spin.add(model); scene.add(new THREE.HemisphereLight(0xfffdf6, 0xd9d0bc, 2.3), sun, fill, floor, spin);
+function elevation(p, q){ return Math.atan2(q, p) - Math.acos(Math.min(1, HALF / Math.hypot(p, q))); }
+function pose([beta, phi]){
+  const cb = Math.cos(beta), sb = Math.sin(beta), even = elevation(cb * Math.cos(phi), sb), odd = elevation(cb * Math.sin(phi), sb);
+  const A = [0, 1, 2, 3].map(i => { const t = i * Math.PI / 2, e = i % 2 ? odd : even; return V(Math.cos(e) * Math.cos(t), Math.cos(e) * Math.sin(t), Math.sin(e)); });
+  const O = [phi, Math.PI - phi, Math.PI + phi, -phi].map(t => V(cb * Math.cos(t), cb * Math.sin(t), sb).multiplyScalar(Math.SQRT2));
+  const K = A.map((a, i) => { const n = normal(a, O[i], A[(i + 1) % 4]); return n.multiplyScalar(2 * n.dot(a)); });
+  return { A, O, K };
+}
+function rng(s){ return () => { s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function grain(x, s){ const r = rng(s); x.fillStyle = PAPER; x.fillRect(0, 0, W, W); for (let i = 0; i < 9000; i++){ x.fillStyle = r() < 0.5 ? 'rgba(255,255,255,0.1)' : 'rgba(120,100,40,0.05)'; x.fillRect(r() * W, r() * W, 1 + r() * 2, 1 + r() * 2); } }
+function sheet(s){ const c = document.createElement('canvas'); c.width = c.height = W; const x = c.getContext('2d'); grain(x, s); return x; }
+function write(x, text, [u, v], [du, dv], size, color, weight, fit = Infinity){
+  x.save(); x.translate(u * W, (1 - v) * W); x.rotate(Math.atan2(du, dv)); x.font = \`\${weight} \${size * W}px Caveat, cursive\`; const w = x.measureText(text).width; if (w > fit * W) x.font = \`\${weight} \${size * W * fit * W / w}px Caveat, cursive\`;
+  x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = color; x.fillText(text, 0, 0); x.restore();
+}
+function blot(x, [u, v], radius, color, s){
+  const r = rng(s), n = 14, cx = u * W, cy = (1 - v) * W, size = radius * W;
+  const pts = Array.from({ length: n }, (_, i) => { const a = i / n * 2 * Math.PI, k = size * (1 + (r() - 0.5) * 0.22); return [cx + Math.cos(a) * k, cy + Math.sin(a) * k]; });
+  const mid = i => [(pts[i % n][0] + pts[(i + 1) % n][0]) / 2, (pts[i % n][1] + pts[(i + 1) % n][1]) / 2];
+  x.beginPath(); x.moveTo(...mid(0)); for (let i = 1; i <= n; i++) x.quadraticCurveTo(...pts[i % n], ...mid(i));
+  x.closePath(); x.fillStyle = x.strokeStyle = color; x.globalAlpha = 0.9; x.fill(); x.globalAlpha = 0.25; x.lineWidth = size * 0.12; x.stroke(); x.globalAlpha = 1;
+}
+function material(x, side = THREE.DoubleSide){
+  const map = new THREE.CanvasTexture(x.canvas); map.colorSpace = THREE.SRGBColorSpace; return new THREE.MeshStandardMaterial({ map, side, roughness: 0.93, metalness: 0, flatShading: true });
+}
+const faces = [], flaps = [];
+function face(materials, uvs, place){
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(9), 3)); g.setAttribute('uv', new THREE.Float32BufferAttribute(uvs.flat(), 2));
+  for (const m of [].concat(materials)){ const mesh = new THREE.Mesh(g, m); mesh.castShadow = mesh.receiveShadow = true; model.add(mesh); }
+  faces.push({ g, place });
+}
+function build(){
+  const ref = pose(OPEN), back = material(sheet(98), THREE.BackSide);
+  for (let i = 0; i < 4; i++){
+    const a0 = i, a1 = (i + 1) % 4, A0 = ref.A[a0], A1 = ref.A[a1], O = ref.O[i], K = ref.K[i];
+    const inside = away(normal(C, A0, O), C, K), outside = away(normal(K, A0, O), K, C), numbers = sheet(10 + i), [u0, u1] = corners(normal(C, A0, A1).dot(inside) < 0), halves = [[a0, u0, 2 * i], [a1, u1, 2 * i + 1]];
+    for (const [a, uv, n] of halves){
+      write(numbers, String(numberOf(n)), [(uv[0] + 1) / 3, (uv[1] + 1) / 3], [HALF, HALF], 0.26, INK, 500);
+      const under = sheet(60 + n); flaps[n] = { point: i, a, uv, under, seed: 60 + n, mat: material(under), open: 0, sign: Math.sign(normal(C, ref.A[a], O).dot(inside)) };
+      face(flaps[n].mat, [[0, 0], uv, [1, 1]], P => [C, P.A[a], P.O[i]]);
+    }
+    const front = material(numbers, THREE.FrontSide);
+    for (const [a, uv, n] of halves){
+      const flap = flaps[n], tip = [1 - (uv[0] ? 0 : GAP), 1 - (uv[1] ? 0 : GAP)], order = flap.sign > 0 ? [0, 1, 2] : [0, 2, 1], uvs = [[0, 0], uv, tip];
+      face([front, back], order.map(k => uvs[k]), P => {
+        const pa = P.A[a], po = P.O[i], n = normal(C, pa, po).multiplyScalar(flap.sign), lift = n.clone().multiplyScalar(THICK), pt = po.clone().add(pa.clone().sub(po).normalize().multiplyScalar(GAP));
+        let pts = [C.clone(), pa.clone(), pt].map(v => v.add(lift));
+        if (flap.open > 0){
+          const axis = po.clone().sub(pa).normalize(), turn = axis.clone().cross(C.clone().sub(pa)).dot(n) > 0 ? 1 : -1, q = new THREE.Quaternion().setFromAxisAngle(axis, turn * LIFT * flap.open);
+          pts = pts.map(v => v.sub(pa).applyQuaternion(q).add(pa));
+        }
+        return order.map(k => pts[k]);
+      });
+    }
+    const { word, ink } = COLOURS[i], colour = sheet(20 + i);
+    blot(colour, [0.57, 0.57], 0.15, ink, 40 + i); write(colour, word, [0.3, 0.3], [-HALF, -HALF], 0.17, ink, 700, 0.5);
+    const mat = material(colour), [v0, v1] = corners(normal(K, A0, A1).dot(outside) < 0);
+    face(mat, [[0, 0], v0, [1, 1]], P => [P.K[i], P.A[a0], P.O[i]]); face(mat, [[0, 0], v1, [1, 1]], P => [P.K[i], P.A[a1], P.O[i]]);
+  }
+}
+function shape(){
+  const P = pose(params); let low = 0;
+  for (const { g, place } of faces){
+    const pos = g.attributes.position;
+    place(P).forEach((v, k) => { pos.setXYZ(k, v.x, v.y, v.z); low = Math.min(low, v.z); });
+    pos.needsUpdate = true; g.computeVertexNormals(); g.computeBoundingSphere();
+  }
+  model.position.z = THICK * 2 - low;
+}
+function inscribe(flap, text = ''){
+  grain(flap.under, flap.seed); const lines = text ? text.split('\\n') : [], [u, v] = flap.uv.map(c => c * 0.42 + 0.3);
+  lines.forEach((line, k) => { const off = ((lines.length - 1) / 2 - k) * 0.11 * HALF; write(flap.under, line, [u + off, v + off], [HALF, HALF], 0.1, INK, 700, 0.46); });
+  flap.mat.map.needsUpdate = true;
+}
+const view = { az: MOUTH, el: 0.82, dist: 4.6 };
+function orbit(){
+  const canvas = renderer.domElement; let last = null;
+  canvas.addEventListener('pointerdown', e => { last = e; canvas.setPointerCapture(e.pointerId); });
+  canvas.addEventListener('pointerup', () => { last = null; });
+  canvas.addEventListener('pointermove', e => { if (!last) return; view.az -= (e.clientX - last.clientX) * 0.006; view.el = Math.min(1.45, Math.max(0.12, view.el + (e.clientY - last.clientY) * 0.005)); last = e; });
+}
+let params = OPEN, closed = null; const tweens = [];
+function tween(ms, step){ return new Promise(done => tweens.push({ start: performance.now(), ms, step, done })); }
+function advance(now){
+  for (const t of [...tweens]){
+    const k = t.ms ? Math.min(1, (now - t.start) / t.ms) : 1; t.step(ease(k));
+    if (k === 1){ tweens.splice(tweens.indexOf(t), 1); t.done(); }
+  }
+}
+function moveTo(to, ms){ const from = params; return tween(ms, k => { params = mix(from, to, k); }); }
+function openFlap(flap, to, ms){ const from = flap.open; return tween(ms, k => { flap.open = from + (to - from) * k; }); }
+function turnTo(az, ms){ const from = view.az; return tween(ms, k => { view.az = from + (az - from) * k; }); }
+const nearest = (az, period) => az + Math.round((view.az - az) / period) * period;
+const faceMouth = () => turnTo(nearest(closed === 'swap' ? MOUTH + Math.PI / 2 : MOUTH, Math.PI), 700);
+function faceFlap(flap){
+  const P = pose(params), n = normal(C, P.A[flap.a], P.O[flap.point]).multiplyScalar(flap.sign);
+  return turnTo(nearest(Math.PI / 4 - Math.atan2(n.y, n.x), 2 * Math.PI), 800);
+}
+async function fold(){ closed = closed === 'shut' ? 'swap' : 'shut'; await moveTo(closed === 'shut' ? SHUT : SWAP, 350); await sleep(150); }
+const chart = document.querySelector('.chart'), board = chart.querySelector('.board'), wires = board.querySelector('.wires'), tree = board.querySelector('.tree'), links = [];
+const show = el => requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('in')));
+const follow = () => chart.scrollTo({ top: chart.scrollHeight, behavior: 'smooth' });
+function element(cls, html = ''){ const el = document.createElement('div'); el.className = cls; el.innerHTML = html; return el; }
+const row = () => tree.appendChild(element('row'));
+function wire(from, to, cls = ''){ const path = document.createElementNS('http://www.w3.org/2000/svg', 'path'); path.setAttribute('pathLength', 1); path.setAttribute('class', \`wire \${cls}\`); wires.appendChild(path); links.push({ from, to, path }); show(path); return path; }
+function node(html, from, cls = ''){ const el = row().appendChild(element(\`node \${cls}\`, html)); if (from) wire(from, el, 'on'); show(el); follow(); return el; }
+async function options(items, from){
+  const line = row(), chips = [];
+  for (const { label, dot } of items){
+    const chip = line.appendChild(element('chip', dot ? \`<i style="background:\${dot}"></i>\${label}\` : label));
+    chip.wire = wire(from, chip); chips.push(chip); show(chip); follow(); await sleep(90);
+  }
+  return chips;
+}
+async function choose(chips, pick){
+  for (let s = 0; s < 10; s++){
+    const lit = mod(pick - 9 + s, chips.length);
+    chips.forEach((chip, k) => chip.classList.toggle('scan', k === lit)); await sleep(60 + s * 10);
+  }
+  chips.forEach((chip, k) => { const chosen = k === pick; chip.classList.remove('scan'); chip.classList.add(chosen ? 'pick' : 'off'); chip.wire.classList.add(chosen ? 'on' : 'off'); });
+  await sleep(300); return chips[pick];
+}
+async function foldThrough(el, labels){
+  const pips = el.appendChild(element('pips', labels.map(t => \`<b class="pip">\${t}</b>\`).join(''))); follow(); await sleep(300);
+  for (const pip of pips.children){ pip.classList.add('on'); await fold(); }
+}
+function drawWires(){
+  const o = board.getBoundingClientRect();
+  for (const { from, to, path } of links){
+    const a = from.getBoundingClientRect(), b = to.getBoundingClientRect();
+    const x1 = a.left + a.width / 2 - o.left, y1 = a.bottom - o.top, x2 = b.left + b.width / 2 - o.left, y2 = b.top - o.top, m = (y2 - y1) / 2;
+    path.setAttribute('d', \`M\${x1},\${y1} C\${x1},\${y1 + m} \${x2},\${y2 - m} \${x2},\${y2}\`);
+  }
+}
+async function clearChart(){
+  tree.classList.add('out'); wires.classList.add('out'); await sleep(420);
+  tree.replaceChildren(); wires.replaceChildren(); links.length = 0; tree.classList.remove('out'); wires.classList.remove('out'); chart.scrollTo({ top: 0 });
+}
+async function pickNumber(from){
+  await faceMouth(); const shown = VISIBLE[closed], k = rand(shown.length);
+  const chip = await choose(await options(shown.map(label => ({ label })), from), k);
+  return [shown[k], chip];
+}
+async function play(){
+  await faceMouth(); const start = node('Start', null, 'start'); await sleep(500);
+  const c = rand(COLOURS.length), colour = await choose(await options(COLOURS.map(({ word, ink }) => ({ label: word, dot: ink })), start), c);
+  const spelled = node('', colour, 'bare'); await foldThrough(spelled, [...COLOURS[c].word]); await sleep(350);
+  const [count, countChip] = await pickNumber(spelled), counted = node('', countChip, 'bare');
+  await foldThrough(counted, Array.from({ length: count }, (_, k) => k + 1)); await sleep(350);
+  const [number, numberChip] = await pickNumber(counted), flap = flaps[faceOf(number)], fortune = FORTUNES[rand(FORTUNES.length)];
+  inscribe(flap, fortune); await faceFlap(flap); await openFlap(flap, 1, 900); node(fortune.replace('\\n', ' '), numberChip, 'fortune');
+  await sleep(4200); await openFlap(flap, 0, 700); inscribe(flap); await Promise.all([clearChart(), moveTo(OPEN, 600)]); closed = null;
+}
+function frame(now){
+  advance(now); shape(); spin.rotation.z = view.az - 3 * Math.PI / 4;
+  camera.position.set(0, -view.dist * Math.cos(view.el), LOOK + view.dist * Math.sin(view.el));
+  camera.lookAt(0, 0, LOOK); renderer.render(scene, camera); drawWires(); requestAnimationFrame(frame);
+}
+function resize(){
+  renderer.setSize(stage.clientWidth, stage.clientHeight); camera.aspect = stage.clientWidth / stage.clientHeight; camera.updateProjectionMatrix();
+  view.dist = Math.max(4.6, 1.35 / (Math.tan(camera.fov / 2 * DEG) * camera.aspect));
+}
+build(); resize(); new ResizeObserver(resize).observe(stage); orbit(); requestAnimationFrame(frame);
+for (;;) await play();<\/script></body></html>`;
+
+    // Lab 2: 100K GLSL Particle Swarm
+    const PARTICLES_SWARM_SOURCE = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Three.js + GLSL Particle Animation</title>
+  <style>
+    body, html { margin: 0; padding: 0; overflow: hidden; background-color: #010102; font-family: sans-serif; height: 100%; width: 100%; }
+    #swarm-container { width: 100%; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1; }
+    #ui {
+      position: absolute; bottom: 35px; left: 50%; transform: translateX(-50%); z-index: 10;
+      color: rgba(255, 255, 255, 0.9); text-transform: uppercase; letter-spacing: 5px; font-size: 11px; font-weight: 700;
+      padding: 14px 38px; border-radius: 50px; background: rgba(255, 215, 0, 0.15); backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(255, 215, 0, 0.4); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); cursor: pointer; user-select: none;
+      transition: all 0.3s ease;
+    }
+    #ui:hover { background: rgba(255, 215, 0, 0.3); border-color: rgba(255, 215, 0, 0.8); color: #ffd700; transform: translateX(-50%) translateY(-2px); }
+  </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.174.0/build/three.module.js"
+      }
+    }
+  <\/script>
+</head>
+<body>
+  <div id="swarm-container"></div>
+  <div id="ui">CLICK TO EVOLVE</div>
+
+  <script type="module">
+    import * as THREE from 'three';
+
+    const container = document.getElementById('swarm-container');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    
+    function updateCameraZ() {
+      const aspect = window.innerWidth / window.innerHeight;
+      const maxShapeExtent = 38.0;
+      const fovRad = (camera.fov * Math.PI) / 180;
+      let requiredZ = maxShapeExtent / Math.tan(fovRad / 2);
+      if (aspect < 1.0) requiredZ /= aspect;
+      camera.position.z = requiredZ;
+    }
+    updateCameraZ();
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
+    container.appendChild(renderer.domElement);
+
+    const particleCount = 100000;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    const ids = new Float32Array(particleCount);
+    const randoms = new Float32Array(particleCount * 3);
+
+    for (let i = 0; i < particleCount; i++) {
+      ids[i] = i / particleCount; 
+      randoms[i * 3] = Math.random();
+      randoms[i * 3 + 1] = Math.random();
+      randoms[i * 3 + 2] = Math.random();
+    }
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('aId', new THREE.BufferAttribute(ids, 1));
+    geometry.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 3));
+
+    const material = new THREE.ShaderMaterial({
+      uniforms: {
+        uTime: { value: 0 },
+        uMorphProgress: { value: 0.0 },
+        uCurrentShape: { value: 0 },
+        uTargetShape: { value: 0 },
+        uMouse: { value: new THREE.Vector2(0, 0) }
+      },
+      vertexShader: \`
+        uniform float uTime;
+        uniform float uMorphProgress;
+        uniform int uCurrentShape;
+        uniform int uTargetShape;
+        uniform vec2 uMouse;
+
+        attribute float aId;
+        attribute vec3 aRandom;
+
+        varying vec3 vColor;
+        varying float vAlpha;
+
+        #define PI 3.14159265359
+
+        vec3 palette( in float t, in vec3 a, in vec3 b, in vec3 c, in vec3 d ) {
+            return a + b*cos( 6.28318*(c*t+d) );
+        }
+
+        vec3 getAstrolabe(float id, vec3 rnd) {
+            vec3 pos;
+            if (rnd.x > 0.3) {
+                float t = id * PI * 2.0;
+                float u = t * 13.0;
+                float v = t * 8.0;
+                float r = 12.0 + 3.0 * cos(v);
+                pos = vec3(r * cos(u), r * sin(u), 4.0 * sin(v));
+                float noiseAngle = rnd.y * PI * 2.0;
+                float noiseRadius = rnd.z * 1.5;
+                pos += vec3(cos(noiseAngle), sin(noiseAngle), cos(noiseAngle)) * noiseRadius;
+            } else {
+                float ringIdx = floor(rnd.y * 3.0);
+                float angle = id * PI * 2.0 * 1000.0 + uTime * 0.2 * (ringIdx > 1.0 ? -1.0 : 1.0);
+                float r = 24.0 + ringIdx * 4.0 + (rnd.z * 0.5);
+                pos = vec3(r * cos(angle), (rnd.x - 0.15) * 2.0, r * sin(angle));
+                float tilt = 0.5 + ringIdx * 0.8;
+                float rotX = cos(tilt); float rotY = sin(tilt);
+                pos.yz = mat2(rotX, -rotY, rotY, rotX) * pos.yz;
+                pos.xy = mat2(rotX, -rotY, rotY, rotX) * pos.xy;
+            }
+            return pos * 0.85;
+        }
+
+        vec3 getDNA(float id, vec3 rnd) {
+            float h = (id - 0.5) * 75.0;
+            float angle = h * 0.5 + uTime * 0.5;
+            float radius = 16.0;
+            float strand = step(0.5, rnd.x);
+            angle += strand * PI;
+            vec3 pos = vec3(cos(angle) * radius, h, sin(angle) * radius);
+            float rungZone = fract(h * 0.5);
+            if (rungZone < 0.15 && rnd.y > 0.4) {
+                float span = (rnd.z * 2.0 - 1.0); 
+                pos = vec3(span * cos(angle - strand*PI) * radius, h, span * sin(angle - strand*PI) * radius);
+            } else {
+                pos += (rnd - 0.5) * 1.0;
+            }
+            return pos;
+        }
+
+        vec3 getHeart(float id, vec3 rnd) {
+            float u = rnd.x * PI * 2.0;
+            float v = acos(2.0 * rnd.y - 1.0);
+            float x = 16.0 * pow(sin(u), 3.0);
+            float y = 13.0 * cos(u) - 5.0 * cos(2.0 * u) - 2.0 * cos(3.0 * u) - cos(4.0 * u) + 3.0;
+            float z = 5.0 * cos(v);
+            vec3 pos = vec3(x, y, z);
+            float layer = floor(rnd.z * 3.0); 
+            float scale = 1.0 - (layer * 0.35);
+            float beat = 1.0 + pow(sin(uTime * 3.0 - layer * 0.8), 8.0) * 0.12;
+            return pos * scale * beat * 1.5;
+        }
+
+        vec3 getShapePosition(int shape, float id, vec3 rnd) {
+            if (shape == 0) return getAstrolabe(id, rnd);
+            if (shape == 1) return getDNA(id, rnd);
+            if (shape == 2) return getHeart(id, rnd);
+            return vec3(0.0);
+        }
+
+        vec3 getShapeColor(int shape, float id, vec3 rnd) {
+            if (shape == 0) return palette(id + uTime*0.05, vec3(0.5, 0.5, 0.6), vec3(0.3, 0.3, 0.4), vec3(1.0, 1.0, 1.0), vec3(0.0, 0.33, 0.67));
+            if (shape == 1) {
+                float h = (id - 0.5) * 60.0; 
+                float rungZone = fract(h * 0.5);
+                if(rungZone < 0.15 && rnd.y > 0.4) return vec3(0.0, 0.9, 0.4);
+                return palette(id * 0.1, vec3(0.2, 0.6, 0.8), vec3(0.1, 0.3, 0.4), vec3(1.0, 1.0, 1.0), vec3(0.0, 0.2, 0.4));
+            }
+            if (shape == 2) {
+                float layer = floor(rnd.z * 3.0); 
+                if (layer == 2.0) return vec3(1.0, 0.6, 0.8);
+                return palette(id, vec3(0.9, 0.1, 0.2), vec3(0.3, 0.0, 0.1), vec3(1.0, 0.5, 0.5), vec3(0.0, 0.0, 0.0));
+            }
+            return vec3(1.0);
+        }
+
+        float cubicInOut(float t) {
+            return t < 0.5 ? 4.0 * t * t * t : 1.0 - pow(-2.0 * t + 2.0, 3.0) / 2.0;
+        }
+
+        void main() {
+            vec3 p1 = getShapePosition(uCurrentShape, aId, aRandom);
+            vec3 p2 = getShapePosition(uTargetShape, aId, aRandom);
+            vec3 c1 = getShapeColor(uCurrentShape, aId, aRandom);
+            vec3 c2 = getShapeColor(uTargetShape, aId, aRandom);
+
+            float easedMorph = cubicInOut(uMorphProgress);
+            vec3 finalPos = mix(p1, p2, easedMorph);
+            
+            float breatheMask = sin(uMorphProgress * PI);
+            finalPos += normalize(finalPos) * breatheMask * 8.0;
+
+            float autoRot1 = (uCurrentShape == 2) ? 0.0 : uTime * 0.1;
+            float autoRot2 = (uTargetShape == 2) ? 0.0 : uTime * 0.1;
+            float rotY = mix(autoRot1, autoRot2, easedMorph) + uMouse.x * 0.5;
+            float rotX = uMouse.y * 0.5;
+            
+            mat3 rotMatY = mat3(
+                cos(rotY), 0.0, sin(rotY),
+                0.0, 1.0, 0.0,
+                -sin(rotY), 0.0, cos(rotY)
+            );
+            mat3 rotMatX = mat3(
+                1.0, 0.0, 0.0,
+                0.0, cos(rotX), -sin(rotX),
+                0.0, sin(rotX), cos(rotX)
+            );
+            
+            finalPos = rotMatY * rotMatX * finalPos;
+            vColor = mix(c1, c2, easedMorph);
+            vAlpha = 0.3 + 0.7 * sin(uTime * 5.0 + aId * PI * 20.0);
+
+            vec4 mvPosition = modelViewMatrix * vec4(finalPos, 1.0);
+            gl_Position = projectionMatrix * mvPosition;
+            gl_PointSize = (2.0 + aRandom.x * 2.5) * (40.0 / -mvPosition.z);
+        }
+      \`,
+      fragmentShader: \`
+        varying vec3 vColor;
+        varying float vAlpha;
+
+        void main() {
+            vec2 uv = gl_PointCoord.xy - vec2(0.5);
+            float dist = length(uv);
+            if (dist > 0.5) discard;
+            float alpha = smoothstep(0.5, 0.1, dist);
+            gl_FragColor = vec4(vColor, alpha * vAlpha);
+        }
+      \`,
+      transparent: true,
+      depthWrite: false, 
+      blending: THREE.AdditiveBlending 
+    });
+
+    const particles = new THREE.Points(geometry, material);
+    scene.add(particles);
+
+    let morphProgress = 0, currentShape = 0, targetShape = 0, isTransitioning = false;
+    const TOTAL_SHAPES = 3;
+    const mouse = new THREE.Vector2(0, 0), targetMouse = new THREE.Vector2(0, 0);
+
+    window.addEventListener('mousemove', (e) => {
+      targetMouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      targetMouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    function triggerMorph() {
+      if (!isTransitioning) {
+        targetShape = (targetShape + 1) % TOTAL_SHAPES;
+        isTransitioning = true;
+        morphProgress = 0;
+      }
+    }
+
+    document.getElementById('ui').addEventListener('click', triggerMorph);
+    container.addEventListener('click', triggerMorph);
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      updateCameraZ();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    const clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      const delta = clock.getDelta();
+      const elapsedTime = clock.getElapsedTime();
+      
+      mouse.x += (targetMouse.x - mouse.x) * delta * 2.0;
+      mouse.y += (targetMouse.y - mouse.y) * delta * 2.0;
+      
+      if (isTransitioning) {
+        morphProgress += delta * 0.8;
+        if (morphProgress >= 1) {
+          morphProgress = 0;
+          currentShape = targetShape;
+          isTransitioning = false;
+        }
+      }
+      
+      material.uniforms.uTime.value = elapsedTime;
+      material.uniforms.uMorphProgress.value = morphProgress;
+      material.uniforms.uCurrentShape.value = currentShape;
+      material.uniforms.uTargetShape.value = targetShape;
+      material.uniforms.uMouse.value.copy(mouse);
+      
+      renderer.render(scene, camera);
+    }
+    animate();
+  <\/script>
+</body>
+</html>`;
+
+    // Lab 3: 4D Galaxy Solar System (Original Unaltered Code)
+    const GALAXY_SOURCE = `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GALAXY — 4D Ultra-Realistic Celestial System</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --gold: #d4af37;
+      --gold-bright: #faeab8;
+      --glass: rgba(10, 10, 16, 0.75);
+      --glass-border: rgba(212, 175, 55, 0.35);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
+    body { background-color: #010103; color: #fff; font-family: 'JetBrains Mono', monospace; overflow: hidden; width: 100vw; height: 100vh; }
+    #space-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; outline: none; }
+    .film-grain {
+      position: fixed; inset: 0; pointer-events: none; z-index: 99; opacity: 0.035;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+    .header-title { position: absolute; top: 28px; left: 50%; transform: translateX(-50%); z-index: 10; text-align: center; pointer-events: none; }
+    .header-title h1 {
+      font-family: 'Cinzel', serif; font-size: clamp(28px, 4.5vw, 54px); font-weight: 900; letter-spacing: 0.35em; text-transform: uppercase;
+      background: linear-gradient(135deg, #ffffff 0%, var(--gold-bright) 45%, var(--gold) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 35px rgba(212, 175, 55, 0.45); margin-left: 0.35em;
+    }
+    .planet-nav {
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 20; display: flex; align-items: center; gap: 8px;
+      background: var(--glass); border: 1px solid var(--glass-border); padding: 8px 16px; border-radius: 60px; backdrop-filter: blur(25px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.15); max-width: 95vw; overflow-x: auto;
+    }
+    .planet-nav::-webkit-scrollbar { display: none; }
+    .p-btn {
+      background: transparent; border: 1px solid transparent; color: #b0afaa; padding: 6px 14px; border-radius: 30px;
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; font-weight: 600; text-transform: uppercase;
+      cursor: pointer; white-space: nowrap; transition: all 0.35s ease; display: flex; align-items: center; gap: 6px;
+    }
+    .p-btn:hover, .p-btn.active {
+      background: rgba(212, 175, 55, 0.2); border-color: var(--gold); color: #fff; box-shadow: 0 0 20px rgba(212, 175, 55, 0.35); transform: translateY(-2px);
+    }
+    .p-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+  </style>
+</head>
+<body>
+  <canvas id="space-canvas"></canvas>
+  <div class="film-grain"></div>
+
+  <div class="header-title">
+    <h1>GALAXY</h1>
+  </div>
+
+  <div class="planet-nav">
+    <button class="p-btn active" onclick="focusTarget('system')"><span class="p-dot" style="background:#fff"></span>ALL</button>
+    <button class="p-btn" onclick="focusTarget('sun')"><span class="p-dot" style="background:#ffaa00"></span>SUN</button>
+    <button class="p-btn" onclick="focusTarget('mercury')"><span class="p-dot" style="background:#a5a5a5"></span>MERCURY</button>
+    <button class="p-btn" onclick="focusTarget('venus')"><span class="p-dot" style="background:#e3bb76"></span>VENUS</button>
+    <button class="p-btn" onclick="focusTarget('earth')"><span class="p-dot" style="background:#4ba3e3"></span>EARTH</button>
+    <button class="p-btn" onclick="focusTarget('moon')"><span class="p-dot" style="background:#ffffff"></span>MOON</button>
+    <button class="p-btn" onclick="focusTarget('mars')"><span class="p-dot" style="background:#e2583e"></span>MARS</button>
+    <button class="p-btn" onclick="focusTarget('jupiter')"><span class="p-dot" style="background:#d9a566"></span>JUPITER</button>
+    <button class="p-btn" onclick="focusTarget('saturn')"><span class="p-dot" style="background:#e2c992"></span>SATURN</button>
+    <button class="p-btn" onclick="focusTarget('uranus')"><span class="p-dot" style="background:#70d6d8"></span>URANUS</button>
+    <button class="p-btn" onclick="focusTarget('neptune')"><span class="p-dot" style="background:#3f68d9"></span>NEPTUNE</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"><\/script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"><\/script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"><\/script>
+
+  <script>
+    const canvas = document.getElementById('space-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 3500);
+    camera.position.set(0, 110, 240);
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.25;
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.maxDistance = 650;
+    controls.minDistance = 3;
+
+    function makeNoiseTexture(w, h, colorBase, colorDetail, detailCount = 50) {
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      const ctx = c.getContext('2d');
+      ctx.fillStyle = colorBase;
+      ctx.fillRect(0, 0, w, h);
+      for (let i = 0; i < detailCount; i++) {
+        ctx.fillStyle = colorDetail;
+        ctx.beginPath();
+        ctx.arc(Math.random() * w, Math.random() * h, Math.random() * (w * 0.08) + 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      return new THREE.CanvasTexture(c);
+    }
+
+    function makeJupiterTexture() {
+      const c = document.createElement('canvas');
+      c.width = 1024; c.height = 512;
+      const ctx = c.getContext('2d');
+      const colors = ['#3d2618', '#8c603e', '#d2a679', '#eedbc5', '#996633', '#c29b74', '#eedbc5'];
+      for (let y = 0; y < 512; y += 4) {
+        ctx.fillStyle = colors[Math.floor((y / 512) * colors.length * 2) % colors.length];
+        ctx.fillRect(0, y, 1024, 4);
+      }
+      ctx.fillStyle = '#b33c1b';
+      ctx.beginPath();
+      ctx.ellipse(650, 340, 60, 35, 0, 0, Math.PI * 2);
+      ctx.fill();
+      return new THREE.CanvasTexture(c);
+    }
+
+    function makeEarthTexture() {
+      const c = document.createElement('canvas');
+      c.width = 1024; c.height = 512;
+      const ctx = c.getContext('2d');
+      ctx.fillStyle = '#081c3b';
+      ctx.fillRect(0, 0, 1024, 512);
+      ctx.fillStyle = '#2d6a4f';
+      for (let i = 0; i < 45; i++) {
+        ctx.beginPath();
+        ctx.arc(Math.random() * 1024, Math.random() * 512, Math.random() * 70 + 20, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      return new THREE.CanvasTexture(c);
+    }
+
+    function makeCloudsTexture() {
+      const c = document.createElement('canvas');
+      c.width = 1024; c.height = 512;
+      const ctx = c.getContext('2d');
+      ctx.clearRect(0, 0, 1024, 512);
+      for (let i = 0; i < 120; i++) {
+        ctx.fillStyle = \`rgba(255, 255, 255, \${Math.random() * 0.45 + 0.15})\`;
+        ctx.beginPath();
+        ctx.ellipse(Math.random() * 1024, Math.random() * 512, Math.random() * 90 + 30, Math.random() * 25 + 10, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      return new THREE.CanvasTexture(c);
+    }
+
+    function makePlanetLabel(text) {
+      const c = document.createElement('canvas');
+      c.width = 256; c.height = 64;
+      const ctx = c.getContext('2d');
+      ctx.font = 'bold 36px "Cinzel", sans-serif';
+      ctx.fillStyle = '#faeab8';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.shadowColor = '#d4af37';
+      ctx.shadowBlur = 12;
+      ctx.fillText(text, 128, 32);
+      const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(c), transparent: true }));
+      sprite.scale.set(6, 1.5, 1);
+      return sprite;
+    }
+
+    const sunGroup = new THREE.Group();
+    scene.add(sunGroup);
+
+    const sunMesh = new THREE.Mesh(
+      new THREE.SphereGeometry(10, 64, 64),
+      new THREE.MeshBasicMaterial({ color: 0xfff4d0, map: makeNoiseTexture(512, 256, '#ff8000', '#ffee66', 150) })
+    );
+    sunGroup.add(sunMesh);
+
+    const coronaMesh = new THREE.Mesh(
+      new THREE.SphereGeometry(12.5, 32, 32),
+      new THREE.MeshBasicMaterial({ color: 0xff9900, transparent: true, opacity: 0.35, side: THREE.BackSide, blending: THREE.AdditiveBlending })
+    );
+    sunGroup.add(coronaMesh);
+
+    const sunLight = new THREE.PointLight(0xfff5e6, 3.8, 1200);
+    sunGroup.add(sunLight);
+    scene.add(new THREE.AmbientLight(0x1a1a24, 0.4));
+
+    const planets = {};
+
+    function createOrbitRing(radius) {
+      const pts = [];
+      for (let i = 0; i <= 140; i++) {
+        const theta = (i / 140) * Math.PI * 2;
+        pts.push(new THREE.Vector3(Math.cos(theta) * radius, 0, Math.sin(theta) * radius));
+      }
+      const geo = new THREE.BufferGeometry().setFromPoints(pts);
+      const mat = new THREE.LineBasicMaterial({ color: 0xd4af37, transparent: true, opacity: 0.18 });
+      return new THREE.Line(geo, mat);
+    }
+
+    function addPlanet({ key, name, radius, orbitRadius, speed, mat, hasClouds = false }) {
+      scene.add(createOrbitRing(orbitRadius));
+      const pivot = new THREE.Group();
+      scene.add(pivot);
+
+      const group = new THREE.Group();
+      group.position.set(orbitRadius, 0, 0);
+      pivot.add(group);
+
+      const mesh = new THREE.Mesh(new THREE.SphereGeometry(radius, 48, 48), mat);
+      group.add(mesh);
+
+      let clouds = null;
+      if (hasClouds) {
+        clouds = new THREE.Mesh(
+          new THREE.SphereGeometry(radius * 1.025, 48, 48),
+          new THREE.MeshStandardMaterial({ map: makeCloudsTexture(), transparent: true, opacity: 0.75, blending: THREE.AdditiveBlending })
+        );
+        group.add(clouds);
+      }
+
+      const label = makePlanetLabel(name);
+      label.position.set(0, radius + 2.4, 0);
+      group.add(label);
+
+      planets[key] = { pivot, group, mesh, clouds, radius, speed };
+      return group;
+    }
+
+    addPlanet({ key: 'mercury', name: 'MERCURY', radius: 1.4, orbitRadius: 22, speed: 0.8, mat: new THREE.MeshStandardMaterial({ map: makeNoiseTexture(256, 128, '#706e6b', '#484745', 80), roughness: 0.9 }) });
+    addPlanet({ key: 'venus', name: 'VENUS', radius: 2.2, orbitRadius: 34, speed: 0.6, mat: new THREE.MeshStandardMaterial({ map: makeNoiseTexture(512, 256, '#d69e49', '#b57924', 60), roughness: 0.5 }) });
+
+    const earthGroup = addPlanet({
+      key: 'earth', name: 'EARTH', radius: 2.5, orbitRadius: 50, speed: 0.45,
+      mat: new THREE.MeshStandardMaterial({ map: makeEarthTexture(), roughness: 0.6 }),
+      hasClouds: true
+    });
+    planets.earth.mesh.rotation.z = THREE.MathUtils.degToRad(23.5);
+
+    const moonPivot = new THREE.Group();
+    earthGroup.add(moonPivot);
+    const moonMesh = new THREE.Mesh(new THREE.SphereGeometry(0.7, 32, 32), new THREE.MeshStandardMaterial({ map: makeNoiseTexture(256, 128, '#8c8c88', '#52524f', 70), roughness: 0.9 }));
+    moonMesh.position.set(5.5, 0, 0);
+    moonPivot.add(moonMesh);
+    const moonLabel = makePlanetLabel('MOON');
+    moonLabel.scale.set(4, 1, 1);
+    moonLabel.position.set(5.5, 1.5, 0);
+    moonPivot.add(moonLabel);
+    planets['moon'] = { pivot: moonPivot, mesh: moonMesh, radius: 0.7 };
+
+    addPlanet({ key: 'mars', name: 'MARS', radius: 1.8, orbitRadius: 66, speed: 0.35, mat: new THREE.MeshStandardMaterial({ map: makeNoiseTexture(512, 256, '#c1440e', '#7e2a06', 90), roughness: 0.8 }) });
+    addPlanet({ key: 'jupiter', name: 'JUPITER', radius: 5.8, orbitRadius: 92, speed: 0.22, mat: new THREE.MeshStandardMaterial({ map: makeJupiterTexture(), roughness: 0.4 }) });
+
+    const saturnGroup = addPlanet({ key: 'saturn', name: 'SATURN', radius: 4.8, orbitRadius: 125, speed: 0.16, mat: new THREE.MeshStandardMaterial({ color: 0xdfbe7a, roughness: 0.5 }) });
+    const saturnRing = new THREE.Mesh(new THREE.RingGeometry(6.2, 11.5, 64), new THREE.MeshStandardMaterial({ color: 0xc8a458, side: THREE.DoubleSide, transparent: true, opacity: 0.85 }));
+    saturnRing.rotation.x = Math.PI / 2.3;
+    saturnGroup.add(saturnRing);
+
+    const uranusGroup = addPlanet({ key: 'uranus', name: 'URANUS', radius: 3.5, orbitRadius: 155, speed: 0.11, mat: new THREE.MeshStandardMaterial({ color: 0x64b5f6, roughness: 0.3 }) });
+    const uranusRing = new THREE.Mesh(new THREE.RingGeometry(4.2, 5.8, 64), new THREE.MeshStandardMaterial({ color: 0xaee1f5, side: THREE.DoubleSide, transparent: true, opacity: 0.45 }));
+    uranusRing.rotation.x = Math.PI / 1.9;
+    uranusGroup.add(uranusRing);
+
+    addPlanet({ key: 'neptune', name: 'NEPTUNE', radius: 3.4, orbitRadius: 185, speed: 0.08, mat: new THREE.MeshStandardMaterial({ map: makeNoiseTexture(512, 256, '#283593', '#1a237e', 50), roughness: 0.3 }) });
+
+    const galaxyStarsCount = 45000;
+    const gGeo = new THREE.BufferGeometry();
+    const gPos = new Float32Array(galaxyStarsCount * 3);
+    const gCol = new Float32Array(galaxyStarsCount * 3);
+    const coreCol = new THREE.Color('#ffe9ad');
+    const armCol = new THREE.Color('#94711f');
+
+    for (let i = 0; i < galaxyStarsCount; i++) {
+      const i3 = i * 3;
+      const radius = Math.random() * 450 + 20;
+      const spinAngle = radius * 0.08;
+      const branchAngle = ((i % 4) / 4) * Math.PI * 2;
+      const rx = (Math.random() - 0.5) * (radius * 0.3);
+      const ry = (Math.random() - 0.5) * 40;
+      const rz = (Math.random() - 0.5) * (radius * 0.3);
+
+      gPos[i3] = Math.cos(branchAngle + spinAngle) * radius + rx;
+      gPos[i3 + 1] = ry;
+      gPos[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + rz;
+
+      const mixed = coreCol.clone().lerp(armCol, radius / 450);
+      gCol[i3] = mixed.r; gCol[i3 + 1] = mixed.g; gCol[i3 + 2] = mixed.b;
+    }
+    gGeo.setAttribute('position', new THREE.BufferAttribute(gPos, 3));
+    gGeo.setAttribute('color', new THREE.BufferAttribute(gCol, 3));
+
+    const gMat = new THREE.PointsMaterial({ size: 0.8, vertexColors: true, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending });
+    const galaxyField = new THREE.Points(gGeo, gMat);
+    scene.add(galaxyField);
+
+    let currentTarget = 'system';
+
+    window.focusTarget = function(target) {
+      currentTarget = target;
+      document.querySelectorAll('.p-btn').forEach(b => b.classList.remove('active'));
+      if (window.event && window.event.currentTarget) {
+        window.event.currentTarget.classList.add('active');
+      }
+
+      if (target === 'system') {
+        gsap.to(camera.position, { x: 0, y: 120, z: 240, duration: 1.8, ease: 'power2.inOut' });
+        gsap.to(controls.target, { x: 0, y: 0, z: 0, duration: 1.8, ease: 'power2.inOut' });
+      } else if (target === 'sun') {
+        gsap.to(camera.position, { x: 0, y: 6, z: 26, duration: 1.6, ease: 'power2.inOut' });
+        gsap.to(controls.target, { x: 0, y: 0, z: 0, duration: 1.6, ease: 'power2.inOut' });
+      } else if (target === 'moon') {
+        const wPos = new THREE.Vector3();
+        planets.moon.mesh.getWorldPosition(wPos);
+        gsap.to(camera.position, { x: wPos.x + 3, y: wPos.y + 1, z: wPos.z + 4, duration: 1.6, ease: 'power2.inOut' });
+        gsap.to(controls.target, { x: wPos.x, y: wPos.y, z: wPos.z, duration: 1.6, ease: 'power2.inOut' });
+      } else if (planets[target]) {
+        const wPos = new THREE.Vector3();
+        planets[target].mesh.getWorldPosition(wPos);
+        const dist = planets[target].radius * 2.8 + 4;
+        gsap.to(camera.position, { x: wPos.x + dist, y: wPos.y + dist * 0.4, z: wPos.z + dist, duration: 1.6, ease: 'power2.inOut' });
+        gsap.to(controls.target, { x: wPos.x, y: wPos.y, z: wPos.z, duration: 1.6, ease: 'power2.inOut' });
+      }
+    };
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    const clock = new THREE.Clock();
+
+    function renderLoop() {
+      requestAnimationFrame(renderLoop);
+      const delta = clock.getDelta();
+      const time = clock.getElapsedTime();
+
+      sunMesh.rotation.y += 0.15 * delta;
+      coronaMesh.scale.setScalar(1 + Math.sin(time * 3) * 0.04);
+      galaxyField.rotation.y = time * 0.015;
+
+      for (const [key, p] of Object.entries(planets)) {
+        if (p.pivot && p.speed) p.pivot.rotation.y = time * (p.speed * 0.3);
+        if (p.mesh) p.mesh.rotation.y += 0.8 * delta;
+        if (p.clouds) p.clouds.rotation.y += 1.1 * delta;
+      }
+
+      if (planets.moon) {
+        planets.moon.pivot.rotation.y = time * 1.6;
+        planets.moon.mesh.rotation.y += 0.5 * delta;
+      }
+
+      if (currentTarget === 'moon') {
+        const moonW = new THREE.Vector3();
+        planets.moon.mesh.getWorldPosition(moonW);
+        controls.target.lerp(moonW, 0.1);
+      } else if (currentTarget !== 'system' && currentTarget !== 'sun' && planets[currentTarget]) {
+        const targetW = new THREE.Vector3();
+        planets[currentTarget].mesh.getWorldPosition(targetW);
+        controls.target.lerp(targetW, 0.1);
+      }
+
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    renderLoop();
+  <\/script>
+</body>
+</html>`;
+
+    // Mount 3D Lab Iframes
+    window.addEventListener('DOMContentLoaded', () => {
+      const cootie = document.getElementById('cootieLiveIframe');
+      if (cootie) cootie.srcdoc = COOTIE_CATCHER_SOURCE;
+
+      const particle = document.getElementById('particleLiveIframe');
+      if (particle) particle.srcdoc = PARTICLES_SWARM_SOURCE;
+
+      const galaxy = document.getElementById('galaxyLiveIframe');
+      if (galaxy) galaxy.srcdoc = GALAXY_SOURCE;
+    });
+
+    // Studio Mount Handlers
+    function loadCootieIntoStudio() {
+      document.getElementById('studioCodeTextarea').value = COOTIE_CATCHER_SOURCE;
+      openCodeStudioScreen(); runLiveCodeFromStudio(); showToast("Origami Lab Mounted in Studio!");
+    }
+    function copyCootieSourceCode() {
+      navigator.clipboard.writeText(COOTIE_CATCHER_SOURCE).then(() => showToast("Origami Source Copied!"));
+    }
+
+    function loadParticlesIntoStudio() {
+      document.getElementById('studioCodeTextarea').value = PARTICLES_SWARM_SOURCE;
+      openCodeStudioScreen(); runLiveCodeFromStudio(); showToast("100K Particle Swarm Mounted!");
+    }
+    function copyParticleSourceCode() {
+      navigator.clipboard.writeText(PARTICLES_SWARM_SOURCE).then(() => showToast("100K Particle Source Copied!"));
+    }
+
+    function loadGalaxyIntoStudio() {
+      document.getElementById('studioCodeTextarea').value = GALAXY_SOURCE;
+      openCodeStudioScreen(); runLiveCodeFromStudio(); showToast("Original 4D Galaxy Code Loaded into Studio!");
+    }
+    function copyGalaxySourceCode() {
+      navigator.clipboard.writeText(GALAXY_SOURCE).then(() => showToast("Original 4D Galaxy HTML Copied!"));
+    }
+
+    // 8. BROWSER, TOOLS & UTILITIES
+    function openHelloBrowser() { document.getElementById('helloAiBrowserScreen').style.display = 'flex'; }
+    function closeHelloBrowser() { document.getElementById('helloAiBrowserScreen').style.display = 'none'; }
+    function executeBrowserSearch() {
+      const val = document.getElementById('browserOmniboxInput').value.trim();
+      document.getElementById('browserWebIframe').src = val.startsWith('http') ? val : `https://www.google.com/search?q=${encodeURIComponent(val)}&igu=1`;
+    }
+
+    function openVoiceChangerModal() { document.getElementById('voiceChangerModal').style.display = 'grid'; }
+    function closeVoiceChangerModal() { document.getElementById('voiceChangerModal').style.display = 'none'; }
+    function setVoicePreset(p, btn) {}
+    function toggleVoiceRecording() { showToast("Audio stream captured."); }
+    function playTransformedVoice() {}
+
+    function switchDeviceView(device, btn) {
+      document.querySelectorAll('.device-pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('deviceSimulatorWrapper').className = `view-${device}`;
+      document.getElementById('activeDeviceLabel').innerText = device.toUpperCase() + (device === 'pc' ? ' FULLSCREEN' : ' MATRIX');
+    }
+
+    const initialCustomTools = [
+      { id: 1, name: "HELLO Vision Core", category: "NEURAL GRAPHICS", desc: "Ultra-high resolution generative canvas models with direct WebGL acceleration.", url: "https://google.com" },
+      { id: 2, name: "HELLO Synth Voice", category: "DSP AUDIO", desc: "Low-latency contextual text-to-speech architecture and frequency shifting.", url: "https://google.com" },
+      { id: 3, name: "HELLO Code Agent", category: "AUTONOMOUS DEV", desc: "Autonomous fullstack pipeline synthesis with direct in-browser compilation.", url: "https://google.com" }
+    ];
+
+    function getSavedTools() {
+      const data = localStorage.getItem('my_personal_ai_tools');
+      return data ? JSON.parse(data) : initialCustomTools;
+    }
+
+    function renderCustomTools() {
+      const tools = getSavedTools();
+      const grid = document.getElementById('userCustomToolsGrid');
+      grid.innerHTML = '';
+      tools.forEach((tool) => {
+        const card = document.createElement('div');
+        card.className = "custom-tool-card";
+        card.innerHTML = `
+          <div>
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-[9.5px] font-mono font-bold text-cyan-400 tracking-wider">${tool.category}</span>
+              <span class="text-[8px] px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 font-bold">ONLINE</span>
+            </div>
+            <h4 class="text-xl font-bold font-['Syne'] text-white mb-2">${tool.name}</h4>
+            <p class="text-xs text-slate-400 leading-relaxed mb-6">${tool.desc}</p>
+          </div>
+          <a href="${tool.url}" target="_blank" class="text-[10px] font-mono font-bold text-cyan-400 flex items-center justify-between pt-3 border-t border-slate-800 hover:text-white transition-colors">
+            <span>RUN ENGINE</span>
+            <span>↗</span>
+          </a>
+        `;
+        grid.appendChild(card);
+      });
+    }
+    renderCustomTools();
+
+    function openCreateToolModal() { document.getElementById('createToolModal').style.display = 'grid'; }
+    function closeCreateToolModal() { document.getElementById('createToolModal').style.display = 'none'; }
+
+    function saveNewCustomTool() {
+      const name = document.getElementById('newToolName').value.trim();
+      const category = document.getElementById('newToolCategory').value.trim() || 'AI MATRIX';
+      const desc = document.getElementById('newToolDesc').value.trim();
+      const url = document.getElementById('newToolUrl').value.trim() || '#';
+      if (!name) return alert("Please specify engine name!");
+
+      const tools = getSavedTools();
+      tools.unshift({ name, category: category.toUpperCase(), desc, url });
+      localStorage.setItem('my_personal_ai_tools', JSON.stringify(tools));
+      renderCustomTools();
+      closeCreateToolModal();
+      showToast("Engine deployed to matrix!");
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('copyToast');
+      toast.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+
+    // MOUSE PARALLAX
+    const m = document.querySelector('#mainParallax');
+    let tx = 0, ty = 0, cx = 0, cy = 0;
+    window.addEventListener('pointermove', e => {
+      tx = (e.clientX / innerWidth - .5) * 60;
+      ty = (e.clientY / innerHeight - .5) * 45;
+    });
+    function r() {
+      cx += (tx - cx) * .03;
+      cy += (ty - cy) * .03;
+      if (m) m.style.transform = `translate(${cx}px,${cy}px)`;
+      requestAnimationFrame(r);
+    }
+    r();
+  </script>
+</body>
+</html>
