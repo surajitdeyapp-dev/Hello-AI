@@ -422,7 +422,32 @@
     }
     #copyToast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
   </style>
+// ================================
+// Firebase Configuration
+// ================================
 
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
+// Firebase project configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAqLDynHgrWxBrZhJoUu3kOOaBgRfsbWfc",
+  authDomain: "hello-ai-7d77e.firebaseapp.com",
+  projectId: "hello-ai-7d77e",
+  storageBucket: "hello-ai-7d77e.firebasestorage.app",
+  messagingSenderId: "1019861858572",
+  appId: "1:1019861858572:web:f70351410fcae61f847129",
+  measurementId: "G-SQXV58YZS6"
+};
+
+// ================================
+// Initialize Firebase
+// ================================
+
+const app = initializeApp(firebaseConfig);
+
+// Initialize Analytics
+const analytics = getAnalytics(app);
 </head>
 <body>
 
