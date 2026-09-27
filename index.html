@@ -23,27 +23,27 @@
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
-    /* THEME COLORS (DYNAMIC) */
+    /* THEME VARIABLES (DYNAMIC LIGHT / DARK) */
     :root {
       --bg-base: #02040a;
-      --bg-header: rgba(3, 7, 18, 0.82);
-      --bg-card: rgba(8, 14, 28, 0.72);
+      --bg-header: rgba(3, 7, 18, 0.85);
+      --bg-card: rgba(8, 14, 28, 0.75);
       --text-main: #f1f5f9;
       --text-muted: #94a3b8;
-      --border-cyan: rgba(56, 189, 248, 0.2);
+      --border-cyan: rgba(56, 189, 248, 0.22);
       --editor-bg: #050914;
       --particle-color: rgba(56, 189, 248, 0.65);
     }
 
     body.light-mode {
       --bg-base: #f8fafc;
-      --bg-header: rgba(255, 255, 255, 0.88);
-      --bg-card: rgba(255, 255, 255, 0.85);
+      --bg-header: rgba(255, 255, 255, 0.9);
+      --bg-card: rgba(255, 255, 255, 0.88);
       --text-main: #0f172a;
       --text-muted: #64748b;
-      --border-cyan: rgba(14, 165, 233, 0.28);
+      --border-cyan: rgba(14, 165, 233, 0.3);
       --editor-bg: #0f172a;
-      --particle-color: rgba(14, 165, 233, 0.45);
+      --particle-color: rgba(14, 165, 233, 0.5);
     }
 
     body {
@@ -127,6 +127,26 @@
       box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4), 0 0 25px rgba(56, 189, 248, 0.25);
     }
 
+    /* THEME TOGGLE BUTTON */
+    .theme-toggle-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #38bdf8;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .theme-toggle-btn:hover {
+      transform: scale(1.08) rotate(15deg);
+      border-color: #38bdf8;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+    }
+
     /* DRAGGABLE FAB */
     #draggableFloatingChat {
       position: fixed;
@@ -195,6 +215,26 @@
       pointer-events: none;
     }
     #copyToast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    /* AD SECTION STYLES */
+    .ad-only-shell { max-width: 1152px; margin: 0 auto; padding: 0 24px; }
+    .ad-only-banner {
+      min-height: 96px; display: flex; align-items: center; justify-content: center;
+      border: 1px dashed rgba(56, 189, 248, 0.35); border-radius: 18px;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.06), rgba(129, 140, 248, 0.04));
+      overflow: hidden;
+    }
+    .ad-only-placeholder { text-align: center; padding: 18px; }
+    .ad-only-card {
+      background: var(--bg-card); border: 1px solid var(--border-cyan);
+      border-radius: 22px; padding: 22px; backdrop-filter: blur(18px);
+      transition: all 0.3s ease;
+    }
+    .ad-only-card:hover {
+      border-color: rgba(56, 189, 248, 0.6);
+      transform: translateY(-4px);
+    }
+    .ad-only-price { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 900; }
   </style>
 </head>
 <body>
@@ -215,31 +255,44 @@
   <!-- MAIN WRAPPER -->
   <div class="relative z-10 min-h-screen flex flex-col">
 
-    <!-- TOP HEADER (CLEANED: NO CHAT PILL) -->
+    <!-- TOP HEADER -->
     <header class="sticky top-0 z-50 bg-[var(--bg-header)] backdrop-blur-2xl border-b border-[var(--border-cyan)] px-6 py-4 flex items-center justify-between">
-      <!-- Left: Logo -->
+      
+      <!-- Left: RESTORED ORIGINAL CYBER SVG LOGO -->
       <a href="#" class="flex items-center gap-3.5 group">
-        <div class="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/40 flex items-center justify-center shadow-[0_0_20px_rgba(56,189,248,0.3)]">
-          <i class="fa-solid fa-atom text-cyan-400 text-lg"></i>
+        <div class="w-11 h-11 rounded-2xl bg-[#090f1d] border border-cyan-500/40 flex items-center justify-center shadow-[0_0_25px_rgba(56,189,248,0.25)] group-hover:scale-105 group-hover:border-cyan-400 transition-all duration-300">
+          <svg viewBox="0 0 80 80" class="w-7 h-7 drop-shadow-[0_0_10px_rgba(56,189,248,0.8)]">
+            <defs>
+              <linearGradient id="logoCyberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#38bdf8"/>
+                <stop offset="50%" stop-color="#ffffff"/>
+                <stop offset="100%" stop-color="#818cf8"/>
+              </linearGradient>
+            </defs>
+            <polygon points="40,6 68,22 68,58 40,74 12,58 12,22" fill="none" stroke="url(#logoCyberGrad)" stroke-width="4.5" stroke-linejoin="round"/>
+            <polygon points="40,18 58,40 40,62 22,40" fill="rgba(8,16,32,0.9)" stroke="url(#logoCyberGrad)" stroke-width="2.5"/>
+            <path d="M40,26 Q40,40 54,40 Q40,40 40,54 Q40,40 26,40 Q40,40 40,26 Z" fill="url(#logoCyberGrad)"/>
+          </svg>
         </div>
-        <div>
+        <div class="flex flex-col">
           <div class="flex items-center gap-1.5 leading-none">
-            <span class="font-extrabold text-sm tracking-[0.24em]">HELLO</span>
-            <span class="font-black text-base font-['Syne'] bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">AI</span>
+            <span class="font-extrabold text-[15px] tracking-[0.24em]">HELLO</span>
+            <span class="font-black text-lg font-['Syne'] bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">AI</span>
           </div>
-          <span class="text-[8px] font-mono tracking-[0.25em] text-cyan-400/80 font-bold uppercase">Quantum Core</span>
+          <span class="text-[8.5px] font-mono tracking-[0.26em] text-cyan-400 font-bold mt-1 uppercase">Cybernetic Engine</span>
         </div>
       </a>
 
-      <!-- Right: Theme Switcher & User Auth -->
+      <!-- Right: Light / Dark Mode Toggle & User Auth Status -->
       <div class="flex items-center gap-3">
-        <!-- Theme Toggle Button -->
-        <button onclick="toggleColorTheme()" id="themeToggleBtn" title="Toggle Light/Dark Mode" class="w-9 h-9 rounded-full bg-slate-800/20 dark:bg-white/5 border border-slate-700/50 flex items-center justify-center text-xs text-amber-400 hover:scale-105 transition-all">
-          <i class="fa-solid fa-moon" id="themeIcon"></i>
+        <!-- Theme Toggle (Moon / Sun) -->
+        <button onclick="toggleColorTheme()" id="themeToggleBtn" title="Toggle Light/Dark Mode" class="theme-toggle-btn">
+          <i class="fa-solid fa-moon text-sm" id="themeIcon"></i>
         </button>
 
+        <!-- User Profile Badge / Sign-in -->
         <div id="authHeaderContainer">
-          <!-- Rendered via JS -->
+          <!-- Rendered dynamically via JS -->
         </div>
       </div>
     </header>
@@ -296,7 +349,7 @@
           </div>
           <div class="glass-card p-5 text-left">
             <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Theme</span>
-            <strong id="activeThemeLabel" class="text-sm font-bold text-amber-400">CYBER DARK</strong>
+            <strong id="activeThemeLabel" class="text-sm font-bold text-cyan-400">CYBER DARK</strong>
           </div>
         </div>
       </section>
@@ -315,6 +368,58 @@
         </div>
 
         <div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </section>
+
+      <!-- ADVERTISEMENT SECTION -->
+      <section id="advertisingSection" class="ad-only-shell py-10">
+        <div class="ad-only-banner">
+          <div class="ad-only-placeholder">
+            <div class="text-[9px] font-mono font-bold tracking-[.2em] text-cyan-400/80">ADVERTISEMENT</div>
+            <div class="text-[11px] text-[var(--text-muted)] mt-1">Your approved sponsor banner can appear here</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ad-only-shell pb-20">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-5 mb-8">
+          <div>
+            <span class="text-[10px] font-mono font-bold tracking-widest text-cyan-400 uppercase">Commercial Interface</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold font-['Syne'] mt-1">Advertise With Us</h2>
+            <p class="text-xs text-[var(--text-muted)] mt-2 max-w-2xl">Promote your brand, product or website to HELLO AI visitors. Choose a placement and request a paid campaign.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div class="ad-only-card">
+            <div class="text-cyan-400 text-xl mb-3"><i class="fa-solid fa-rectangle-ad"></i></div>
+            <h3 class="font-bold font-['Syne'] text-lg">Banner Placement</h3>
+            <p class="text-xs text-[var(--text-muted)] mt-2 leading-relaxed">Place a sponsor banner in the website advertising slot.</p>
+            <div class="mt-5 flex items-end justify-between">
+              <span class="text-[9px] font-mono text-[var(--text-muted)] uppercase">From</span>
+              <span class="ad-only-price text-cyan-400">₹499</span>
+            </div>
+          </div>
+
+          <div class="ad-only-card">
+            <div class="text-indigo-400 text-xl mb-3"><i class="fa-solid fa-display"></i></div>
+            <h3 class="font-bold font-['Syne'] text-lg">Featured Campaign</h3>
+            <p class="text-xs text-[var(--text-muted)] mt-2 leading-relaxed">Premium placement for brands that want more visibility.</p>
+            <div class="mt-5 flex items-end justify-between">
+              <span class="text-[9px] font-mono text-[var(--text-muted)] uppercase">From</span>
+              <span class="ad-only-price text-indigo-400">₹899</span>
+            </div>
+          </div>
+
+          <div class="ad-only-card">
+            <div class="text-emerald-400 text-xl mb-3"><i class="fa-solid fa-calendar-days"></i></div>
+            <h3 class="font-bold font-['Syne'] text-lg">Timed Campaign</h3>
+            <p class="text-xs text-[var(--text-muted)] mt-2 leading-relaxed">Choose a 7, 15 or 30 day advertising period.</p>
+            <div class="mt-5 flex items-end justify-between">
+              <span class="text-[9px] font-mono text-[var(--text-muted)] uppercase">Flexible</span>
+              <span class="ad-only-price text-emerald-400">7–30D</span>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
 
@@ -338,7 +443,6 @@
       </div>
 
       <div class="space-y-3.5">
-        <!-- Option 1: HTML5 -->
         <div onclick="selectLanguageMode('html')" class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-400 hover:bg-cyan-500/10 cursor-pointer transition-all flex items-center justify-between group">
           <div class="flex items-center gap-3.5">
             <div class="w-11 h-11 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center text-lg border border-orange-500/30">
@@ -352,7 +456,6 @@
           <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all"></i>
         </div>
 
-        <!-- Option 2: JavaScript -->
         <div onclick="selectLanguageMode('javascript')" class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-yellow-400 hover:bg-yellow-500/10 cursor-pointer transition-all flex items-center justify-between group">
           <div class="flex items-center gap-3.5">
             <div class="w-11 h-11 rounded-xl bg-yellow-500/20 text-yellow-400 flex items-center justify-center text-lg border border-yellow-500/30">
@@ -366,7 +469,6 @@
           <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-yellow-400 group-hover:translate-x-1 transition-all"></i>
         </div>
 
-        <!-- Option 3: Python -->
         <div onclick="selectLanguageMode('python')" class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-blue-400 hover:bg-blue-500/10 cursor-pointer transition-all flex items-center justify-between group">
           <div class="flex items-center gap-3.5">
             <div class="w-11 h-11 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-lg border border-blue-500/30">
@@ -616,12 +718,12 @@
       const activeThemeLabel = document.getElementById('activeThemeLabel');
       
       if (isLightMode) {
-        themeIcon.className = "fa-solid fa-sun";
-        activeThemeLabel.innerText = "PURE LIGHT";
+        themeIcon.className = "fa-solid fa-sun text-amber-500";
+        if (activeThemeLabel) activeThemeLabel.innerText = "PURE LIGHT";
         showToast("Switched to Light Mode");
       } else {
-        themeIcon.className = "fa-solid fa-moon";
-        activeThemeLabel.innerText = "CYBER DARK";
+        themeIcon.className = "fa-solid fa-moon text-cyan-400";
+        if (activeThemeLabel) activeThemeLabel.innerText = "CYBER DARK";
         showToast("Switched to Dark Mode");
       }
     }
