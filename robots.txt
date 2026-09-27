@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hello-ai-six-nu.vercel.app/sitemap.xml
