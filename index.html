@@ -127,31 +127,6 @@
       box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4), 0 0 25px rgba(56, 189, 248, 0.25);
     }
 
-    /* PILL BUTTONS */
-    .chat-pill-btn {
-      padding: 8px 22px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      background: linear-gradient(90deg, rgba(56, 189, 248, 0.15), rgba(99, 102, 241, 0.15));
-      border: 1.5px solid rgba(56, 189, 248, 0.65);
-      color: #38bdf8;
-      cursor: pointer;
-      box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
-      transition: all 0.25s ease;
-    }
-    .chat-pill-btn:hover {
-      background: linear-gradient(90deg, rgba(56, 189, 248, 0.35), rgba(99, 102, 241, 0.35));
-      color: #ffffff;
-      transform: scale(1.04);
-      box-shadow: 0 0 30px rgba(56, 189, 248, 0.6);
-    }
-
     /* DRAGGABLE FAB */
     #draggableFloatingChat {
       position: fixed;
@@ -240,7 +215,7 @@
   <!-- MAIN WRAPPER -->
   <div class="relative z-10 min-h-screen flex flex-col">
 
-    <!-- TOP HEADER -->
+    <!-- TOP HEADER (CLEANED: NO CHAT PILL) -->
     <header class="sticky top-0 z-50 bg-[var(--bg-header)] backdrop-blur-2xl border-b border-[var(--border-cyan)] px-6 py-4 flex items-center justify-between">
       <!-- Left: Logo -->
       <a href="#" class="flex items-center gap-3.5 group">
@@ -255,14 +230,6 @@
           <span class="text-[8px] font-mono tracking-[0.25em] text-cyan-400/80 font-bold uppercase">Quantum Core</span>
         </div>
       </a>
-
-      <!-- Middle: Direct HELLO AI CHAT Button -->
-      <div>
-        <button onclick="handleProtectedChatLaunch()" class="chat-pill-btn">
-          <i class="fa-solid fa-comments text-cyan-400"></i>
-          <span>HELLO AI CHAT</span>
-        </button>
-      </div>
 
       <!-- Right: Theme Switcher & User Auth -->
       <div class="flex items-center gap-3">
@@ -306,7 +273,7 @@
             <span class="text-white">✦</span>
           </button>
 
-          <!-- Studio Trigger: Pops up language picker -->
+          <!-- Studio Trigger -->
           <button onclick="openLanguagePickerModal()" class="px-8 py-4 rounded-full bg-slate-900/90 hover:bg-slate-800 text-slate-200 font-bold text-xs tracking-widest uppercase border border-slate-700/80 transition-all hover:border-cyan-400/50 flex items-center gap-2.5">
             <i class="fa-solid fa-code text-cyan-400"></i>
             <span>CODE & VIDEO STUDIO</span>
@@ -357,9 +324,7 @@
     </footer>
   </div>
 
-  <!-- ======================================================== -->
-  <!-- 1. POPUP: LANGUAGE SELECTION MODAL                       -->
-  <!-- ======================================================== -->
+  <!-- 1. POPUP: LANGUAGE SELECTION MODAL -->
   <div id="languagePickerModal" class="modal-backdrop">
     <div class="bg-[#090f1d] border border-cyan-500/40 rounded-3xl p-8 max-w-md w-full shadow-2xl relative text-left">
       <div class="flex justify-between items-center pb-4 border-b border-slate-800 mb-6">
@@ -418,13 +383,9 @@
     </div>
   </div>
 
-  <!-- ======================================================== -->
-  <!-- 2. FULL SCREEN: CODE STUDIO WITH CONTROLS                -->
-  <!-- ======================================================== -->
+  <!-- 2. FULL SCREEN: CODE STUDIO WITH CONTROLS -->
   <div id="helloCodeAiStudioScreen" class="full-studio-modal">
-    <!-- Studio Header with All Controls -->
     <header class="p-4 bg-[#080d1a] border-b border-slate-800 flex flex-wrap gap-3 justify-between items-center">
-      <!-- Left: Exit & Language Badge -->
       <div class="flex items-center gap-4">
         <button onclick="closeCodeStudioScreen()" class="px-3.5 py-1.5 rounded-xl bg-white/10 text-xs font-bold text-cyan-300 hover:bg-white/20 transition-all flex items-center gap-2">
           <i class="fa-solid fa-arrow-left"></i> Exit
@@ -435,50 +396,39 @@
         </span>
       </div>
 
-      <!-- Right: Action Buttons -->
       <div class="flex items-center flex-wrap gap-2">
-        <!-- 1. Erase Code -->
         <button onclick="eraseStudioCode()" title="Clear Buffer" class="px-3 py-1.5 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 text-xs font-bold flex items-center gap-1.5 border border-rose-500/30 transition-all">
           <i class="fa-solid fa-eraser"></i> Erase
         </button>
 
-        <!-- 2. Save / Download File -->
         <button onclick="downloadStudioFile()" title="Download File" class="px-3 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 text-xs font-bold flex items-center gap-1.5 border border-emerald-500/30 transition-all">
           <i class="fa-solid fa-file-arrow-down"></i> Save / Download
         </button>
 
-        <!-- 3. Full Screen Output (HTML only) -->
         <button id="btnWebFullScreen" onclick="toggleWebSectorFullScreen()" title="Full Screen Output" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 border border-slate-700 transition-all">
           <i class="fa-solid fa-expand"></i> Full Screen
         </button>
 
-        <!-- 4. Generate Video (WebM) -->
         <button id="btnGenerateVideo" onclick="generateVideoFromCodeStudio()" class="px-3.5 py-1.5 rounded-xl bg-indigo-600/25 hover:bg-indigo-600/35 text-indigo-300 text-xs font-bold flex items-center gap-1.5 border border-indigo-500/30">
           <i class="fa-solid fa-video"></i> Video Export
         </button>
         
-        <!-- 5. Run Live -->
         <button onclick="executeActiveCode()" class="px-5 py-1.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 text-xs font-black flex items-center gap-2 shadow-[0_0_15px_rgba(56,189,248,0.4)]">
           <i class="fa-solid fa-play"></i> Run Code
         </button>
       </div>
     </header>
 
-    <!-- Main Editor & View Area -->
     <main class="flex-1 p-5 flex flex-col lg:flex-row gap-5 overflow-hidden bg-[#030712]">
-      <!-- Code Editor Textarea -->
       <div class="flex-1 flex flex-col">
         <textarea id="studioCodeTextarea" spellcheck="false" class="flex-1 p-4 bg-[#050914] text-cyan-300 font-mono text-xs rounded-2xl border border-slate-800 focus:outline-none focus:border-cyan-500/50 resize-none leading-relaxed" placeholder="// Insert code here..."></textarea>
       </div>
 
-      <!-- Right Side Output Area -->
       <div class="flex-1 flex flex-col gap-4">
-        <!-- 1. HTML Web Sandbox Iframe -->
         <div id="studioWebContainer" class="flex-1 bg-white rounded-2xl overflow-hidden shadow-2xl min-h-[300px] relative border border-slate-800">
           <iframe id="studioLiveIframe" class="w-full h-full border-0" allow="fullscreen"></iframe>
         </div>
 
-        <!-- 2. Terminal / Console Box (Used for JS and Python) -->
         <div id="studioTerminalContainer" class="flex-1 bg-[#050914] rounded-2xl border border-slate-800 p-4 font-mono text-xs overflow-y-auto hidden flex-col">
           <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800 text-[11px] text-slate-400 font-bold">
             <span class="flex items-center gap-2">
@@ -490,14 +440,13 @@
           <div id="terminalLogFeed" class="space-y-1.5 text-slate-300 leading-relaxed"></div>
         </div>
 
-        <!-- 3. WebM Video Renderer Box -->
         <div id="studioVideoContainer" class="bg-[#050914] rounded-2xl border border-slate-800 p-4 hidden flex-col">
           <div class="flex items-center justify-between mb-2">
             <span class="text-xs font-bold text-cyan-400 flex items-center gap-2">
               <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
               Live Video Render Output
             </span>
-            <a id="studioVideoDownloadBtn" href="#" download="render_output.webm" class="px-3 py-1 rounded-full bg-emerald-600 text-white font-bold text-[10px] flex items-center gap-1">
+            <a id="studioVideoDownloadBtn" href="#" download="render_output.webm" class="px-3.5 py-1 rounded-full bg-emerald-600 text-white font-bold text-[11px] flex items-center gap-1">
               <i class="fa-solid fa-download"></i> Download Video
             </a>
           </div>
@@ -507,9 +456,7 @@
     </main>
   </div>
 
-  <!-- ======================================================== -->
-  <!-- 3. FULL SCREEN: HELLO AI CHAT STUDIO                     -->
-  <!-- ======================================================== -->
+  <!-- 3. FULL SCREEN: HELLO AI CHAT STUDIO -->
   <div id="helloAiChatScreen" class="full-studio-modal">
     <header class="p-4 bg-[#080d1a] border-b border-slate-800 flex items-center justify-between">
       <div class="flex items-center gap-4">
@@ -682,7 +629,7 @@
     // ------------------------------------------------------------------
     // 2. MULTI-LANGUAGE CODE STUDIO (HTML, JS, PYTHON)
     // ------------------------------------------------------------------
-    let currentStudioLanguage = 'html'; // 'html', 'javascript', 'python'
+    let currentStudioLanguage = 'html';
 
     const TEMPLATES = {
       html: `<!DOCTYPE html>
@@ -803,7 +750,6 @@ print("Python script completed successfully!")`
       document.body.style.overflow = 'auto';
     }
 
-    // Erase Function
     function eraseStudioCode() {
       if (confirm("Erase all code in editor?")) {
         document.getElementById('studioCodeTextarea').value = '';
@@ -816,7 +762,6 @@ print("Python script completed successfully!")`
       }
     }
 
-    // Save & Download File
     function downloadStudioFile() {
       const code = document.getElementById('studioCodeTextarea').value;
       if (!code.trim()) return alert("Buffer is empty.");
@@ -834,7 +779,6 @@ print("Python script completed successfully!")`
       showToast(`Downloaded project_${currentStudioLanguage}.${extension}`);
     }
 
-    // Full Screen Preview (HTML)
     function toggleWebSectorFullScreen() {
       const webSector = document.getElementById('studioWebContainer');
       executeActiveCode();
@@ -846,7 +790,6 @@ print("Python script completed successfully!")`
       }
     }
 
-    // Execute active code
     function executeActiveCode() {
       const code = document.getElementById('studioCodeTextarea').value;
 
@@ -861,7 +804,6 @@ print("Python script completed successfully!")`
       }
     }
 
-    // JavaScript Console Sandbox
     function executeJavaScriptSandbox(code) {
       const feed = document.getElementById('terminalLogFeed');
       const originalLog = console.log;
@@ -893,17 +835,14 @@ print("Python script completed successfully!")`
       }
     }
 
-    // Python Parser / Runner
     function executePythonSimulation(code) {
       const feed = document.getElementById('terminalLogFeed');
       const lines = code.split('\n');
 
-      let variables = {};
       lines.forEach(line => {
         let clean = line.trim();
         if (!clean || clean.startsWith('#')) return;
 
-        // Print match
         if (clean.startsWith('print(') && clean.endsWith(')')) {
           let content = clean.slice(6, -1).trim();
           if ((content.startsWith('"') && content.endsWith('"')) || (content.startsWith("'") && content.endsWith("'"))) {
@@ -929,7 +868,6 @@ print("Python script completed successfully!")`
       document.getElementById('terminalLogFeed').innerHTML = '';
     }
 
-    // Generate WebM Video
     function generateVideoFromCodeStudio() {
       showToast("Rendering WebM video frames...");
       const hiddenCanvas = document.createElement('canvas');
