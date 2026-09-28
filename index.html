@@ -376,6 +376,7 @@
       .ad-price { font-size: 24px; }
     }
   </style>
+<script src="https://cdn.jsdelivr.net/pyodide/v314.0.7/full/pyodide.js"></script>
 </head>
 <body>
 
@@ -794,6 +795,11 @@
         <button onclick="downloadStudioFile()" title="Download File" class="px-3 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 text-xs font-bold flex items-center gap-1.5 border border-emerald-500/30 transition-all">
           <i class="fa-solid fa-file-arrow-down"></i> Save / Download
         </button>
+
+        <button id="btnOpenPythonFile" onclick="document.getElementById('pythonFileInput').click()" title="Open Python File" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 border border-slate-700 transition-all">
+          <i class="fa-solid fa-folder-open"></i> Open .py
+        </button>
+        <input id="pythonFileInput" type="file" accept=".py,text/x-python" class="hidden" onchange="loadPythonFile(event)">
 
         <button id="btnWebFullScreen" onclick="toggleWebSectorFullScreen()" title="Full Screen Output" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 border border-slate-700 transition-all">
           <i class="fa-solid fa-expand"></i> Full Screen
@@ -1409,20 +1415,31 @@ console.log("Network topology successfully mapped:");
 console.log(JSON.stringify(network, null, 2));
 
 console.log("Status: 100% Operational at 60 FPS.");`,
-      python: `# Python Matrix Script
-print("=== HELLO AI PYTHON ENVIRONMENT ===")
+      python: `# HELLO CODE STUDIO — REAL PYTHON + VIDEO
+# This code runs in real Python inside your browser.
+# The helloVideo helper lets Python draw frames that become a WebM video.
 
-data = ["Quantum Core", "GLSL Canvas", "Gemini 2.5", "WebM Stream"]
+import math
+from js import helloVideo
 
-for index, item in enumerate(data, start=1):
-    print(f"[{index}] Loaded Engine Component: {item}")
+print("=== REAL PYTHON ENVIRONMENT ===")
+print("Python is running with Pyodide.")
 
-def calculate_throughput(requests, time_sec):
-    return requests / time_sec
+for i in range(120):
+    angle = i / 10
+    x = 320 + int(math.cos(angle) * 105)
+    y = 180 + int(math.sin(angle) * 70)
 
-rps = calculate_throughput(12000, 2)
-print(f"Processed: {rps} requests per second.")
-print("Python script completed successfully!")`
+    helloVideo.clear("#030712")
+    helloVideo.circle(x, y, 9, "#38bdf8")
+    helloVideo.circle(320, 180, 55, "#818cf8")
+    helloVideo.text("HELLO CODE STUDIO", 205, 45, "#ffffff", 20)
+    helloVideo.text(f"Python frame: {i + 1}/120", 235, 330, "#67e8f9", 14)
+
+    # Yield to the browser so the canvas frame is captured.
+    await helloVideo.frame()
+
+print("Video render finished successfully!")`
     };
 
     function openLanguagePickerModal() {
@@ -1452,6 +1469,13 @@ print("Python script completed successfully!")`
         termBox.classList.add('hidden');
         fullScreenBtn.style.display = 'inline-flex';
         videoBtn.style.display = 'inline-flex';
+      } else if (lang === 'python') {
+        webBox.classList.add('hidden');
+        termBox.classList.remove('hidden');
+        termBox.classList.add('flex');
+        fullScreenBtn.style.display = 'none';
+        videoBtn.style.display = 'inline-flex';
+        clearTerminalOutput();
       } else {
         webBox.classList.add('hidden');
         termBox.classList.remove('hidden');
@@ -1526,7 +1550,7 @@ print("Python script completed successfully!")`
         executeJavaScriptSandbox(code);
       } else if (currentStudioLanguage === 'python') {
         clearTerminalOutput();
-        executePythonSimulation(code);
+        executePythonReal(code);
       }
     }
 
@@ -1561,33 +1585,175 @@ print("Python script completed successfully!")`
       }
     }
 
-    function executePythonSimulation(code) {
+    // ================= REAL PYTHON MATRIX (PYODIDE) =================
+    let pyodide = null;
+    let pyodideReadyPromise = null;
+    let pythonVideoState = null;
+
+    function appendTerminalLine(text, type = 'out') {
       const feed = document.getElementById('terminalLogFeed');
-      const lines = code.split('\n');
+      const div = document.createElement('div');
+      if (type === 'error') {
+        div.innerHTML = `<span class="text-rose-400">✖</span> <span class="text-rose-300">${escapeHtml(String(text))}</span>`;
+      } else {
+        div.innerHTML = `<span class="text-emerald-400">❯</span> ${escapeHtml(String(text))}`;
+      }
+      feed.appendChild(div);
+      feed.scrollTop = feed.scrollHeight;
+    }
 
-      lines.forEach(line => {
-        let clean = line.trim();
-        if (!clean || clean.startsWith('#')) return;
+    async function loadPythonRuntime() {
+      if (pyodide) return pyodide;
+      if (!pyodideReadyPromise) {
+        appendTerminalLine('Loading real Python runtime (Pyodide)...');
+        pyodideReadyPromise = loadPyodide({
+          stdout: { batched: msg => appendTerminalLine(msg) },
+          stderr: { batched: msg => appendTerminalLine(msg, 'error') }
+        }).then(runtime => {
+          pyodide = runtime;
+          appendTerminalLine(`Python ${pyodide.runPython('import sys; sys.version.split()[0]')} ready.`);
+          return pyodide;
+        });
+      }
+      return pyodideReadyPromise;
+    }
 
-        if (clean.startsWith('print(') && clean.endsWith(')')) {
-          let content = clean.slice(6, -1).trim();
-          if ((content.startsWith('"') && content.endsWith('"')) || (content.startsWith("'") && content.endsWith("'"))) {
-            content = content.slice(1, -1);
-          } else if (content.startsWith('f"') || content.startsWith("f'")) {
-            content = content.slice(2, -1).replace(/{([^}]+)}/g, (_, expr) => {
-              try { return eval(expr); } catch(e) { return expr; }
-            });
-          }
-          const div = document.createElement('div');
-          div.innerHTML = `<span class="text-emerald-400">❯</span> ${escapeHtml(content)}`;
-          feed.appendChild(div);
+    function preparePythonVideo() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 640;
+      canvas.height = 360;
+      canvas.style.display = 'none';
+      document.body.appendChild(canvas);
+      const ctx = canvas.getContext('2d');
+      const stream = canvas.captureStream(30);
+      let recorder;
+      try {
+        recorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9' });
+      } catch (e) {
+        recorder = new MediaRecorder(stream);
+      }
+
+      const chunks = [];
+      pythonVideoState = { canvas, ctx, stream, recorder, chunks, frames: 0, startedAt: Date.now() };
+      recorder.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
+      recorder.onstop = () => {
+        const state = pythonVideoState;
+        if (!state) return;
+        const blob = new Blob(state.chunks, { type: 'video/webm' });
+        const url = URL.createObjectURL(blob);
+        const player = document.getElementById('studioOutputVideoPlayer');
+        player.src = url;
+        player.load();
+        player.play().catch(() => {});
+        const download = document.getElementById('studioVideoDownloadBtn');
+        download.href = url;
+        download.download = `python_render_${new Date().toISOString().replace(/[:.]/g, '-')}.webm`;
+        document.getElementById('studioVideoContainer').classList.remove('hidden');
+        document.getElementById('studioVideoContainer').classList.add('flex');
+        appendTerminalLine(`Video render complete: ${state.frames} frame(s).`);
+        showToast('Python WebM video ready!');
+        state.stream.getTracks().forEach(track => track.stop());
+        state.canvas.remove();
+        pythonVideoState = null;
+      };
+      recorder.start();
+
+      // First frame so a video is valid even before Python draws.
+      stateDrawBackground(ctx);
+      return pythonVideoState;
+    }
+
+    function stateDrawBackground(ctx) {
+      ctx.fillStyle = '#030712';
+      ctx.fillRect(0, 0, 640, 360);
+    }
+
+    function finishPythonVideo() {
+      if (!pythonVideoState) return;
+      if (pythonVideoState.recorder.state !== 'inactive') pythonVideoState.recorder.stop();
+    }
+
+    // JavaScript bridge exposed to Python as `from js import helloVideo`.
+    window.helloVideo = {
+      clear(color = '#030712') {
+        if (!pythonVideoState) return;
+        pythonVideoState.ctx.fillStyle = String(color);
+        pythonVideoState.ctx.fillRect(0, 0, 640, 360);
+      },
+      circle(x, y, radius = 5, color = '#38bdf8') {
+        if (!pythonVideoState) return;
+        const ctx = pythonVideoState.ctx;
+        ctx.beginPath();
+        ctx.arc(Number(x), Number(y), Number(radius), 0, Math.PI * 2);
+        ctx.fillStyle = String(color);
+        ctx.fill();
+      },
+      rect(x, y, w, h, color = '#38bdf8') {
+        if (!pythonVideoState) return;
+        const ctx = pythonVideoState.ctx;
+        ctx.fillStyle = String(color);
+        ctx.fillRect(Number(x), Number(y), Number(w), Number(h));
+      },
+      text(value, x = 20, y = 40, color = '#ffffff', size = 20) {
+        if (!pythonVideoState) return;
+        const ctx = pythonVideoState.ctx;
+        ctx.fillStyle = String(color);
+        ctx.font = `bold ${Number(size)}px Syne, Arial, sans-serif`;
+        ctx.fillText(String(value), Number(x), Number(y));
+      },
+      async frame() {
+        if (!pythonVideoState) return;
+        pythonVideoState.frames++;
+        await new Promise(resolve => requestAnimationFrame(resolve));
+      }
+    };
+
+    async function executePythonReal(code) {
+      let runtime;
+      try {
+        runtime = await loadPythonRuntime();
+        appendTerminalLine('>>> Running Python code...');
+
+        // Start WebM recording only when this Python program actually uses helloVideo.
+        const wantsVideo = /\bhelloVideo\b/.test(code);
+        if (wantsVideo) preparePythonVideo();
+
+        try {
+          await runtime.loadPackagesFromImports(code, { messageCallback: msg => appendTerminalLine(msg) });
+        } catch (pkgErr) {
+          appendTerminalLine('Package preparation warning: ' + (pkgErr.message || pkgErr));
         }
-      });
 
-      const finishDiv = document.createElement('div');
-      finishDiv.className = "text-slate-500 text-[10px] mt-2 pt-2 border-t border-slate-800";
-      finishDiv.innerText = ">>> Process finished with exit code 0";
-      feed.appendChild(finishDiv);
+        await runtime.runPythonAsync(code, { filename: '<hello-code-studio.py>' });
+        appendTerminalLine('>>> Process finished with exit code 0');
+      } catch (err) {
+        appendTerminalLine(err && err.message ? err.message : String(err), 'error');
+        appendTerminalLine('>>> Process finished with exit code 1', 'error');
+      } finally {
+        // Give the browser one paint cycle, then finalize the WebM.
+        setTimeout(finishPythonVideo, 80);
+      }
+    }
+
+    async function loadPythonFile(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      try {
+        document.getElementById('studioCodeTextarea').value = await file.text();
+        currentStudioLanguage = 'python';
+        document.getElementById('activeLangBadge').innerText = 'PYTHON';
+        document.getElementById('studioWebContainer').classList.add('hidden');
+        document.getElementById('studioTerminalContainer').classList.remove('hidden');
+        document.getElementById('studioTerminalContainer').classList.add('flex');
+        document.getElementById('btnWebFullScreen').style.display = 'none';
+        document.getElementById('btnGenerateVideo').style.display = 'inline-flex';
+        clearTerminalOutput();
+        showToast(`Loaded ${file.name}`);
+      } catch (err) {
+        showToast('Could not open Python file.');
+      } finally {
+        event.target.value = '';
+      }
     }
 
     function clearTerminalOutput() {
@@ -1595,17 +1761,26 @@ print("Python script completed successfully!")`
     }
 
     function generateVideoFromCodeStudio() {
-      showToast("Rendering WebM video frames...");
+      if (currentStudioLanguage === 'python') {
+        const code = document.getElementById('studioCodeTextarea').value;
+        if (!/\bhelloVideo\b/.test(code)) {
+          showToast('Add helloVideo to your Python code to render a video.');
+          return;
+        }
+        executeActiveCode();
+        return;
+      }
+
+      // HTML/other legacy export: keep the existing visual WebM renderer.
+      showToast('Rendering WebM video frames...');
       const hiddenCanvas = document.createElement('canvas');
-      hiddenCanvas.width = 640; 
+      hiddenCanvas.width = 640;
       hiddenCanvas.height = 360;
       const ctx = hiddenCanvas.getContext('2d');
       const stream = hiddenCanvas.captureStream(30);
-
       let recorder;
       try { recorder = new MediaRecorder(stream, { mimeType: 'video/webm' }); }
       catch(e) { recorder = new MediaRecorder(stream); }
-
       const chunks = [];
       recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
       recorder.onstop = () => {
@@ -1613,19 +1788,17 @@ print("Python script completed successfully!")`
         const videoUrl = URL.createObjectURL(videoBlob);
         const player = document.getElementById('studioOutputVideoPlayer');
         player.src = videoUrl;
-        player.play().catch(e => console.log(e));
-
+        player.play().catch(() => {});
         document.getElementById('studioVideoDownloadBtn').href = videoUrl;
         document.getElementById('studioVideoContainer').classList.remove('hidden');
         document.getElementById('studioVideoContainer').classList.add('flex');
-        showToast("Video render complete!");
+        showToast('Video render complete!');
       };
-
       recorder.start();
       let frame = 0;
       const interval = setInterval(() => {
         frame++;
-        ctx.fillStyle = '#030712'; 
+        ctx.fillStyle = '#030712';
         ctx.fillRect(0, 0, 640, 360);
         for (let i = 0; i < 35; i++) {
           const a = (i / 35) * Math.PI * 2 + frame * 0.05;
@@ -1636,23 +1809,11 @@ print("Python script completed successfully!")`
           ctx.fill();
         }
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 18px "Syne", sans-serif';
-        ctx.fillText("HELLO CODE STUDIO — WEBM OUTPUT", 125, 185);
+        ctx.font = 'bold 18px Syne, sans-serif';
+        ctx.fillText('HELLO CODE STUDIO — WEBM OUTPUT', 125, 185);
         if (frame >= 120) { clearInterval(interval); recorder.stop(); }
       }, 1000 / 30);
     }
-
-    // ------------------------------------------------------------------
-    // 5. 4K ULTRA 3D SPACE WARP, NEBULA GLOW & CONSTELLATION MESH
-    // ------------------------------------------------------------------
-    const canvas = document.getElementById('cyberCanvas');
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    let mouse = { x: 0, y: 0, targetX: 0, targetY: 0, screenX: -1000, screenY: -1000 };
-
-    const STAR_COUNT = 750;
-    let stars = [];
-    const WARP_SPEED = 2.6;
 
     function resizeCanvas() {
       width = canvas.width = window.innerWidth;
