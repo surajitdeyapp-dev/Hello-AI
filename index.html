@@ -15,6 +15,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
+  <!-- Three.js 3D Engine -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
   <!-- Google Web Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +29,7 @@
 
     /* THEME COLORS (DYNAMIC LIGHT / DEEP COSMIC DARK) */
     :root {
-      --bg-base: #010207;
+      --bg-base: #010206;
       --bg-header: rgba(2, 6, 18, 0.85);
       --bg-card: rgba(7, 14, 30, 0.75);
       --text-main: #f1f5f9;
@@ -67,10 +70,7 @@
       height: 100vh;
       z-index: 0;
       pointer-events: none;
-      background: 
-        radial-gradient(circle at 20% 15%, rgba(14, 165, 233, 0.15) 0%, transparent 45%),
-        radial-gradient(circle at 80% 80%, rgba(192, 132, 252, 0.14) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, #030715 0%, #010207 75%, #000000 100%);
+      background: #010207;
     }
 
     /* LOGO CYBER GLOW & CONIC LIGHT */
@@ -376,11 +376,11 @@
       .ad-price { font-size: 24px; }
     }
   </style>
-<script src="https://cdn.jsdelivr.net/pyodide/v314.0.7/full/pyodide.js"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v314.0.7/full/pyodide.js"></script>
 </head>
 <body>
 
-  <!-- 3D COSMIC MOVING STARFIELD & SPACE CANVAS -->
+  <!-- 3D COSMIC MOVING STARFIELD & GALAXY CANVAS -->
   <canvas id="cyberCanvas"></canvas>
 
   <!-- TOAST NOTIFICATION -->
@@ -611,7 +611,7 @@
           </p>
         </div>
 
-        <!-- Links Grid: COMPANY & EDITORS (THEME CYAN APPLIED) -->
+        <!-- Links Grid: COMPANY & EDITORS -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 sm:gap-16 mb-16 text-xs max-w-2xl">
           <!-- Column 1: COMPANY -->
           <div>
@@ -648,7 +648,7 @@
           © 2026 HELLO AI · Code. Build. See it live.
         </div>
 
-        <!-- Bottom Navigation & SEO Keywords (THEME CYAN APPLIED) -->
+        <!-- Bottom Navigation & SEO Keywords -->
         <div class="flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-cyan-400/80 font-medium">
           <a href="javascript:void(0)" onclick="selectLanguageMode('javascript')" class="hover:text-cyan-300 hover:drop-shadow-[0_0_8px_#38bdf8] transition-all">Online HELLO AI Editor</a>
           <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-cyan-300 hover:drop-shadow-[0_0_8px_#38bdf8] transition-all">Live Code Editor</a>
@@ -1658,7 +1658,6 @@ print("Video render finished successfully!")`
       };
       recorder.start();
 
-      // First frame so a video is valid even before Python draws.
       stateDrawBackground(ctx);
       return pythonVideoState;
     }
@@ -1673,7 +1672,6 @@ print("Video render finished successfully!")`
       if (pythonVideoState.recorder.state !== 'inactive') pythonVideoState.recorder.stop();
     }
 
-    // JavaScript bridge exposed to Python as `from js import helloVideo`.
     window.helloVideo = {
       clear(color = '#030712') {
         if (!pythonVideoState) return;
@@ -1714,7 +1712,6 @@ print("Video render finished successfully!")`
         runtime = await loadPythonRuntime();
         appendTerminalLine('>>> Running Python code...');
 
-        // Start WebM recording only when this Python program actually uses helloVideo.
         const wantsVideo = /\bhelloVideo\b/.test(code);
         if (wantsVideo) preparePythonVideo();
 
@@ -1730,7 +1727,6 @@ print("Video render finished successfully!")`
         appendTerminalLine(err && err.message ? err.message : String(err), 'error');
         appendTerminalLine('>>> Process finished with exit code 1', 'error');
       } finally {
-        // Give the browser one paint cycle, then finalize the WebM.
         setTimeout(finishPythonVideo, 80);
       }
     }
@@ -1771,7 +1767,6 @@ print("Video render finished successfully!")`
         return;
       }
 
-      // HTML/other legacy export: keep the existing visual WebM renderer.
       showToast('Rendering WebM video frames...');
       const hiddenCanvas = document.createElement('canvas');
       hiddenCanvas.width = 640;
@@ -1815,208 +1810,272 @@ print("Video render finished successfully!")`
       }, 1000 / 30);
     }
 
-    function resizeCanvas() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+    // ==================================================================
+    // 5. ULTRA 4K 3D REALISTIC NASA SPIRAL GALAXY & COSMOS ENGINE
+    // ==================================================================
+    const canvas = document.getElementById('cyberCanvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 2500);
+    camera.position.set(0, 48, 120);
 
-    window.addEventListener('mousemove', (e) => {
-      mouse.screenX = e.clientX;
-      mouse.screenY = e.clientY;
-      mouse.targetX = (e.clientX - width / 2) * 0.0008;
-      mouse.targetY = (e.clientY - height / 2) * 0.0008;
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance'
     });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    class CosmicStar {
-      constructor() {
-        this.reset(true);
-      }
-      reset(initial = false) {
-        this.x = (Math.random() - 0.5) * width * 2.4;
-        this.y = (Math.random() - 0.5) * height * 2.4;
-        this.z = initial ? Math.random() * width : width;
-        this.pz = this.z;
-        const colorRand = Math.random();
-        if (colorRand > 0.85) this.baseColor = '#c084fc';
-        else if (colorRand > 0.5) this.baseColor = '#38bdf8';
-        else if (colorRand > 0.25) this.baseColor = '#818cf8';
-        else this.baseColor = '#ffffff';
+    // Generate soft circular glow texture for natural Hubble star point spread function
+    function createStarTexture() {
+      const texCanvas = document.createElement('canvas');
+      texCanvas.width = 64;
+      texCanvas.height = 64;
+      const tCtx = texCanvas.getContext('2d');
+      const grad = tCtx.createRadialGradient(32, 32, 0, 32, 32, 32);
+      grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+      grad.addColorStop(0.18, 'rgba(180, 235, 255, 0.9)');
+      grad.addColorStop(0.45, 'rgba(99, 102, 241, 0.35)');
+      grad.addColorStop(0.8, 'rgba(168, 85, 247, 0.12)');
+      grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      tCtx.fillStyle = grad;
+      tCtx.fillRect(0, 0, 64, 64);
+      return new THREE.CanvasTexture(texCanvas);
+    }
 
-        this.size = Math.random() * 1.8 + 0.7;
-        this.projX = 0;
-        this.projY = 0;
-      }
-      update() {
-        this.pz = this.z;
-        this.z -= WARP_SPEED;
+    const starTexture = createStarTexture();
 
-        this.x += (mouse.x * 55);
-        this.y += (mouse.y * 55);
+    // GALAXY PARAMETERS
+    const galaxyParams = {
+      count: 72000,
+      size: 0.95,
+      radius: 110,
+      branches: 4,
+      spin: 0.52,
+      randomness: 0.55,
+      power: 3.5,
+      insideColor: '#fff5d6',   // Radiant golden stellar nucleus
+      midColor: '#38bdf8',      // Electric cyan/azure arms
+      outsideColor: '#a855f7'   // Deep magenta / stellar violet outer rim
+    };
 
-        if (this.z <= 1) {
-          this.reset(false);
-          this.pz = this.z;
+    let galaxyGeometry = null;
+    let galaxyMaterial = null;
+    let galaxyPoints = null;
+
+    function build3DNasaGalaxy() {
+      galaxyGeometry = new THREE.BufferGeometry();
+      const positions = new Float32Array(galaxyParams.count * 3);
+      const colors = new Float32Array(galaxyParams.count * 3);
+
+      const colorInside = new THREE.Color(galaxyParams.insideColor);
+      const colorMid = new THREE.Color(galaxyParams.midColor);
+      const colorOutside = new THREE.Color(galaxyParams.outsideColor);
+
+      for (let i = 0; i < galaxyParams.count; i++) {
+        const i3 = i * 3;
+
+        // Radius distribution (higher density in galactic bulge/core)
+        const radius = Math.random() * galaxyParams.radius;
+        const spinAngle = radius * galaxyParams.spin;
+        const branchAngle = ((i % galaxyParams.branches) / galaxyParams.branches) * Math.PI * 2;
+
+        const randomX = Math.pow(Math.random(), galaxyParams.power) * (Math.random() < 0.5 ? 1 : -1) * galaxyParams.randomness * radius;
+        const randomY = Math.pow(Math.random(), galaxyParams.power) * (Math.random() < 0.5 ? 1 : -1) * (galaxyParams.randomness * 0.6) * radius;
+        const randomZ = Math.pow(Math.random(), galaxyParams.power) * (Math.random() < 0.5 ? 1 : -1) * galaxyParams.randomness * radius;
+
+        positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX;
+        positions[i3 + 1] = randomY;
+        positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
+
+        // Color interpolation based on orbital radius
+        let mixedColor;
+        const normalizedR = radius / galaxyParams.radius;
+        if (normalizedR < 0.35) {
+          mixedColor = colorInside.clone().lerp(colorMid, normalizedR / 0.35);
+        } else {
+          mixedColor = colorMid.clone().lerp(colorOutside, (normalizedR - 0.35) / 0.65);
         }
+
+        // Add subtle natural astronomical variance
+        const brightness = 0.85 + Math.random() * 0.3;
+        colors[i3] = Math.min(1, mixedColor.r * brightness);
+        colors[i3 + 1] = Math.min(1, mixedColor.g * brightness);
+        colors[i3 + 2] = Math.min(1, mixedColor.b * brightness);
       }
-      draw() {
-        const cx = width / 2;
-        const cy = height / 2;
 
-        const k = 290 / this.z;
-        const px = this.x * k + cx;
-        const py = this.y * k + cy;
+      galaxyGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      galaxyGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-        this.projX = px;
-        this.projY = py;
+      galaxyMaterial = new THREE.PointsMaterial({
+        size: galaxyParams.size,
+        sizeAttenuation: true,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+        vertexColors: true,
+        map: starTexture,
+        transparent: true,
+        opacity: 0.95
+      });
 
-        if (px < -50 || px >= width + 50 || py < -50 || py >= height + 50) return;
+      galaxyPoints = new THREE.Points(galaxyGeometry, galaxyMaterial);
+      // Tilt galaxy disk to a realistic majestic astronomical view
+      galaxyPoints.rotation.x = Math.PI / 4.5;
+      galaxyPoints.rotation.z = -Math.PI / 8;
+      scene.add(galaxyPoints);
+    }
+    build3DNasaGalaxy();
 
-        const prevK = 290 / this.pz;
-        const prevPx = this.x * prevK + cx;
-        const prevPy = this.y * prevK + cy;
+    // DEEP SPACE DISTANT STARS & COSMIC FIELD
+    const bgStarCount = 6500;
+    const bgStarGeo = new THREE.BufferGeometry();
+    const bgStarPos = new Float32Array(bgStarCount * 3);
+    const bgStarCol = new Float32Array(bgStarCount * 3);
 
-        const depthAlpha = Math.min(1, Math.max(0.12, (1 - this.z / width) * 1.35));
-        const currentSize = Math.max(0.8, (1 - this.z / width) * this.size * 2.8);
+    for (let i = 0; i < bgStarCount * 3; i += 3) {
+      const dist = 300 + Math.random() * 900;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos((Math.random() * 2) - 1);
 
-        // Radiant Streak line
-        ctx.beginPath();
-        ctx.moveTo(prevPx, prevPy);
-        ctx.lineTo(px, py);
-        ctx.strokeStyle = isLightMode ? `rgba(14, 165, 233, ${depthAlpha * 0.45})` : this.baseColor;
-        ctx.globalAlpha = depthAlpha * 0.9;
-        ctx.lineWidth = currentSize;
-        ctx.stroke();
+      bgStarPos[i] = dist * Math.sin(phi) * Math.cos(theta);
+      bgStarPos[i + 1] = dist * Math.sin(phi) * Math.sin(theta);
+      bgStarPos[i + 2] = dist * Math.cos(phi);
 
-        // Neon Glow Halo
-        ctx.beginPath();
-        ctx.arc(px, py, currentSize * 1.6, 0, Math.PI * 2);
-        ctx.fillStyle = this.baseColor;
-        ctx.globalAlpha = depthAlpha * 0.35;
-        ctx.fill();
-
-        // Star core
-        ctx.beginPath();
-        ctx.arc(px, py, currentSize * 0.8, 0, Math.PI * 2);
-        ctx.fillStyle = '#ffffff';
-        ctx.globalAlpha = depthAlpha;
-        ctx.fill();
-        ctx.globalAlpha = 1;
+      const tone = Math.random();
+      if (tone > 0.8) {
+        bgStarCol[i] = 0.65; bgStarCol[i + 1] = 0.85; bgStarCol[i + 2] = 1.0;
+      } else if (tone > 0.5) {
+        bgStarCol[i] = 1.0; bgStarCol[i + 1] = 0.95; bgStarCol[i + 2] = 0.85;
+      } else {
+        bgStarCol[i] = 0.85; bgStarCol[i + 1] = 0.7; bgStarCol[i + 2] = 1.0;
       }
     }
 
-    for (let i = 0; i < STAR_COUNT; i++) {
-      stars.push(new CosmicStar());
-    }
+    bgStarGeo.setAttribute('position', new THREE.BufferAttribute(bgStarPos, 3));
+    bgStarGeo.setAttribute('color', new THREE.BufferAttribute(bgStarCol, 3));
 
-    class Meteor {
+    const bgStarMat = new THREE.PointsMaterial({
+      size: 1.2,
+      sizeAttenuation: true,
+      map: starTexture,
+      transparent: true,
+      opacity: 0.75,
+      blending: THREE.AdditiveBlending,
+      vertexColors: true
+    });
+    const bgStarField = new THREE.Points(bgStarGeo, bgStarMat);
+    scene.add(bgStarField);
+
+    // 3D REALISTIC SHOOTING METEOR
+    const meteorCount = 2;
+    const meteors = [];
+
+    class NasaMeteor3D {
       constructor() {
+        this.lineGeo = new THREE.BufferGeometry();
+        this.positions = new Float32Array(6);
+        this.lineGeo.setAttribute('position', new THREE.BufferAttribute(this.positions, 3));
+        this.lineMat = new THREE.LineBasicMaterial({
+          color: 0x38bdf8,
+          transparent: true,
+          opacity: 0,
+          blending: THREE.AdditiveBlending,
+          linewidth: 2
+        });
+        this.mesh = new THREE.Line(this.lineGeo, this.lineMat);
+        scene.add(this.mesh);
         this.reset();
       }
+
       reset() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * (height * 0.4);
-        this.len = Math.random() * 110 + 70;
-        this.speed = Math.random() * 14 + 12;
-        this.angle = Math.PI / 4 + (Math.random() - 0.5) * 0.25;
-        this.opacity = 1;
         this.active = false;
-        this.timer = Math.random() * 250 + 100;
+        this.timer = Math.random() * 200 + 80;
+        this.length = 18 + Math.random() * 14;
+        this.speed = 2.4 + Math.random() * 1.8;
+        this.opacity = 1;
+        this.head = new THREE.Vector3(
+          (Math.random() - 0.5) * 220,
+          60 + Math.random() * 40,
+          (Math.random() - 0.5) * 160
+        );
+        this.direction = new THREE.Vector3(-1.2, -0.9, -0.6).normalize();
       }
+
       update() {
         if (!this.active) {
           this.timer--;
           if (this.timer <= 0) this.active = true;
           return;
         }
-        this.x += Math.cos(this.angle) * this.speed;
-        this.y += Math.sin(this.angle) * this.speed;
-        this.opacity -= 0.012;
-        if (this.opacity <= 0 || this.x > width + 100 || this.y > height + 100) {
+
+        this.head.addScaledVector(this.direction, this.speed);
+        this.opacity -= 0.018;
+
+        const tail = this.head.clone().addScaledVector(this.direction, -this.length);
+        const pos = this.lineGeo.attributes.position.array;
+        pos[0] = this.head.x; pos[1] = this.head.y; pos[2] = this.head.z;
+        pos[3] = tail.x; pos[4] = tail.y; pos[5] = tail.z;
+        this.lineGeo.attributes.position.needsUpdate = true;
+        this.lineMat.opacity = Math.max(0, this.opacity);
+
+        if (this.opacity <= 0 || this.head.y < -80) {
           this.reset();
         }
       }
-      draw() {
-        if (!this.active) return;
-        const tailX = this.x - Math.cos(this.angle) * this.len;
-        const tailY = this.y - Math.sin(this.angle) * this.len;
-
-        const grad = ctx.createLinearGradient(this.x, this.y, tailX, tailY);
-        grad.addColorStop(0, `rgba(255, 255, 255, ${this.opacity})`);
-        grad.addColorStop(0.2, `rgba(56, 189, 248, ${this.opacity * 0.9})`);
-        grad.addColorStop(0.7, `rgba(192, 132, 252, ${this.opacity * 0.5})`);
-        grad.addColorStop(1, 'rgba(56, 189, 248, 0)');
-
-        ctx.beginPath();
-        ctx.moveTo(this.x, this.y);
-        ctx.lineTo(tailX, tailY);
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = 2.4;
-        ctx.stroke();
-      }
     }
 
-    const meteors = [new Meteor(), new Meteor(), new Meteor()];
+    for (let i = 0; i < meteorCount; i++) {
+      meteors.push(new NasaMeteor3D());
+    }
 
-    let nebulaTick = 0;
+    // INTERACTIVE CAMERA PARALLAX
+    let targetMouseX = 0;
+    let targetMouseY = 0;
+    let mouseX = 0;
+    let mouseY = 0;
 
-    function animateSpaceMatrix() {
-      nebulaTick += 0.008;
+    window.addEventListener('mousemove', (e) => {
+      targetMouseX = (e.clientX - window.innerWidth / 2) * 0.0007;
+      targetMouseY = (e.clientY - window.innerHeight / 2) * 0.0007;
+    });
 
-      mouse.x += (mouse.targetX - mouse.x) * 0.05;
-      mouse.y += (mouse.targetY - mouse.y) * 0.05;
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
 
-      ctx.fillStyle = isLightMode ? 'rgba(248, 250, 252, 0.26)' : 'rgba(1, 2, 7, 0.32)';
-      ctx.fillRect(0, 0, width, height);
+    const clock = new THREE.Clock();
 
-      if (!isLightMode) {
-        const sin1 = Math.sin(nebulaTick) * 80;
-        const cos1 = Math.cos(nebulaTick * 0.8) * 80;
+    function render3DNasaGalaxy() {
+      requestAnimationFrame(render3DNasaGalaxy);
+      const elapsedTime = clock.getElapsedTime();
 
-        const glowGrad1 = ctx.createRadialGradient(width * 0.35 + sin1, height * 0.3 + cos1, 10, width * 0.35 + sin1, height * 0.3 + cos1, width * 0.65);
-        glowGrad1.addColorStop(0, 'rgba(56, 189, 248, 0.075)');
-        glowGrad1.addColorStop(0.5, 'rgba(99, 102, 241, 0.035)');
-        glowGrad1.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        ctx.fillStyle = glowGrad1;
-        ctx.fillRect(0, 0, width, height);
+      // Smooth camera interpolation for cinematic telescope feel
+      mouseX += (targetMouseX - mouseX) * 0.04;
+      mouseY += (targetMouseY - mouseY) * 0.04;
 
-        const glowGrad2 = ctx.createRadialGradient(width * 0.7 - sin1, height * 0.65 - cos1, 10, width * 0.7 - sin1, height * 0.65 - cos1, width * 0.6);
-        glowGrad2.addColorStop(0, 'rgba(192, 132, 252, 0.065)');
-        glowGrad2.addColorStop(0.6, 'rgba(236, 72, 153, 0.025)');
-        glowGrad2.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        ctx.fillStyle = glowGrad2;
-        ctx.fillRect(0, 0, width, height);
+      camera.position.x = Math.sin(mouseX * 2.2) * 22;
+      camera.position.y = 48 - mouseY * 26;
+      camera.lookAt(0, 0, 0);
+
+      // Majestic slow galactic rotation
+      if (galaxyPoints) {
+        galaxyPoints.rotation.y = elapsedTime * 0.038;
+      }
+      if (bgStarField) {
+        bgStarField.rotation.y = elapsedTime * 0.005;
       }
 
-      for (let i = 0; i < stars.length; i++) {
-        stars[i].update();
-        stars[i].draw();
-      }
-
-      if (mouse.screenX > 0 && mouse.screenY > 0) {
-        for (let i = 0; i < stars.length; i += 3) {
-          const s = stars[i];
-          const distToMouse = Math.hypot(s.projX - mouse.screenX, s.projY - mouse.screenY);
-          if (distToMouse < 130) {
-            ctx.beginPath();
-            ctx.moveTo(s.projX, s.projY);
-            ctx.lineTo(mouse.screenX, mouse.screenY);
-            ctx.strokeStyle = `rgba(56, 189, 248, ${(1 - distToMouse / 130) * 0.35})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-          }
-        }
-      }
-
+      // Update 3D Meteors
       for (let i = 0; i < meteors.length; i++) {
         meteors[i].update();
-        meteors[i].draw();
       }
 
-      requestAnimationFrame(animateSpaceMatrix);
+      renderer.render(scene, camera);
     }
-    animateSpaceMatrix();
+    render3DNasaGalaxy();
 
     // ------------------------------------------------------------------
     // 6. AUTH & CHAT LOGIC (GEMINI 2.5)
@@ -2530,7 +2589,7 @@ print("Video render finished successfully!")`
       if (!live) {
         slot.innerHTML = `
           <div class="ad-placeholder">
-            <div class="text-[9px] font-mono font-bold tracking-[.2em] text-cyan-400/70">ADVERTISEMENT</div>
+            <div class="text-[9px] font-mono font-bold tracking-[.2em] text-cyan-400">ADVERTISEMENT</div>
             <div class="text-[11px] text-slate-500 mt-1">Your approved sponsor banner can appear here</div>
           </div>`;
         return;
