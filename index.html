@@ -11,8 +11,9 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- GSAP Engine -->
+  <!-- GSAP Engine & ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <!-- Google Web Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,6 +34,7 @@
       --border-cyan: rgba(56, 189, 248, 0.3);
       --editor-bg: #030712;
       --particle-color: rgba(56, 189, 248, 0.8);
+      --theme-glow: #38bdf8;
     }
 
     body.light-mode {
@@ -44,6 +46,7 @@
       --border-cyan: rgba(14, 165, 233, 0.3);
       --editor-bg: #0f172a;
       --particle-color: rgba(14, 165, 233, 0.5);
+      --theme-glow: #0284c7;
     }
 
     body {
@@ -55,7 +58,7 @@
       transition: background 0.3s ease, color 0.3s ease;
     }
 
-    /* 3D COSMIC CANVAS BACKGROUND WITH COLOR GRADING */
+    /* 3D COSMIC CANVAS BACKGROUND */
     #cyberCanvas {
       position: fixed;
       top: 0;
@@ -65,14 +68,12 @@
       z-index: 0;
       pointer-events: none;
       background: 
-        radial-gradient(circle at 20% 15%, rgba(14, 165, 233, 0.12) 0%, transparent 45%),
-        radial-gradient(circle at 80% 80%, rgba(192, 132, 252, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 20% 15%, rgba(14, 165, 233, 0.15) 0%, transparent 45%),
+        radial-gradient(circle at 80% 80%, rgba(192, 132, 252, 0.14) 0%, transparent 50%),
         radial-gradient(circle at 50% 50%, #030715 0%, #010207 75%, #000000 100%);
     }
 
-    /* ========================================================= */
-    /*   ULTRA ANIMATED & GLOWING HELLO AI LOGO                  */
-    /* ========================================================= */
+    /* LOGO CYBER GLOW & CONIC LIGHT */
     .cyber-logo-wrapper {
       position: relative;
       display: inline-flex;
@@ -93,7 +94,6 @@
       box-shadow: 0 0 25px rgba(56, 189, 248, 0.5), inset 0 0 15px rgba(56, 189, 248, 0.25);
     }
 
-    /* Rotating Neon Border Beam */
     .cyber-logo-box::before {
       content: '';
       position: absolute;
@@ -192,12 +192,12 @@
       backdrop-filter: blur(20px);
       border: 1px solid var(--border-cyan);
       border-radius: 24px;
-      transition: all 0.3s ease;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .glass-card:hover {
-      border-color: rgba(56, 189, 248, 0.7);
-      transform: translateY(-5px);
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.3);
+      border-color: rgba(56, 189, 248, 0.8);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), 0 0 30px rgba(56, 189, 248, 0.35);
     }
 
     /* THEME TOGGLE BUTTON */
@@ -294,7 +294,7 @@
     .ad-banner-slot {
       min-height: 96px; display: flex; align-items: center; justify-content: center;
       border: 1px dashed rgba(56,189,248,.35); border-radius: 18px;
-      background: linear-gradient(135deg, rgba(56,189,248,.06), rgba(129,140,248,.04));
+      background: linear-gradient(135deg, rgba(56,189,248,.08), rgba(129,140,248,.05));
       overflow: hidden; position: relative;
     }
     .ad-banner-slot .ad-placeholder { text-align: center; padding: 18px; }
@@ -302,18 +302,19 @@
     .ad-card {
       background: var(--bg-card); border: 1px solid var(--border-cyan);
       border-radius: 22px; padding: 22px; backdrop-filter: blur(18px);
-      transition: all 0.3s ease;
+      transition: all 0.35s ease;
     }
     .ad-card:hover {
-      border-color: rgba(56, 189, 248, 0.6);
-      transform: translateY(-4px);
+      border-color: rgba(56, 189, 248, 0.7);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(56, 189, 248, 0.25);
     }
     .ad-price { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 900; }
     .ad-input {
       width: 100%; padding: 12px 14px; border-radius: 12px; outline: none;
       background: #050914; border: 1px solid #26354d; color: #fff; font-size: 12px;
     }
-    .ad-input:focus { border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56,189,248,.08); }
+    .ad-input:focus { border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56,189,248,.15); }
     .ad-label { display: block; margin: 0 0 6px; color: #94a3b8; font: 700 10px 'JetBrains Mono',monospace; text-transform: uppercase; letter-spacing: .08em; }
     .ad-modal { position: fixed; inset: 0; z-index: 1000050; display: none; place-items: center; padding: 18px; background: rgba(2,5,14,.88); backdrop-filter: blur(16px); }
     .ad-modal.open { display: grid; }
@@ -357,6 +358,17 @@
       border: 0;
       background: #000;
       pointer-events: none;
+    }
+
+    /* SCROLL ANIMATION CLASS */
+    .anim-fade-up {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .anim-fade-up.active {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     @media (max-width: 640px) {
@@ -416,13 +428,12 @@
 
       <!-- Right: Theme Switcher, Advertise & User Auth -->
       <div class="flex items-center gap-3">
-        
         <!-- Theme Toggle Button -->
         <button onclick="toggleColorTheme()" id="themeToggleBtn" title="Toggle Light/Dark Mode" class="theme-toggle-btn">
           <i class="fa-solid fa-moon text-sm text-cyan-400" id="themeIcon"></i>
         </button>
 
-        <button onclick="openAdvertiserModal()" title="Advertise With Us" class="hidden sm:inline-flex px-3.5 py-2 rounded-full bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-[10px] font-black tracking-wider uppercase transition-all">
+        <button onclick="openAdvertiserModal()" title="Advertise With Us" class="hidden sm:inline-flex px-3.5 py-2 rounded-full bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-[10px] font-black tracking-wider uppercase transition-all shadow-[0_0_15px_rgba(56,189,248,0.15)]">
           <i class="fa-solid fa-bullhorn mr-1.5"></i> Advertise
         </button>
 
@@ -432,29 +443,29 @@
       </div>
     </header>
 
-    <!-- HERO SECTION -->
+    <!-- HERO SECTION (ANIMATED) -->
     <main class="flex-1">
       <section class="max-w-6xl mx-auto px-6 pt-24 pb-28 flex flex-col items-center text-center">
         <!-- Badge -->
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold tracking-widest uppercase mb-8 shadow-[0_0_25px_rgba(56,189,248,0.3)]">
+        <div class="anim-fade-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold tracking-widest uppercase mb-8 shadow-[0_0_25px_rgba(56,189,248,0.3)]">
           <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
           <span>AUTONOMOUS CYBER INTELLIGENCE</span>
         </div>
 
         <!-- MAIN TITLE: ONLY "HELLO AI" -->
-        <h1 class="text-6xl sm:text-8xl lg:text-9xl font-black font-['Syne'] leading-tight mb-8 tracking-tight">
+        <h1 class="anim-fade-up text-6xl sm:text-8xl lg:text-9xl font-black font-['Syne'] leading-tight mb-8 tracking-tight">
           <div class="title-motion-wrapper">
             <span class="cyber-title-animated">HELLO AI</span>
           </div>
         </h1>
 
         <!-- Subtitle -->
-        <p class="text-[var(--text-muted)] max-w-2xl text-sm sm:text-base leading-relaxed mb-10 font-normal">
+        <p class="anim-fade-up text-[var(--text-muted)] max-w-2xl text-sm sm:text-base leading-relaxed mb-10 font-normal">
           Multi-language cloud studio environment supporting HTML5, JavaScript & Python. Client-side sandboxed execution with media recording and multimodal AI.
         </p>
 
         <!-- CTA Buttons -->
-        <div class="flex flex-wrap items-center justify-center gap-4">
+        <div class="anim-fade-up flex flex-wrap items-center justify-center gap-4">
           <button onclick="handleProtectedChatLaunch()" class="px-8 py-4 rounded-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 hover:from-cyan-400 hover:to-blue-400 text-slate-950 font-black text-xs tracking-widest uppercase shadow-[0_0_35px_rgba(56,189,248,0.5)] transition-all hover:scale-105 flex items-center gap-3">
             <i class="fa-solid fa-comments text-sm"></i>
             <span>OPEN HELLO AI CHAT</span>
@@ -474,7 +485,7 @@
         </div>
 
         <!-- Metric Cards -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-4xl mt-16 pt-10 border-t border-[var(--border-cyan)]">
+        <div class="anim-fade-up grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-4xl mt-16 pt-10 border-t border-[var(--border-cyan)]">
           <div class="glass-card p-5 text-left">
             <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Engines</span>
             <strong class="text-sm font-bold text-cyan-400">HTML • JS • PYTHON</strong>
@@ -494,9 +505,9 @@
         </div>
       </section>
 
-      <!-- AGENTS DIRECTORY -->
+      <!-- AGENTS DIRECTORY (ANIMATED) -->
       <section class="max-w-6xl mx-auto px-6 py-20 border-t border-[var(--border-cyan)]">
-        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4 pb-6 border-b border-slate-800">
+        <div class="anim-fade-up flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4 pb-6 border-b border-slate-800">
           <div>
             <span class="text-[11px] font-mono font-bold tracking-widest text-cyan-400 uppercase">Operational Matrix</span>
             <h2 class="text-3xl sm:text-4xl font-extrabold font-['Syne'] mt-1">Autonomous Engines</h2>
@@ -510,18 +521,18 @@
         <div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
       </section>
 
-      <!-- ADVERTISEMENT SYSTEM -->
-      <section id="advertisingSection" class="ad-shell py-10">
+      <!-- ADVERTISEMENT SYSTEM (ANIMATED) -->
+      <section id="advertisingSection" class="ad-shell py-10 anim-fade-up">
         <div class="ad-banner-slot" id="topAdSlot">
           <div class="ad-placeholder">
-            <div class="text-[9px] font-mono font-bold tracking-[.2em] text-cyan-400/70">ADVERTISEMENT</div>
+            <div class="text-[9px] font-mono font-bold tracking-[.2em] text-cyan-400">ADVERTISEMENT</div>
             <div class="text-[11px] text-slate-500 mt-1">Your approved sponsor banner can appear here</div>
           </div>
         </div>
       </section>
 
       <section class="ad-shell pb-20">
-        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-5 mb-8">
+        <div class="anim-fade-up flex flex-col sm:flex-row sm:items-end justify-between gap-5 mb-8">
           <div>
             <span class="text-[10px] font-mono font-bold tracking-widest text-cyan-400 uppercase">Commercial Interface</span>
             <h2 class="text-3xl sm:text-4xl font-extrabold font-['Syne'] mt-1">Advertise With Us</h2>
@@ -538,7 +549,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <div class="ad-card">
+          <div class="ad-card anim-fade-up">
             <div class="text-cyan-400 text-xl mb-3"><i class="fa-solid fa-rectangle-ad"></i></div>
             <h3 class="font-bold font-['Syne'] text-lg">Banner Placement</h3>
             <p class="text-xs text-slate-400 mt-2 leading-relaxed">Place a clickable sponsor banner in the website advertising slot.</p>
@@ -547,7 +558,7 @@
               <span class="ad-price text-cyan-400">₹499</span>
             </div>
           </div>
-          <div class="ad-card">
+          <div class="ad-card anim-fade-up">
             <div class="text-indigo-400 text-xl mb-3"><i class="fa-solid fa-display"></i></div>
             <h3 class="font-bold font-['Syne'] text-lg">Featured Campaign</h3>
             <p class="text-xs text-slate-400 mt-2 leading-relaxed">Premium placement for brands that want more visibility across the homepage.</p>
@@ -556,7 +567,7 @@
               <span class="ad-price text-indigo-400">₹899</span>
             </div>
           </div>
-          <div class="ad-card">
+          <div class="ad-card anim-fade-up">
             <div class="text-emerald-400 text-xl mb-3"><i class="fa-solid fa-calendar-days"></i></div>
             <h3 class="font-bold font-['Syne'] text-lg">Timed Campaign</h3>
             <p class="text-xs text-slate-400 mt-2 leading-relaxed">Select 7, 15 or 30 days. Approved campaigns expire automatically in the display layer.</p>
@@ -569,9 +580,9 @@
       </section>
     </main>
 
-    <!-- FOOTER: REPLICATED WITH JS REPLACED BY HELLO AI & PLAYGROUNDS REMOVED -->
-    <footer class="bg-[#03060f] border-t border-slate-800 text-slate-300 pt-16 pb-12 px-6 sm:px-12 mt-10">
-      <div class="max-w-6xl mx-auto">
+    <!-- FOOTER: WITH THEME CYAN COLOR (NO GOLDEN) & NO PLAYGROUNDS (ANIMATED) -->
+    <footer class="bg-[#02050f] border-t border-slate-800 text-slate-300 pt-16 pb-12 px-6 sm:px-12 mt-10">
+      <div class="max-w-6xl mx-auto anim-fade-up">
         <!-- Top row: Logo + Description -->
         <div class="mb-14">
           <div class="flex items-center gap-3.5 mb-2.5">
@@ -591,62 +602,62 @@
                 </svg>
               </div>
             </div>
-            <h2 class="text-xl sm:text-2xl font-black font-['Syne'] tracking-wider text-white">HELLO AI</h2>
+            <h2 class="text-xl sm:text-2xl font-black font-['Syne'] tracking-wider text-white logo-text-glow">HELLO AI</h2>
           </div>
-          <div class="text-xs text-slate-400 font-medium mb-3">Code. Build. See it live.</div>
+          <div class="text-xs text-cyan-400 font-semibold mb-3 tracking-wide">Code. Build. See it live.</div>
           <p class="text-xs sm:text-sm text-slate-400 max-w-2xl leading-relaxed">
             A browser-first environment for writing code, building web projects, and seeing your work come alive with live output.
           </p>
         </div>
 
-        <!-- Links Grid: COMPANY & EDITORS -->
+        <!-- Links Grid: COMPANY & EDITORS (THEME CYAN APPLIED) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 sm:gap-16 mb-16 text-xs max-w-2xl">
           <!-- Column 1: COMPANY -->
           <div>
-            <h3 class="text-[#e2b86c] font-black text-xs tracking-widest uppercase mb-5 font-mono">COMPANY</h3>
+            <h3 class="text-cyan-400 font-black text-xs tracking-widest uppercase mb-5 font-mono drop-shadow-[0_0_10px_rgba(56,189,248,0.5)]">COMPANY</h3>
             <ul class="space-y-3 font-medium text-slate-300">
-              <li><a href="#" class="hover:text-white transition-colors">About</a></li>
-              <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
-              <li><a href="#" class="hover:text-white transition-colors">Privacy</a></li>
-              <li><a href="#" class="hover:text-white transition-colors">Terms</a></li>
+              <li><a href="#" class="hover:text-cyan-300 transition-colors">About</a></li>
+              <li><a href="#" class="hover:text-cyan-300 transition-colors">Contact</a></li>
+              <li><a href="#" class="hover:text-cyan-300 transition-colors">Privacy</a></li>
+              <li><a href="#" class="hover:text-cyan-300 transition-colors">Terms</a></li>
             </ul>
           </div>
 
           <!-- Column 2: EDITORS -->
           <div>
-            <h3 class="text-[#e2b86c] font-black text-xs tracking-widest uppercase mb-5 font-mono">EDITORS</h3>
+            <h3 class="text-cyan-400 font-black text-xs tracking-widest uppercase mb-5 font-mono drop-shadow-[0_0_10px_rgba(56,189,248,0.5)]">EDITORS</h3>
             <ul class="space-y-3 font-medium text-slate-300">
-              <li><a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-white transition-colors">Online Code Editor</a></li>
-              <li><a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-white transition-colors">HTML Editor</a></li>
-              <li><a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-white transition-colors">CSS Editor</a></li>
-              <li><a href="javascript:void(0)" onclick="selectLanguageMode('javascript')" class="hover:text-white transition-colors">HELLO AI Editor</a></li>
-              <li><a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-white transition-colors">HTML/CSS/HELLO AI Editor</a></li>
-              <li><a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-white transition-colors">Online HTML Editor</a></li>
-              <li><a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-white transition-colors">Online CSS Editor</a></li>
-              <li><a href="javascript:void(0)" onclick="selectLanguageMode('javascript')" class="hover:text-white transition-colors">Online HELLO AI Editor</a></li>
+              <li><a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-cyan-300 transition-colors">Online Code Editor</a></li>
+              <li><a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-cyan-300 transition-colors">HTML Editor</a></li>
+              <li><a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-cyan-300 transition-colors">CSS Editor</a></li>
+              <li><a href="javascript:void(0)" onclick="selectLanguageMode('javascript')" class="hover:text-cyan-300 transition-colors">HELLO AI Editor</a></li>
+              <li><a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-cyan-300 transition-colors">HTML/CSS/HELLO AI Editor</a></li>
+              <li><a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-cyan-300 transition-colors">Online HTML Editor</a></li>
+              <li><a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-cyan-300 transition-colors">Online CSS Editor</a></li>
+              <li><a href="javascript:void(0)" onclick="selectLanguageMode('javascript')" class="hover:text-cyan-300 transition-colors">Online HELLO AI Editor</a></li>
             </ul>
           </div>
         </div>
 
         <!-- Divider line -->
-        <div class="w-full h-px bg-slate-800/80 mb-8"></div>
+        <div class="w-full h-px bg-slate-800 mb-8"></div>
 
         <!-- Copyright -->
         <div class="text-xs text-slate-400 font-medium mb-6">
           © 2026 HELLO AI · Code. Build. See it live.
         </div>
 
-        <!-- Bottom SEO & Navigation Keywords -->
-        <div class="flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-[#e2b86c]/90 font-medium">
-          <a href="javascript:void(0)" onclick="selectLanguageMode('javascript')" class="hover:text-white transition-colors">Online HELLO AI Editor</a>
-          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-white transition-colors">Live Code Editor</a>
-          <a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-white transition-colors">Online Web Editor</a>
-          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-white transition-colors">Web Code Editor</a>
-          <a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-white transition-colors">Editor with Live Preview</a>
-          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-white transition-colors">Code Output</a>
-          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-white transition-colors">Live Output Code</a>
-          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-white transition-colors">Real Time Code Output</a>
-          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-white transition-colors">Code Output Generator</a>
+        <!-- Bottom Navigation & SEO Keywords (THEME CYAN APPLIED) -->
+        <div class="flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-cyan-400/80 font-medium">
+          <a href="javascript:void(0)" onclick="selectLanguageMode('javascript')" class="hover:text-cyan-300 hover:drop-shadow-[0_0_8px_#38bdf8] transition-all">Online HELLO AI Editor</a>
+          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-cyan-300 hover:drop-shadow-[0_0_8px_#38bdf8] transition-all">Live Code Editor</a>
+          <a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-cyan-300 hover:drop-shadow-[0_0_8px_#38bdf8] transition-all">Online Web Editor</a>
+          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-cyan-300 hover:drop-shadow-[0_0_8px_#38bdf8] transition-all">Web Code Editor</a>
+          <a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-cyan-300 hover:drop-shadow-[0_0_8px_#38bdf8] transition-all">Editor with Live Preview</a>
+          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-cyan-300 hover:drop-shadow-[0_0_8px_#38bdf8] transition-all">Code Output</a>
+          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-cyan-300 hover:drop-shadow-[0_0_8px_#38bdf8] transition-all">Live Output Code</a>
+          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-cyan-300 hover:drop-shadow-[0_0_8px_#38bdf8] transition-all">Real Time Code Output</a>
+          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-cyan-300 hover:drop-shadow-[0_0_8px_#38bdf8] transition-all">Code Output Generator</a>
         </div>
       </div>
     </footer>
@@ -1106,7 +1117,24 @@
     }
 
     // ------------------------------------------------------------------
-    // 2. HELLO AI LIBRARY ENGINE
+    // 2. SCROLL ENTRANCE REVEAL ANIMATIONS (TOP TO BOTTOM)
+    // ------------------------------------------------------------------
+    function initScrollAnimations() {
+      const elements = document.querySelectorAll('.anim-fade-up');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, { threshold: 0.12 });
+
+      elements.forEach(el => observer.observe(el));
+    }
+    window.addEventListener('DOMContentLoaded', initScrollAnimations);
+
+    // ------------------------------------------------------------------
+    // 3. HELLO AI LIBRARY ENGINE
     // ------------------------------------------------------------------
     const DEFAULT_LIBRARY_PROJECTS = [
       {
@@ -1325,7 +1353,7 @@
     }
 
     // ------------------------------------------------------------------
-    // 3. MULTI-LANGUAGE CODE STUDIO (HTML, JS, PYTHON)
+    // 4. MULTI-LANGUAGE CODE STUDIO (HTML, JS, PYTHON)
     // ------------------------------------------------------------------
     let currentStudioLanguage = 'html';
 
@@ -1615,7 +1643,7 @@ print("Python script completed successfully!")`
     }
 
     // ------------------------------------------------------------------
-    // 4. 4K ULTRA 3D SPACE WARP, NEBULA GLOW & CONSTELLATION MESH
+    // 5. 4K ULTRA 3D SPACE WARP, NEBULA GLOW & CONSTELLATION MESH
     // ------------------------------------------------------------------
     const canvas = document.getElementById('cyberCanvas');
     const ctx = canvas.getContext('2d');
@@ -1663,7 +1691,6 @@ print("Python script completed successfully!")`
         this.pz = this.z;
         this.z -= WARP_SPEED;
 
-        // Mouse Parallax drift
         this.x += (mouse.x * 55);
         this.y += (mouse.y * 55);
 
@@ -1722,7 +1749,6 @@ print("Python script completed successfully!")`
       stars.push(new CosmicStar());
     }
 
-    // Dynamic Shooting Meteor
     class Meteor {
       constructor() {
         this.reset();
@@ -1777,15 +1803,12 @@ print("Python script completed successfully!")`
     function animateSpaceMatrix() {
       nebulaTick += 0.008;
 
-      // Smooth mouse interpolation
       mouse.x += (mouse.targetX - mouse.x) * 0.05;
       mouse.y += (mouse.targetY - mouse.y) * 0.05;
 
-      // Dark space trail for 3D warp depth
       ctx.fillStyle = isLightMode ? 'rgba(248, 250, 252, 0.26)' : 'rgba(1, 2, 7, 0.32)';
       ctx.fillRect(0, 0, width, height);
 
-      // Next-Gen Dynamic Nebula Color Grading
       if (!isLightMode) {
         const sin1 = Math.sin(nebulaTick) * 80;
         const cos1 = Math.cos(nebulaTick * 0.8) * 80;
@@ -1805,13 +1828,11 @@ print("Python script completed successfully!")`
         ctx.fillRect(0, 0, width, height);
       }
 
-      // Update & Draw Stars
       for (let i = 0; i < stars.length; i++) {
         stars[i].update();
         stars[i].draw();
       }
 
-      // Constellation Mesh lines near mouse pointer
       if (mouse.screenX > 0 && mouse.screenY > 0) {
         for (let i = 0; i < stars.length; i += 3) {
           const s = stars[i];
@@ -1827,7 +1848,6 @@ print("Python script completed successfully!")`
         }
       }
 
-      // Update & Draw Meteors
       for (let i = 0; i < meteors.length; i++) {
         meteors[i].update();
         meteors[i].draw();
@@ -1838,7 +1858,7 @@ print("Python script completed successfully!")`
     animateSpaceMatrix();
 
     // ------------------------------------------------------------------
-    // 5. AUTH & CHAT LOGIC (GEMINI 2.5)
+    // 6. AUTH & CHAT LOGIC (GEMINI 2.5)
     // ------------------------------------------------------------------
     function renderUserAuthState(user) {
       const container = document.getElementById('authHeaderContainer');
@@ -2074,7 +2094,7 @@ print("Python script completed successfully!")`
     }
 
     // ------------------------------------------------------------------
-    // 6. DRAGGABLE FLOATING CHAT BUTTON
+    // 7. DRAGGABLE FLOATING CHAT BUTTON
     // ------------------------------------------------------------------
     const floatBtn = document.getElementById('draggableFloatingChat');
     let isDragging = false, hasMoved = false, startX, startY, initLeft, initTop;
@@ -2110,7 +2130,7 @@ print("Python script completed successfully!")`
     });
 
     // ------------------------------------------------------------------
-    // 7. TOOLS DIRECTORY & CUSTOM AGENT SYSTEM
+    // 8. TOOLS DIRECTORY & CUSTOM AGENT SYSTEM
     // ------------------------------------------------------------------
     const defaultTools = [
       { id: 1, name: "HELLO Vision Core", category: "NEURAL GRAPHICS", desc: "Ultra-high resolution generative canvas models with direct WebGL acceleration.", url: "https://google.com" },
@@ -2129,7 +2149,7 @@ print("Python script completed successfully!")`
       grid.innerHTML = '';
       tools.forEach((tool) => {
         const card = document.createElement('div');
-        card.className = "glass-card p-7 flex flex-col justify-between";
+        card.className = "glass-card anim-fade-up p-7 flex flex-col justify-between";
         card.innerHTML = `
           <div>
             <div class="flex justify-between items-center mb-3">
@@ -2146,6 +2166,7 @@ print("Python script completed successfully!")`
         `;
         grid.appendChild(card);
       });
+      initScrollAnimations();
     }
     renderCustomTools();
 
@@ -2168,7 +2189,7 @@ print("Python script completed successfully!")`
     }
 
     // ------------------------------------------------------------------
-    // 8. ADVERTISING / SPONSORED CAMPAIGN SYSTEM
+    // 9. ADVERTISING / SPONSORED CAMPAIGN SYSTEM
     // ------------------------------------------------------------------
     const AD_STORAGE_KEY = 'hello_ai_ad_campaigns_v1';
 
