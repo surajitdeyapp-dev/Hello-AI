@@ -25,14 +25,14 @@
 
     /* THEME COLORS (DYNAMIC LIGHT / DEEP COSMIC DARK) */
     :root {
-      --bg-base: #010206;
-      --bg-header: rgba(1, 3, 10, 0.82);
-      --bg-card: rgba(6, 11, 24, 0.72);
+      --bg-base: #010207;
+      --bg-header: rgba(2, 6, 18, 0.85);
+      --bg-card: rgba(7, 14, 30, 0.75);
       --text-main: #f1f5f9;
       --text-muted: #94a3b8;
-      --border-cyan: rgba(56, 189, 248, 0.22);
+      --border-cyan: rgba(56, 189, 248, 0.3);
       --editor-bg: #030712;
-      --particle-color: rgba(56, 189, 248, 0.7);
+      --particle-color: rgba(56, 189, 248, 0.8);
     }
 
     body.light-mode {
@@ -55,7 +55,7 @@
       transition: background 0.3s ease, color 0.3s ease;
     }
 
-    /* 3D COSMIC CANVAS BACKGROUND */
+    /* 3D COSMIC CANVAS BACKGROUND WITH COLOR GRADING */
     #cyberCanvas {
       position: fixed;
       top: 0;
@@ -64,7 +64,79 @@
       height: 100vh;
       z-index: 0;
       pointer-events: none;
-      background: radial-gradient(circle at center, #040817 0%, #000206 70%, #000000 100%);
+      background: 
+        radial-gradient(circle at 20% 15%, rgba(14, 165, 233, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 80% 80%, rgba(192, 132, 252, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, #030715 0%, #010207 75%, #000000 100%);
+    }
+
+    /* ========================================================= */
+    /*   ULTRA ANIMATED & GLOWING HELLO AI LOGO                  */
+    /* ========================================================= */
+    .cyber-logo-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cyber-logo-box {
+      position: relative;
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      background: #060b18;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.5), inset 0 0 15px rgba(56, 189, 248, 0.25);
+    }
+
+    /* Rotating Neon Border Beam */
+    .cyber-logo-box::before {
+      content: '';
+      position: absolute;
+      inset: -50%;
+      background: conic-gradient(from 0deg, transparent 0%, #38bdf8 25%, transparent 50%, #c084fc 75%, transparent 100%);
+      animation: rotateConic 4s linear infinite;
+    }
+
+    .cyber-logo-box::after {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      background: #050a17;
+      border-radius: 14px;
+    }
+
+    .cyber-logo-svg {
+      position: relative;
+      z-index: 2;
+      animation: logoGlowPulse 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes rotateConic {
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes logoGlowPulse {
+      0% {
+        filter: drop-shadow(0 0 8px #38bdf8) drop-shadow(0 0 20px rgba(56, 189, 248, 0.6));
+        transform: scale(0.98);
+      }
+      50% {
+        filter: drop-shadow(0 0 16px #38bdf8) drop-shadow(0 0 35px rgba(192, 132, 252, 0.8));
+        transform: scale(1.05);
+      }
+      100% {
+        filter: drop-shadow(0 0 8px #38bdf8) drop-shadow(0 0 20px rgba(56, 189, 248, 0.6));
+        transform: scale(0.98);
+      }
+    }
+
+    .logo-text-glow {
+      text-shadow: 0 0 15px rgba(56, 189, 248, 0.8), 0 0 30px rgba(129, 140, 248, 0.6);
     }
 
     /* 3D ANIMATED "HELLO AI" TITLE */
@@ -88,23 +160,23 @@
     @keyframes dynamicTextMotion {
       0% {
         transform: translateY(0px) rotateX(0deg) rotateY(0deg) scale(1);
-        filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.45));
+        filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.5));
       }
       25% {
         transform: translateY(-10px) rotateX(7deg) rotateY(-5deg) scale(1.025);
-        filter: drop-shadow(0 0 45px rgba(129, 140, 248, 0.65));
+        filter: drop-shadow(0 0 45px rgba(129, 140, 248, 0.7));
       }
       50% {
         transform: translateY(-16px) rotateX(0deg) rotateY(6deg) scale(1.045);
-        filter: drop-shadow(0 0 60px rgba(192, 132, 252, 0.75));
+        filter: drop-shadow(0 0 65px rgba(192, 132, 252, 0.85));
       }
       75% {
         transform: translateY(-8px) rotateX(-6deg) rotateY(-3deg) scale(1.02);
-        filter: drop-shadow(0 0 40px rgba(56, 189, 248, 0.6));
+        filter: drop-shadow(0 0 45px rgba(56, 189, 248, 0.65));
       }
       100% {
         transform: translateY(0px) rotateX(0deg) rotateY(0deg) scale(1);
-        filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.45));
+        filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.5));
       }
     }
 
@@ -125,7 +197,7 @@
     .glass-card:hover {
       border-color: rgba(56, 189, 248, 0.7);
       transform: translateY(-5px);
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.25);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.3);
     }
 
     /* THEME TOGGLE BUTTON */
@@ -145,7 +217,7 @@
     .theme-toggle-btn:hover {
       transform: scale(1.08) rotate(15deg);
       border-color: #38bdf8;
-      box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
     }
 
     /* DRAGGABLE FAB */
@@ -159,7 +231,7 @@
       border: 1.5px solid rgba(56, 189, 248, 0.65);
       padding: 12px 22px;
       border-radius: 999px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.4);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.5);
       cursor: grab;
       display: inline-flex;
       align-items: center;
@@ -314,26 +386,29 @@
     <!-- TOP HEADER -->
     <header class="sticky top-0 z-50 bg-[var(--bg-header)] backdrop-blur-2xl border-b border-[var(--border-cyan)] px-6 py-4 flex items-center justify-between">
       
-      <!-- Left: RESTORED ORIGINAL CYBER SVG LOGO -->
+      <!-- Left: ULTRA ANIMATED & GLOWING HELLO AI LOGO -->
       <a href="#" class="flex items-center gap-3.5 group">
-        <div class="w-11 h-11 rounded-2xl bg-[#090f1d] border border-cyan-500/40 flex items-center justify-center shadow-[0_0_25px_rgba(56,189,248,0.25)] group-hover:scale-105 group-hover:border-cyan-400 transition-all duration-300">
-          <svg viewBox="0 0 80 80" class="w-7 h-7 drop-shadow-[0_0_10px_rgba(56,189,248,0.8)]">
-            <defs>
-              <linearGradient id="logoCyberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#38bdf8"/>
-                <stop offset="50%" stop-color="#ffffff"/>
-                <stop offset="100%" stop-color="#818cf8"/>
-              </linearGradient>
-            </defs>
-            <polygon points="40,6 68,22 68,58 40,74 12,58 12,22" fill="none" stroke="url(#logoCyberGrad)" stroke-width="4.5" stroke-linejoin="round"/>
-            <polygon points="40,18 58,40 40,62 22,40" fill="rgba(8,16,32,0.9)" stroke="url(#logoCyberGrad)" stroke-width="2.5"/>
-            <path d="M40,26 Q40,40 54,40 Q40,40 40,54 Q40,40 26,40 Q40,40 40,26 Z" fill="url(#logoCyberGrad)"/>
-          </svg>
+        <div class="cyber-logo-wrapper">
+          <div class="cyber-logo-box group-hover:scale-105 transition-transform duration-300">
+            <svg viewBox="0 0 80 80" class="w-7 h-7 cyber-logo-svg">
+              <defs>
+                <linearGradient id="logoCyberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#38bdf8"/>
+                  <stop offset="50%" stop-color="#ffffff"/>
+                  <stop offset="100%" stop-color="#818cf8"/>
+                </linearGradient>
+              </defs>
+              <polygon points="40,6 68,22 68,58 40,74 12,58 12,22" fill="none" stroke="url(#logoCyberGrad)" stroke-width="4.5" stroke-linejoin="round"/>
+              <polygon points="40,18 58,40 40,62 22,40" fill="rgba(8,16,32,0.9)" stroke="url(#logoCyberGrad)" stroke-width="2.5"/>
+              <path d="M40,26 Q40,40 54,40 Q40,40 40,54 Q40,40 26,40 Q40,40 40,26 Z" fill="url(#logoCyberGrad)"/>
+            </svg>
+          </div>
         </div>
+
         <div class="flex flex-col">
           <div class="flex items-center gap-1.5 leading-none">
-            <span class="font-extrabold text-[15px] tracking-[0.24em]">HELLO</span>
-            <span class="font-black text-lg font-['Syne'] bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">AI</span>
+            <span class="font-extrabold text-[15px] tracking-[0.24em] logo-text-glow">HELLO</span>
+            <span class="font-black text-lg font-['Syne'] bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(56,189,248,0.7)]">AI</span>
           </div>
           <span class="text-[8.5px] font-mono tracking-[0.26em] text-cyan-400 font-bold mt-1 uppercase">Cybernetic Engine</span>
         </div>
@@ -361,7 +436,7 @@
     <main class="flex-1">
       <section class="max-w-6xl mx-auto px-6 pt-24 pb-28 flex flex-col items-center text-center">
         <!-- Badge -->
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold tracking-widest uppercase mb-8 shadow-[0_0_20px_rgba(56,189,248,0.2)]">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold tracking-widest uppercase mb-8 shadow-[0_0_25px_rgba(56,189,248,0.3)]">
           <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
           <span>AUTONOMOUS CYBER INTELLIGENCE</span>
         </div>
@@ -500,19 +575,21 @@
         <!-- Top row: Logo + Description -->
         <div class="mb-14">
           <div class="flex items-center gap-3.5 mb-2.5">
-            <div class="w-10 h-10 rounded-2xl bg-[#090f1d] border border-cyan-500/40 flex items-center justify-center shadow-[0_0_20px_rgba(56,189,248,0.25)]">
-              <svg viewBox="0 0 80 80" class="w-6 h-6 drop-shadow-[0_0_8px_rgba(56,189,248,0.8)]">
-                <defs>
-                  <linearGradient id="footerCyberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#38bdf8"/>
-                    <stop offset="50%" stop-color="#ffffff"/>
-                    <stop offset="100%" stop-color="#818cf8"/>
-                  </linearGradient>
-                </defs>
-                <polygon points="40,6 68,22 68,58 40,74 12,58 12,22" fill="none" stroke="url(#footerCyberGrad)" stroke-width="4.5" stroke-linejoin="round"/>
-                <polygon points="40,18 58,40 40,62 22,40" fill="rgba(8,16,32,0.9)" stroke="url(#footerCyberGrad)" stroke-width="2.5"/>
-                <path d="M40,26 Q40,40 54,40 Q40,40 40,54 Q40,40 26,40 Q40,40 40,26 Z" fill="url(#footerCyberGrad)"/>
-              </svg>
+            <div class="cyber-logo-wrapper">
+              <div class="cyber-logo-box">
+                <svg viewBox="0 0 80 80" class="w-6 h-6 cyber-logo-svg">
+                  <defs>
+                    <linearGradient id="footerCyberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#38bdf8"/>
+                      <stop offset="50%" stop-color="#ffffff"/>
+                      <stop offset="100%" stop-color="#818cf8"/>
+                    </linearGradient>
+                  </defs>
+                  <polygon points="40,6 68,22 68,58 40,74 12,58 12,22" fill="none" stroke="url(#footerCyberGrad)" stroke-width="4.5" stroke-linejoin="round"/>
+                  <polygon points="40,18 58,40 40,62 22,40" fill="rgba(8,16,32,0.9)" stroke="url(#footerCyberGrad)" stroke-width="2.5"/>
+                  <path d="M40,26 Q40,40 54,40 Q40,40 40,54 Q40,40 26,40 Q40,40 40,26 Z" fill="url(#footerCyberGrad)"/>
+                </svg>
+              </div>
             </div>
             <h2 class="text-xl sm:text-2xl font-black font-['Syne'] tracking-wider text-white">HELLO AI</h2>
           </div>
@@ -522,7 +599,7 @@
           </p>
         </div>
 
-        <!-- Links Grid: COMPANY & EDITORS (PLAYGROUNDS REMOVED, JS REPLACED WITH HELLO AI) -->
+        <!-- Links Grid: COMPANY & EDITORS -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 sm:gap-16 mb-16 text-xs max-w-2xl">
           <!-- Column 1: COMPANY -->
           <div>
@@ -559,7 +636,7 @@
           © 2026 HELLO AI · Code. Build. See it live.
         </div>
 
-        <!-- Bottom SEO & Navigation Keywords (JS Replaced with HELLO AI) -->
+        <!-- Bottom SEO & Navigation Keywords -->
         <div class="flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-[#e2b86c]/90 font-medium">
           <a href="javascript:void(0)" onclick="selectLanguageMode('javascript')" class="hover:text-white transition-colors">Online HELLO AI Editor</a>
           <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-white transition-colors">Live Code Editor</a>
@@ -1538,16 +1615,16 @@ print("Python script completed successfully!")`
     }
 
     // ------------------------------------------------------------------
-    // 4. 4K ULTRA 3D SPACE WARP & COSMIC STAR ENGINE
+    // 4. 4K ULTRA 3D SPACE WARP, NEBULA GLOW & CONSTELLATION MESH
     // ------------------------------------------------------------------
     const canvas = document.getElementById('cyberCanvas');
     const ctx = canvas.getContext('2d');
     let width, height;
-    let mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    let mouse = { x: 0, y: 0, targetX: 0, targetY: 0, screenX: -1000, screenY: -1000 };
 
-    const STAR_COUNT = 850;
+    const STAR_COUNT = 750;
     let stars = [];
-    const WARP_SPEED = 2.4;
+    const WARP_SPEED = 2.6;
 
     function resizeCanvas() {
       width = canvas.width = window.innerWidth;
@@ -1557,8 +1634,10 @@ print("Python script completed successfully!")`
     resizeCanvas();
 
     window.addEventListener('mousemove', (e) => {
-      mouse.targetX = (e.clientX - width / 2) * 0.0006;
-      mouse.targetY = (e.clientY - height / 2) * 0.0006;
+      mouse.screenX = e.clientX;
+      mouse.screenY = e.clientY;
+      mouse.targetX = (e.clientX - width / 2) * 0.0008;
+      mouse.targetY = (e.clientY - height / 2) * 0.0008;
     });
 
     class CosmicStar {
@@ -1566,20 +1645,27 @@ print("Python script completed successfully!")`
         this.reset(true);
       }
       reset(initial = false) {
-        this.x = (Math.random() - 0.5) * width * 2.2;
-        this.y = (Math.random() - 0.5) * height * 2.2;
+        this.x = (Math.random() - 0.5) * width * 2.4;
+        this.y = (Math.random() - 0.5) * height * 2.4;
         this.z = initial ? Math.random() * width : width;
         this.pz = this.z;
-        this.baseColor = Math.random() > 0.85 ? '#818cf8' : (Math.random() > 0.6 ? '#38bdf8' : '#ffffff');
-        this.size = Math.random() * 1.5 + 0.6;
+        const colorRand = Math.random();
+        if (colorRand > 0.85) this.baseColor = '#c084fc';
+        else if (colorRand > 0.5) this.baseColor = '#38bdf8';
+        else if (colorRand > 0.25) this.baseColor = '#818cf8';
+        else this.baseColor = '#ffffff';
+
+        this.size = Math.random() * 1.8 + 0.7;
+        this.projX = 0;
+        this.projY = 0;
       }
       update() {
         this.pz = this.z;
         this.z -= WARP_SPEED;
 
         // Mouse Parallax drift
-        this.x += (mouse.x * 40);
-        this.y += (mouse.y * 40);
+        this.x += (mouse.x * 55);
+        this.y += (mouse.y * 55);
 
         if (this.z <= 1) {
           this.reset(false);
@@ -1590,30 +1676,43 @@ print("Python script completed successfully!")`
         const cx = width / 2;
         const cy = height / 2;
 
-        const k = 280 / this.z;
+        const k = 290 / this.z;
         const px = this.x * k + cx;
         const py = this.y * k + cy;
 
-        if (px < 0 || px >= width || py < 0 || py >= height) return;
+        this.projX = px;
+        this.projY = py;
 
-        const prevK = 280 / this.pz;
+        if (px < -50 || px >= width + 50 || py < -50 || py >= height + 50) return;
+
+        const prevK = 290 / this.pz;
         const prevPx = this.x * prevK + cx;
         const prevPy = this.y * prevK + cy;
 
-        const depthAlpha = Math.min(1, Math.max(0.1, (1 - this.z / width) * 1.2));
-        const currentSize = Math.max(0.6, (1 - this.z / width) * this.size * 2.5);
+        const depthAlpha = Math.min(1, Math.max(0.12, (1 - this.z / width) * 1.35));
+        const currentSize = Math.max(0.8, (1 - this.z / width) * this.size * 2.8);
 
+        // Radiant Streak line
         ctx.beginPath();
         ctx.moveTo(prevPx, prevPy);
         ctx.lineTo(px, py);
-        ctx.strokeStyle = isLightMode ? `rgba(14, 165, 233, ${depthAlpha * 0.5})` : this.baseColor;
-        ctx.globalAlpha = depthAlpha;
+        ctx.strokeStyle = isLightMode ? `rgba(14, 165, 233, ${depthAlpha * 0.45})` : this.baseColor;
+        ctx.globalAlpha = depthAlpha * 0.9;
         ctx.lineWidth = currentSize;
         ctx.stroke();
 
+        // Neon Glow Halo
         ctx.beginPath();
-        ctx.arc(px, py, currentSize * 0.7, 0, Math.PI * 2);
-        ctx.fillStyle = isLightMode ? '#0284c7' : '#ffffff';
+        ctx.arc(px, py, currentSize * 1.6, 0, Math.PI * 2);
+        ctx.fillStyle = this.baseColor;
+        ctx.globalAlpha = depthAlpha * 0.35;
+        ctx.fill();
+
+        // Star core
+        ctx.beginPath();
+        ctx.arc(px, py, currentSize * 0.8, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffffff';
+        ctx.globalAlpha = depthAlpha;
         ctx.fill();
         ctx.globalAlpha = 1;
       }
@@ -1623,6 +1722,7 @@ print("Python script completed successfully!")`
       stars.push(new CosmicStar());
     }
 
+    // Dynamic Shooting Meteor
     class Meteor {
       constructor() {
         this.reset();
@@ -1630,12 +1730,12 @@ print("Python script completed successfully!")`
       reset() {
         this.x = Math.random() * width;
         this.y = Math.random() * (height * 0.4);
-        this.len = Math.random() * 80 + 50;
-        this.speed = Math.random() * 12 + 10;
-        this.angle = Math.PI / 4 + (Math.random() - 0.5) * 0.2;
+        this.len = Math.random() * 110 + 70;
+        this.speed = Math.random() * 14 + 12;
+        this.angle = Math.PI / 4 + (Math.random() - 0.5) * 0.25;
         this.opacity = 1;
         this.active = false;
-        this.timer = Math.random() * 300 + 120;
+        this.timer = Math.random() * 250 + 100;
       }
       update() {
         if (!this.active) {
@@ -1645,8 +1745,8 @@ print("Python script completed successfully!")`
         }
         this.x += Math.cos(this.angle) * this.speed;
         this.y += Math.sin(this.angle) * this.speed;
-        this.opacity -= 0.015;
-        if (this.opacity <= 0 || this.x > width || this.y > height) {
+        this.opacity -= 0.012;
+        if (this.opacity <= 0 || this.x > width + 100 || this.y > height + 100) {
           this.reset();
         }
       }
@@ -1656,41 +1756,78 @@ print("Python script completed successfully!")`
         const tailY = this.y - Math.sin(this.angle) * this.len;
 
         const grad = ctx.createLinearGradient(this.x, this.y, tailX, tailY);
-        grad.addColorStop(0, `rgba(56, 189, 248, ${this.opacity})`);
+        grad.addColorStop(0, `rgba(255, 255, 255, ${this.opacity})`);
+        grad.addColorStop(0.2, `rgba(56, 189, 248, ${this.opacity * 0.9})`);
+        grad.addColorStop(0.7, `rgba(192, 132, 252, ${this.opacity * 0.5})`);
         grad.addColorStop(1, 'rgba(56, 189, 248, 0)');
 
         ctx.beginPath();
         ctx.moveTo(this.x, this.y);
         ctx.lineTo(tailX, tailY);
         ctx.strokeStyle = grad;
-        ctx.lineWidth = 1.8;
+        ctx.lineWidth = 2.4;
         ctx.stroke();
       }
     }
 
-    const meteors = [new Meteor(), new Meteor()];
+    const meteors = [new Meteor(), new Meteor(), new Meteor()];
+
+    let nebulaTick = 0;
 
     function animateSpaceMatrix() {
+      nebulaTick += 0.008;
+
+      // Smooth mouse interpolation
       mouse.x += (mouse.targetX - mouse.x) * 0.05;
       mouse.y += (mouse.targetY - mouse.y) * 0.05;
 
-      ctx.fillStyle = isLightMode ? 'rgba(248, 250, 252, 0.28)' : 'rgba(1, 2, 6, 0.32)';
+      // Dark space trail for 3D warp depth
+      ctx.fillStyle = isLightMode ? 'rgba(248, 250, 252, 0.26)' : 'rgba(1, 2, 7, 0.32)';
       ctx.fillRect(0, 0, width, height);
 
+      // Next-Gen Dynamic Nebula Color Grading
       if (!isLightMode) {
-        const glowGrad = ctx.createRadialGradient(width * 0.5, height * 0.45, 10, width * 0.5, height * 0.45, width * 0.6);
-        glowGrad.addColorStop(0, 'rgba(56, 189, 248, 0.025)');
-        glowGrad.addColorStop(0.5, 'rgba(129, 140, 248, 0.015)');
-        glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        ctx.fillStyle = glowGrad;
+        const sin1 = Math.sin(nebulaTick) * 80;
+        const cos1 = Math.cos(nebulaTick * 0.8) * 80;
+
+        const glowGrad1 = ctx.createRadialGradient(width * 0.35 + sin1, height * 0.3 + cos1, 10, width * 0.35 + sin1, height * 0.3 + cos1, width * 0.65);
+        glowGrad1.addColorStop(0, 'rgba(56, 189, 248, 0.075)');
+        glowGrad1.addColorStop(0.5, 'rgba(99, 102, 241, 0.035)');
+        glowGrad1.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = glowGrad1;
+        ctx.fillRect(0, 0, width, height);
+
+        const glowGrad2 = ctx.createRadialGradient(width * 0.7 - sin1, height * 0.65 - cos1, 10, width * 0.7 - sin1, height * 0.65 - cos1, width * 0.6);
+        glowGrad2.addColorStop(0, 'rgba(192, 132, 252, 0.065)');
+        glowGrad2.addColorStop(0.6, 'rgba(236, 72, 153, 0.025)');
+        glowGrad2.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = glowGrad2;
         ctx.fillRect(0, 0, width, height);
       }
 
+      // Update & Draw Stars
       for (let i = 0; i < stars.length; i++) {
         stars[i].update();
         stars[i].draw();
       }
 
+      // Constellation Mesh lines near mouse pointer
+      if (mouse.screenX > 0 && mouse.screenY > 0) {
+        for (let i = 0; i < stars.length; i += 3) {
+          const s = stars[i];
+          const distToMouse = Math.hypot(s.projX - mouse.screenX, s.projY - mouse.screenY);
+          if (distToMouse < 130) {
+            ctx.beginPath();
+            ctx.moveTo(s.projX, s.projY);
+            ctx.lineTo(mouse.screenX, mouse.screenY);
+            ctx.strokeStyle = `rgba(56, 189, 248, ${(1 - distToMouse / 130) * 0.35})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Update & Draw Meteors
       for (let i = 0; i < meteors.length; i++) {
         meteors[i].update();
         meteors[i].draw();
