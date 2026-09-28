@@ -27,14 +27,14 @@
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
-    /* THEME COLORS (DYNAMIC LIGHT / DEEP COSMIC DARK) */
+    /* THEME COLORS (DYNAMIC LIGHT / DEEP CYBER MATRIX DARK) */
     :root {
-      --bg-base: #010206;
-      --bg-header: rgba(2, 6, 18, 0.85);
-      --bg-card: rgba(7, 14, 30, 0.75);
+      --bg-base: #01040a;
+      --bg-header: rgba(1, 7, 18, 0.88);
+      --bg-card: rgba(4, 13, 29, 0.78);
       --text-main: #f1f5f9;
       --text-muted: #94a3b8;
-      --border-cyan: rgba(56, 189, 248, 0.3);
+      --border-cyan: rgba(56, 189, 248, 0.35);
       --editor-bg: #030712;
       --particle-color: rgba(56, 189, 248, 0.8);
       --theme-glow: #38bdf8;
@@ -42,11 +42,11 @@
 
     body.light-mode {
       --bg-base: #f8fafc;
-      --bg-header: rgba(255, 255, 255, 0.9);
-      --bg-card: rgba(255, 255, 255, 0.88);
+      --bg-header: rgba(255, 255, 255, 0.92);
+      --bg-card: rgba(255, 255, 255, 0.9);
       --text-main: #0f172a;
       --text-muted: #64748b;
-      --border-cyan: rgba(14, 165, 233, 0.3);
+      --border-cyan: rgba(14, 165, 233, 0.35);
       --editor-bg: #0f172a;
       --particle-color: rgba(14, 165, 233, 0.5);
       --theme-glow: #0284c7;
@@ -61,7 +61,7 @@
       transition: background 0.3s ease, color 0.3s ease;
     }
 
-    /* 3D COSMIC CANVAS BACKGROUND */
+    /* 3D CYBER DNA HACKER MATRIX CANVAS */
     #cyberCanvas {
       position: fixed;
       top: 0;
@@ -70,7 +70,7 @@
       height: 100vh;
       z-index: 0;
       pointer-events: none;
-      background: #010207;
+      background: radial-gradient(circle at center, #020817 0%, #010309 100%);
     }
 
     /* LOGO CYBER GLOW & CONIC LIGHT */
@@ -98,7 +98,7 @@
       content: '';
       position: absolute;
       inset: -50%;
-      background: conic-gradient(from 0deg, transparent 0%, #38bdf8 25%, transparent 50%, #c084fc 75%, transparent 100%);
+      background: conic-gradient(from 0deg, transparent 0%, #38bdf8 25%, #10b981 50%, #c084fc 75%, transparent 100%);
       animation: rotateConic 4s linear infinite;
     }
 
@@ -126,7 +126,7 @@
         transform: scale(0.98);
       }
       50% {
-        filter: drop-shadow(0 0 16px #38bdf8) drop-shadow(0 0 35px rgba(192, 132, 252, 0.8));
+        filter: drop-shadow(0 0 16px #10b981) drop-shadow(0 0 35px rgba(56, 189, 248, 0.8));
         transform: scale(1.05);
       }
       100% {
@@ -136,7 +136,7 @@
     }
 
     .logo-text-glow {
-      text-shadow: 0 0 15px rgba(56, 189, 248, 0.8), 0 0 30px rgba(129, 140, 248, 0.6);
+      text-shadow: 0 0 15px rgba(56, 189, 248, 0.8), 0 0 30px rgba(16, 185, 129, 0.5);
     }
 
     /* 3D ANIMATED "HELLO AI" TITLE */
@@ -148,7 +148,7 @@
     .cyber-title-animated {
       display: inline-block;
       font-family: 'Syne', sans-serif;
-      background: linear-gradient(120deg, #38bdf8 0%, #818cf8 35%, #c084fc 65%, #38bdf8 100%);
+      background: linear-gradient(120deg, #38bdf8 0%, #10b981 35%, #818cf8 65%, #38bdf8 100%);
       background-size: 250% 250%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -164,15 +164,15 @@
       }
       25% {
         transform: translateY(-10px) rotateX(7deg) rotateY(-5deg) scale(1.025);
-        filter: drop-shadow(0 0 45px rgba(129, 140, 248, 0.7));
+        filter: drop-shadow(0 0 45px rgba(16, 185, 129, 0.6));
       }
       50% {
         transform: translateY(-16px) rotateX(0deg) rotateY(6deg) scale(1.045);
-        filter: drop-shadow(0 0 65px rgba(192, 132, 252, 0.85));
+        filter: drop-shadow(0 0 65px rgba(56, 189, 248, 0.85));
       }
       75% {
         transform: translateY(-8px) rotateX(-6deg) rotateY(-3deg) scale(1.02);
-        filter: drop-shadow(0 0 45px rgba(56, 189, 248, 0.65));
+        filter: drop-shadow(0 0 45px rgba(129, 140, 248, 0.65));
       }
       100% {
         transform: translateY(0px) rotateX(0deg) rotateY(0deg) scale(1);
@@ -259,7 +259,7 @@
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(1, 3, 10, 0.9);
+      background: rgba(1, 3, 10, 0.92);
       backdrop-filter: blur(18px);
       z-index: 1000010;
       display: none;
@@ -294,7 +294,7 @@
     .ad-banner-slot {
       min-height: 96px; display: flex; align-items: center; justify-content: center;
       border: 1px dashed rgba(56,189,248,.35); border-radius: 18px;
-      background: linear-gradient(135deg, rgba(56,189,248,.08), rgba(129,140,248,.05));
+      background: linear-gradient(135deg, rgba(56,189,248,.08), rgba(16,185,129,.05));
       overflow: hidden; position: relative;
     }
     .ad-banner-slot .ad-placeholder { text-align: center; padding: 18px; }
@@ -380,7 +380,7 @@
 </head>
 <body>
 
-  <!-- 3D COSMIC MOVING STARFIELD & GALAXY CANVAS -->
+  <!-- 3D CYBERNETIC BIO-DIGITAL DNA & MATRIX CANVAS -->
   <canvas id="cyberCanvas"></canvas>
 
   <!-- TOAST NOTIFICATION -->
@@ -389,7 +389,7 @@
   <!-- FLOATING DRAGGABLE CHAT -->
   <div id="draggableFloatingChat" title="Click or Drag: Open HELLO AI CHAT">
     <i class="fa-solid fa-grip-vertical text-cyan-400/50 text-xs"></i>
-    <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
     <span class="text-xs font-black tracking-wider text-cyan-400">HELLO AI CHAT</span>
   </div>
 
@@ -407,7 +407,7 @@
               <defs>
                 <linearGradient id="logoCyberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stop-color="#38bdf8"/>
-                  <stop offset="50%" stop-color="#ffffff"/>
+                  <stop offset="50%" stop-color="#10b981"/>
                   <stop offset="100%" stop-color="#818cf8"/>
                 </linearGradient>
               </defs>
@@ -421,9 +421,9 @@
         <div class="flex flex-col">
           <div class="flex items-center gap-1.5 leading-none">
             <span class="font-extrabold text-[15px] tracking-[0.24em] logo-text-glow">HELLO</span>
-            <span class="font-black text-lg font-['Syne'] bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(56,189,248,0.7)]">AI</span>
+            <span class="font-black text-lg font-['Syne'] bg-gradient-to-r from-cyan-400 via-emerald-300 to-indigo-400 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(56,189,248,0.7)]">AI</span>
           </div>
-          <span class="text-[8.5px] font-mono tracking-[0.26em] text-cyan-400 font-bold mt-1 uppercase">Cybernetic Engine</span>
+          <span class="text-[8.5px] font-mono tracking-[0.26em] text-cyan-400 font-bold mt-1 uppercase">Bio-Digital Matrix</span>
         </div>
       </a>
 
@@ -449,8 +449,8 @@
       <section class="max-w-6xl mx-auto px-6 pt-24 pb-28 flex flex-col items-center text-center">
         <!-- Badge -->
         <div class="anim-fade-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold tracking-widest uppercase mb-8 shadow-[0_0_25px_rgba(56,189,248,0.3)]">
-          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-          <span>AUTONOMOUS CYBER INTELLIGENCE</span>
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>NEURAL BIO-CYBERNETIC SYSTEM</span>
         </div>
 
         <!-- MAIN TITLE: ONLY "HELLO AI" -->
@@ -462,13 +462,13 @@
 
         <!-- Subtitle -->
         <p class="anim-fade-up text-[var(--text-muted)] max-w-2xl text-sm sm:text-base leading-relaxed mb-10 font-normal">
-          Multi-language cloud studio environment supporting HTML5, JavaScript & Python. Client-side sandboxed execution with media recording and multimodal AI.
+          Multi-language cloud studio environment supporting HTML5, JavaScript & Python. Client-side sandboxed execution with biological cybernetic matrix pipelines.
         </p>
 
         <!-- CTA Buttons -->
         <div class="anim-fade-up flex flex-wrap items-center justify-center gap-4">
-          <button onclick="handleProtectedChatLaunch()" class="px-8 py-4 rounded-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 hover:from-cyan-400 hover:to-blue-400 text-slate-950 font-black text-xs tracking-widest uppercase shadow-[0_0_35px_rgba(56,189,248,0.5)] transition-all hover:scale-105 flex items-center gap-3">
-            <i class="fa-solid fa-comments text-sm"></i>
+          <button onclick="handleProtectedChatLaunch()" class="px-8 py-4 rounded-full bg-gradient-to-r from-cyan-500 via-emerald-500 to-indigo-600 hover:from-cyan-400 hover:to-emerald-400 text-slate-950 font-black text-xs tracking-widest uppercase shadow-[0_0_35px_rgba(56,189,248,0.5)] transition-all hover:scale-105 flex items-center gap-3">
+            <i class="fa-solid fa-terminal text-sm"></i>
             <span>OPEN HELLO AI CHAT</span>
             <span class="text-white">✦</span>
           </button>
@@ -480,7 +480,7 @@
           </button>
 
           <button onclick="openLibraryModal()" class="px-8 py-4 rounded-full bg-slate-900/90 hover:bg-slate-800 text-cyan-300 font-bold text-xs tracking-widest uppercase border border-cyan-500/40 transition-all hover:border-cyan-400 flex items-center gap-2.5 shadow-[0_0_20px_rgba(56,189,248,0.2)]">
-            <i class="fa-solid fa-layer-group text-cyan-400"></i>
+            <i class="fa-solid fa-dna text-emerald-400"></i>
             <span>HELLO AI LIBRARY</span>
           </button>
         </div>
@@ -488,20 +488,20 @@
         <!-- Metric Cards -->
         <div class="anim-fade-up grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-4xl mt-16 pt-10 border-t border-[var(--border-cyan)]">
           <div class="glass-card p-5 text-left">
-            <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Engines</span>
-            <strong class="text-sm font-bold text-cyan-400">HTML • JS • PYTHON</strong>
+            <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Architecture</span>
+            <strong class="text-sm font-bold text-cyan-400">3D DNA MATRIX</strong>
           </div>
           <div class="glass-card p-5 text-left">
             <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Neural Core</span>
-            <strong class="text-sm font-bold text-indigo-400">GEMINI 2.5 FLASH</strong>
+            <strong class="text-sm font-bold text-emerald-400">GEMINI 2.5 FLASH</strong>
           </div>
           <div class="glass-card p-5 text-left">
             <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Video Stream</span>
-            <strong class="text-sm font-bold text-emerald-400">WEBM PIPELINE</strong>
+            <strong class="text-sm font-bold text-indigo-400">WEBM PIPELINE</strong>
           </div>
           <div class="glass-card p-5 text-left">
-            <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Theme</span>
-            <strong id="activeThemeLabel" class="text-sm font-bold text-cyan-400">COSMIC VOID</strong>
+            <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Security Grid</span>
+            <strong id="activeThemeLabel" class="text-sm font-bold text-cyan-400">CYBER DEEP</strong>
           </div>
         </div>
       </section>
@@ -560,28 +560,28 @@
             </div>
           </div>
           <div class="ad-card anim-fade-up">
-            <div class="text-indigo-400 text-xl mb-3"><i class="fa-solid fa-display"></i></div>
+            <div class="text-emerald-400 text-xl mb-3"><i class="fa-solid fa-display"></i></div>
             <h3 class="font-bold font-['Syne'] text-lg">Featured Campaign</h3>
             <p class="text-xs text-slate-400 mt-2 leading-relaxed">Premium placement for brands that want more visibility across the homepage.</p>
             <div class="mt-5 flex items-end justify-between">
               <span class="text-[9px] font-mono text-slate-500 uppercase">From</span>
-              <span class="ad-price text-indigo-400">₹899</span>
+              <span class="ad-price text-emerald-400">₹899</span>
             </div>
           </div>
           <div class="ad-card anim-fade-up">
-            <div class="text-emerald-400 text-xl mb-3"><i class="fa-solid fa-calendar-days"></i></div>
+            <div class="text-indigo-400 text-xl mb-3"><i class="fa-solid fa-calendar-days"></i></div>
             <h3 class="font-bold font-['Syne'] text-lg">Timed Campaign</h3>
             <p class="text-xs text-slate-400 mt-2 leading-relaxed">Select 7, 15 or 30 days. Approved campaigns expire automatically in the display layer.</p>
             <div class="mt-5 flex items-end justify-between">
               <span class="text-[9px] font-mono text-slate-500 uppercase">Flexible</span>
-              <span class="ad-price text-emerald-400">7–30D</span>
+              <span class="ad-price text-indigo-400">7–30D</span>
             </div>
           </div>
         </div>
       </section>
     </main>
 
-    <!-- FOOTER: WITH THEME CYAN COLOR (NO GOLDEN) & NO PLAYGROUNDS (ANIMATED) -->
+    <!-- FOOTER -->
     <footer class="bg-[#02050f] border-t border-slate-800 text-slate-300 pt-16 pb-12 px-6 sm:px-12 mt-10">
       <div class="max-w-6xl mx-auto anim-fade-up">
         <!-- Top row: Logo + Description -->
@@ -593,7 +593,7 @@
                   <defs>
                     <linearGradient id="footerCyberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" stop-color="#38bdf8"/>
-                      <stop offset="50%" stop-color="#ffffff"/>
+                      <stop offset="50%" stop-color="#10b981"/>
                       <stop offset="100%" stop-color="#818cf8"/>
                     </linearGradient>
                   </defs>
@@ -861,7 +861,7 @@
           <span>Exit Chat</span>
         </button>
         <div class="flex items-center gap-2.5">
-          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
           <span class="font-extrabold text-sm font-['Syne'] text-white">HELLO AI CHAT</span>
         </div>
       </div>
@@ -907,7 +907,7 @@
       </button>
 
       <div class="w-16 h-16 bg-cyan-500/10 rounded-2xl flex items-center justify-center mx-auto mb-5 text-cyan-400 text-2xl border border-cyan-500/30">
-        <i class="fa-solid fa-lock"></i>
+        <i class="fa-solid fa-dna"></i>
       </div>
 
       <h3 class="text-2xl font-black font-['Syne'] text-white mb-2">Connect Identity</h3>
@@ -1113,17 +1113,17 @@
       
       if (isLightMode) {
         themeIcon.className = "fa-solid fa-sun text-sm text-amber-500";
-        if (activeThemeLabel) activeThemeLabel.innerText = "PURE LIGHT";
-        showToast("Switched to Light Mode");
+        if (activeThemeLabel) activeThemeLabel.innerText = "CYBER LIGHT";
+        showToast("Switched to Light Matrix");
       } else {
         themeIcon.className = "fa-solid fa-moon text-sm text-cyan-400";
-        if (activeThemeLabel) activeThemeLabel.innerText = "COSMIC VOID";
-        showToast("Switched to Deep Cosmic Dark");
+        if (activeThemeLabel) activeThemeLabel.innerText = "CYBER DEEP";
+        showToast("Switched to Deep Cyber Dark");
       }
     }
 
     // ------------------------------------------------------------------
-    // 2. SCROLL ENTRANCE REVEAL ANIMATIONS (TOP TO BOTTOM)
+    // 2. SCROLL ENTRANCE REVEAL ANIMATIONS
     // ------------------------------------------------------------------
     function initScrollAnimations() {
       const elements = document.querySelectorAll('.anim-fade-up');
@@ -1204,7 +1204,7 @@
         const r = 110 + Math.sin(t*0.05 + i)*45;
         x.beginPath();
         x.arc(cx + Math.cos(a)*r, cy + Math.sin(a)*r, 6, 0, Math.PI*2);
-        x.fillStyle = i%2===0 ? '#38bdf8' : '#c084fc';
+        x.fillStyle = i%2===0 ? '#38bdf8' : '#10b981';
         x.shadowColor = '#38bdf8'; x.shadowBlur = 15;
         x.fill();
       }
@@ -1226,13 +1226,13 @@
     body { margin:0; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#030712; color:#38bdf8; font-family:'Courier New',monospace; }
     .box { border:2px solid #38bdf8; border-radius:24px; padding:30px 45px; background:rgba(56,189,248,0.06); box-shadow:0 0 40px rgba(56,189,248,0.3); text-align:center; }
     #time { font-size:3.5rem; font-weight:900; letter-spacing:4px; text-shadow:0 0 25px rgba(56,189,248,0.8); }
-    .sub { font-size:12px; letter-spacing:3px; color:#818cf8; margin-top:10px; text-transform:uppercase; }
+    .sub { font-size:12px; letter-spacing:3px; color:#10b981; margin-top:10px; text-transform:uppercase; }
   </style>
 </head>
 <body>
   <div class="box">
     <div id="time">00:00:00</div>
-    <div class="sub">QUANTUM LOCAL TIME</div>
+    <div class="sub">BIO-MATRIX LOCAL TIME</div>
   </div>
   <script>
     function tick() {
@@ -1375,7 +1375,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(circle, #0f172a 0%, #020617 100%);
+      background: radial-gradient(circle, #061124 0%, #01040a 100%);
       color: #38bdf8;
       font-family: sans-serif;
     }
@@ -1385,8 +1385,9 @@
       text-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
     }
     .badge {
-      background: rgba(56, 189, 248, 0.15);
-      border: 1px solid #38bdf8;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid #10b981;
+      color: #34d399;
       padding: 6px 18px;
       border-radius: 999px;
       font-size: 13px;
@@ -1395,8 +1396,8 @@
   </style>
 </head>
 <body>
-  <h1>HELLO WEB MATRIX</h1>
-  <div class="badge">Running in Live Isolated SandBox</div>
+  <h1>HELLO DNA MATRIX</h1>
+  <div class="badge">Running in Isolated Bio-Cybernetic Sandbox</div>
 </body>
 </html>`,
       javascript: `// JavaScript ES6+ Execution Engine
@@ -1405,38 +1406,36 @@ console.log("=== HELLO AI JAVASCRIPT CORE ===");
 function computeMatrix(size) {
   let nodes = [];
   for (let i = 1; i <= size; i++) {
-    nodes.push({ id: "NODE_" + i, latency: (Math.random() * 20).toFixed(2) + "ms" });
+    nodes.push({ id: "BIO_NODE_" + i, sequence: "ATCG-" + Math.floor(Math.random()*9000 + 1000), latency: (Math.random() * 15).toFixed(2) + "ms" });
   }
   return nodes;
 }
 
 const network = computeMatrix(4);
-console.log("Network topology successfully mapped:");
+console.log("Bio-Neural topology successfully mapped:");
 console.log(JSON.stringify(network, null, 2));
 
-console.log("Status: 100% Operational at 60 FPS.");`,
+console.log("Status: 100% Operational DNA Core.");`,
       python: `# HELLO CODE STUDIO — REAL PYTHON + VIDEO
 # This code runs in real Python inside your browser.
-# The helloVideo helper lets Python draw frames that become a WebM video.
 
 import math
 from js import helloVideo
 
-print("=== REAL PYTHON ENVIRONMENT ===")
+print("=== REAL PYTHON BIO-MATRIX ===")
 print("Python is running with Pyodide.")
 
 for i in range(120):
     angle = i / 10
-    x = 320 + int(math.cos(angle) * 105)
-    y = 180 + int(math.sin(angle) * 70)
+    x = 320 + int(math.cos(angle) * 110)
+    y = 180 + int(math.sin(angle) * 75)
 
-    helloVideo.clear("#030712")
+    helloVideo.clear("#01040a")
     helloVideo.circle(x, y, 9, "#38bdf8")
-    helloVideo.circle(320, 180, 55, "#818cf8")
-    helloVideo.text("HELLO CODE STUDIO", 205, 45, "#ffffff", 20)
-    helloVideo.text(f"Python frame: {i + 1}/120", 235, 330, "#67e8f9", 14)
+    helloVideo.circle(320, 180, 50, "#10b981")
+    helloVideo.text("HELLO DNA MATRIX", 200, 45, "#ffffff", 20)
+    helloVideo.text(f"Cyber Stream Frame: {i + 1}/120", 215, 330, "#34d399", 14)
 
-    # Yield to the browser so the canvas frame is captured.
     await helloVideo.frame()
 
 print("Video render finished successfully!")`
@@ -1562,7 +1561,7 @@ print("Video render finished successfully!")`
       console.log = function(...args) {
         const text = args.map(a => typeof a === 'object' ? JSON.stringify(a) : a).join(' ');
         const line = document.createElement('div');
-        line.innerHTML = `<span class="text-cyan-400">❯</span> ${escapeHtml(text)}`;
+        line.innerHTML = `<span class="text-emerald-400">❯</span> ${escapeHtml(text)}`;
         feed.appendChild(line);
         originalLog.apply(console, args);
       };
@@ -1605,13 +1604,13 @@ print("Video render finished successfully!")`
     async function loadPythonRuntime() {
       if (pyodide) return pyodide;
       if (!pyodideReadyPromise) {
-        appendTerminalLine('Loading real Python runtime (Pyodide)...');
+        appendTerminalLine('Initializing Python bio-runtime (Pyodide)...');
         pyodideReadyPromise = loadPyodide({
           stdout: { batched: msg => appendTerminalLine(msg) },
           stderr: { batched: msg => appendTerminalLine(msg, 'error') }
         }).then(runtime => {
           pyodide = runtime;
-          appendTerminalLine(`Python ${pyodide.runPython('import sys; sys.version.split()[0]')} ready.`);
+          appendTerminalLine(`Python ${pyodide.runPython('import sys; sys.version.split()[0]')} bio-engine online.`);
           return pyodide;
         });
       }
@@ -1647,11 +1646,11 @@ print("Video render finished successfully!")`
         player.play().catch(() => {});
         const download = document.getElementById('studioVideoDownloadBtn');
         download.href = url;
-        download.download = `python_render_${new Date().toISOString().replace(/[:.]/g, '-')}.webm`;
+        download.download = `bio_render_${new Date().toISOString().replace(/[:.]/g, '-')}.webm`;
         document.getElementById('studioVideoContainer').classList.remove('hidden');
         document.getElementById('studioVideoContainer').classList.add('flex');
         appendTerminalLine(`Video render complete: ${state.frames} frame(s).`);
-        showToast('Python WebM video ready!');
+        showToast('WebM Bio-Video ready!');
         state.stream.getTracks().forEach(track => track.stop());
         state.canvas.remove();
         pythonVideoState = null;
@@ -1663,7 +1662,7 @@ print("Video render finished successfully!")`
     }
 
     function stateDrawBackground(ctx) {
-      ctx.fillStyle = '#030712';
+      ctx.fillStyle = '#01040a';
       ctx.fillRect(0, 0, 640, 360);
     }
 
@@ -1673,7 +1672,7 @@ print("Video render finished successfully!")`
     }
 
     window.helloVideo = {
-      clear(color = '#030712') {
+      clear(color = '#01040a') {
         if (!pythonVideoState) return;
         pythonVideoState.ctx.fillStyle = String(color);
         pythonVideoState.ctx.fillRect(0, 0, 640, 360);
@@ -1710,7 +1709,7 @@ print("Video render finished successfully!")`
       let runtime;
       try {
         runtime = await loadPythonRuntime();
-        appendTerminalLine('>>> Running Python code...');
+        appendTerminalLine('>>> Executing Python script...');
 
         const wantsVideo = /\bhelloVideo\b/.test(code);
         if (wantsVideo) preparePythonVideo();
@@ -1718,14 +1717,14 @@ print("Video render finished successfully!")`
         try {
           await runtime.loadPackagesFromImports(code, { messageCallback: msg => appendTerminalLine(msg) });
         } catch (pkgErr) {
-          appendTerminalLine('Package preparation warning: ' + (pkgErr.message || pkgErr));
+          appendTerminalLine('Package warning: ' + (pkgErr.message || pkgErr));
         }
 
         await runtime.runPythonAsync(code, { filename: '<hello-code-studio.py>' });
-        appendTerminalLine('>>> Process finished with exit code 0');
+        appendTerminalLine('>>> Process finished with code 0');
       } catch (err) {
         appendTerminalLine(err && err.message ? err.message : String(err), 'error');
-        appendTerminalLine('>>> Process finished with exit code 1', 'error');
+        appendTerminalLine('>>> Process finished with code 1', 'error');
       } finally {
         setTimeout(finishPythonVideo, 80);
       }
@@ -1767,7 +1766,7 @@ print("Video render finished successfully!")`
         return;
       }
 
-      showToast('Rendering WebM video frames...');
+      showToast('Rendering Bio-Video frames...');
       const hiddenCanvas = document.createElement('canvas');
       hiddenCanvas.width = 640;
       hiddenCanvas.height = 360;
@@ -1793,30 +1792,32 @@ print("Video render finished successfully!")`
       let frame = 0;
       const interval = setInterval(() => {
         frame++;
-        ctx.fillStyle = '#030712';
+        ctx.fillStyle = '#01040a';
         ctx.fillRect(0, 0, 640, 360);
         for (let i = 0; i < 35; i++) {
           const a = (i / 35) * Math.PI * 2 + frame * 0.05;
           const r = 75 + Math.sin(frame * 0.08 + i) * 30;
           ctx.beginPath();
           ctx.arc(320 + Math.cos(a) * r, 180 + Math.sin(a) * r, 4, 0, Math.PI * 2);
-          ctx.fillStyle = i % 2 === 0 ? '#38bdf8' : '#818cf8';
+          ctx.fillStyle = i % 2 === 0 ? '#38bdf8' : '#10b981';
           ctx.fill();
         }
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 18px Syne, sans-serif';
-        ctx.fillText('HELLO CODE STUDIO — WEBM OUTPUT', 125, 185);
+        ctx.fillText('HELLO CODE STUDIO — WEBM BIO OUTPUT', 100, 185);
         if (frame >= 120) { clearInterval(interval); recorder.stop(); }
       }, 1000 / 30);
     }
 
     // ==================================================================
-    // 5. ULTRA 4K 3D REALISTIC NASA SPIRAL GALAXY & COSMOS ENGINE
+    // 5. UNPRECEDENTED 3D CYBERNETIC BIO-DIGITAL DNA MATRIX ENGINE
     // ==================================================================
     const canvas = document.getElementById('cyberCanvas');
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 2500);
-    camera.position.set(0, 48, 120);
+    scene.fog = new THREE.FogExp2(0x01040a, 0.007);
+
+    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 5, 85);
 
     const renderer = new THREE.WebGLRenderer({
       canvas,
@@ -1827,217 +1828,264 @@ print("Video render finished successfully!")`
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Generate soft circular glow texture for natural Hubble star point spread function
-    function createStarTexture() {
+    // High-tech circular laser point texture
+    function createGlowPointTexture() {
       const texCanvas = document.createElement('canvas');
       texCanvas.width = 64;
       texCanvas.height = 64;
-      const tCtx = texCanvas.getContext('2d');
-      const grad = tCtx.createRadialGradient(32, 32, 0, 32, 32, 32);
+      const ctx = texCanvas.getContext('2d');
+      const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
       grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
-      grad.addColorStop(0.18, 'rgba(180, 235, 255, 0.9)');
-      grad.addColorStop(0.45, 'rgba(99, 102, 241, 0.35)');
-      grad.addColorStop(0.8, 'rgba(168, 85, 247, 0.12)');
+      grad.addColorStop(0.25, 'rgba(56, 189, 248, 0.95)');
+      grad.addColorStop(0.55, 'rgba(16, 185, 129, 0.45)');
+      grad.addColorStop(0.85, 'rgba(99, 102, 241, 0.15)');
       grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-      tCtx.fillStyle = grad;
-      tCtx.fillRect(0, 0, 64, 64);
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 64, 64);
       return new THREE.CanvasTexture(texCanvas);
     }
 
-    const starTexture = createStarTexture();
+    const glowTexture = createGlowPointTexture();
 
-    // GALAXY PARAMETERS
-    const galaxyParams = {
-      count: 72000,
-      size: 0.95,
-      radius: 110,
-      branches: 4,
-      spin: 0.52,
-      randomness: 0.55,
-      power: 3.5,
-      insideColor: '#fff5d6',   // Radiant golden stellar nucleus
-      midColor: '#38bdf8',      // Electric cyan/azure arms
-      outsideColor: '#a855f7'   // Deep magenta / stellar violet outer rim
-    };
+    // ----------------------------------------------------
+    // BUILD THE DUAL 3D DNA CYBER HELIX STRUCTURE
+    // ----------------------------------------------------
+    const dnaGroup = new THREE.Group();
+    scene.add(dnaGroup);
 
-    let galaxyGeometry = null;
-    let galaxyMaterial = null;
-    let galaxyPoints = null;
+    const rungsCount = 140;
+    const helixRadius = 14.5;
+    const helixSpacing = 1.35;
+    const twistPerRung = 0.165;
 
-    function build3DNasaGalaxy() {
-      galaxyGeometry = new THREE.BufferGeometry();
-      const positions = new Float32Array(galaxyParams.count * 3);
-      const colors = new Float32Array(galaxyParams.count * 3);
+    const strandAPositions = new Float32Array(rungsCount * 3);
+    const strandBPositions = new Float32Array(rungsCount * 3);
+    const strandAColors = new Float32Array(rungsCount * 3);
+    const strandBColors = new Float32Array(rungsCount * 3);
 
-      const colorInside = new THREE.Color(galaxyParams.insideColor);
-      const colorMid = new THREE.Color(galaxyParams.midColor);
-      const colorOutside = new THREE.Color(galaxyParams.outsideColor);
+    const rungLinePositions = new Float32Array(rungsCount * 6);
+    const rungLineColors = new Float32Array(rungsCount * 6);
 
-      for (let i = 0; i < galaxyParams.count; i++) {
-        const i3 = i * 3;
+    const bridgeNodesPositions = [];
+    const bridgeNodesColors = [];
 
-        // Radius distribution (higher density in galactic bulge/core)
-        const radius = Math.random() * galaxyParams.radius;
-        const spinAngle = radius * galaxyParams.spin;
-        const branchAngle = ((i % galaxyParams.branches) / galaxyParams.branches) * Math.PI * 2;
+    const colStrandA = new THREE.Color('#38bdf8'); // Electric Cyan
+    const colStrandB = new THREE.Color('#10b981'); // Hacker Emerald
+    const colRungMid = new THREE.Color('#818cf8'); // Neon Indigo
 
-        const randomX = Math.pow(Math.random(), galaxyParams.power) * (Math.random() < 0.5 ? 1 : -1) * galaxyParams.randomness * radius;
-        const randomY = Math.pow(Math.random(), galaxyParams.power) * (Math.random() < 0.5 ? 1 : -1) * (galaxyParams.randomness * 0.6) * radius;
-        const randomZ = Math.pow(Math.random(), galaxyParams.power) * (Math.random() < 0.5 ? 1 : -1) * galaxyParams.randomness * radius;
+    for (let i = 0; i < rungsCount; i++) {
+      const y = (i - rungsCount / 2) * helixSpacing;
+      const angle = i * twistPerRung;
 
-        positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX;
-        positions[i3 + 1] = randomY;
-        positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
+      const x1 = Math.cos(angle) * helixRadius;
+      const z1 = Math.sin(angle) * helixRadius;
 
-        // Color interpolation based on orbital radius
-        let mixedColor;
-        const normalizedR = radius / galaxyParams.radius;
-        if (normalizedR < 0.35) {
-          mixedColor = colorInside.clone().lerp(colorMid, normalizedR / 0.35);
-        } else {
-          mixedColor = colorMid.clone().lerp(colorOutside, (normalizedR - 0.35) / 0.65);
-        }
+      const x2 = Math.cos(angle + Math.PI) * helixRadius;
+      const z2 = Math.sin(angle + Math.PI) * helixRadius;
 
-        // Add subtle natural astronomical variance
-        const brightness = 0.85 + Math.random() * 0.3;
-        colors[i3] = Math.min(1, mixedColor.r * brightness);
-        colors[i3 + 1] = Math.min(1, mixedColor.g * brightness);
-        colors[i3 + 2] = Math.min(1, mixedColor.b * brightness);
-      }
+      const i3 = i * 3;
+      strandAPositions[i3] = x1;
+      strandAPositions[i3 + 1] = y;
+      strandAPositions[i3 + 2] = z1;
 
-      galaxyGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      galaxyGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+      strandBPositions[i3] = x2;
+      strandBPositions[i3 + 1] = y;
+      strandBPositions[i3 + 2] = z2;
 
-      galaxyMaterial = new THREE.PointsMaterial({
-        size: galaxyParams.size,
-        sizeAttenuation: true,
-        depthWrite: false,
-        blending: THREE.AdditiveBlending,
-        vertexColors: true,
-        map: starTexture,
-        transparent: true,
-        opacity: 0.95
-      });
+      // Color gradients along height
+      strandAColors[i3] = colStrandA.r;
+      strandAColors[i3 + 1] = colStrandA.g;
+      strandAColors[i3 + 2] = colStrandA.b;
 
-      galaxyPoints = new THREE.Points(galaxyGeometry, galaxyMaterial);
-      // Tilt galaxy disk to a realistic majestic astronomical view
-      galaxyPoints.rotation.x = Math.PI / 4.5;
-      galaxyPoints.rotation.z = -Math.PI / 8;
-      scene.add(galaxyPoints);
-    }
-    build3DNasaGalaxy();
+      strandBColors[i3] = colStrandB.r;
+      strandBColors[i3 + 1] = colStrandB.g;
+      strandBColors[i3 + 2] = colStrandB.b;
 
-    // DEEP SPACE DISTANT STARS & COSMIC FIELD
-    const bgStarCount = 6500;
-    const bgStarGeo = new THREE.BufferGeometry();
-    const bgStarPos = new Float32Array(bgStarCount * 3);
-    const bgStarCol = new Float32Array(bgStarCount * 3);
+      // Connecting laser rungs (LineSegments)
+      const i6 = i * 6;
+      rungLinePositions[i6] = x1;
+      rungLinePositions[i6 + 1] = y;
+      rungLinePositions[i6 + 2] = z1;
 
-    for (let i = 0; i < bgStarCount * 3; i += 3) {
-      const dist = 300 + Math.random() * 900;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos((Math.random() * 2) - 1);
+      rungLinePositions[i6 + 3] = x2;
+      rungLinePositions[i6 + 4] = y;
+      rungLinePositions[i6 + 5] = z2;
 
-      bgStarPos[i] = dist * Math.sin(phi) * Math.cos(theta);
-      bgStarPos[i + 1] = dist * Math.sin(phi) * Math.sin(theta);
-      bgStarPos[i + 2] = dist * Math.cos(phi);
+      rungLineColors[i6] = colStrandA.r;
+      rungLineColors[i6 + 1] = colStrandA.g;
+      rungLineColors[i6 + 2] = colStrandA.b;
 
-      const tone = Math.random();
-      if (tone > 0.8) {
-        bgStarCol[i] = 0.65; bgStarCol[i + 1] = 0.85; bgStarCol[i + 2] = 1.0;
-      } else if (tone > 0.5) {
-        bgStarCol[i] = 1.0; bgStarCol[i + 1] = 0.95; bgStarCol[i + 2] = 0.85;
-      } else {
-        bgStarCol[i] = 0.85; bgStarCol[i + 1] = 0.7; bgStarCol[i + 2] = 1.0;
+      rungLineColors[i6 + 3] = colStrandB.r;
+      rungLineColors[i6 + 4] = colStrandB.g;
+      rungLineColors[i6 + 5] = colStrandB.b;
+
+      // Add genetic coders / data nodes along each rung bridge
+      for (let step = 1; step <= 3; step++) {
+        const factor = step / 4;
+        bridgeNodesPositions.push(
+          x1 + (x2 - x1) * factor,
+          y,
+          z1 + (z2 - z1) * factor
+        );
+        bridgeNodesColors.push(colRungMid.r, colRungMid.g, colRungMid.b);
       }
     }
 
-    bgStarGeo.setAttribute('position', new THREE.BufferAttribute(bgStarPos, 3));
-    bgStarGeo.setAttribute('color', new THREE.BufferAttribute(bgStarCol, 3));
-
-    const bgStarMat = new THREE.PointsMaterial({
-      size: 1.2,
+    // 1. Strand A Points
+    const geoStrandA = new THREE.BufferGeometry();
+    geoStrandA.setAttribute('position', new THREE.BufferAttribute(strandAPositions, 3));
+    geoStrandA.setAttribute('color', new THREE.BufferAttribute(strandAColors, 3));
+    const matStrandA = new THREE.PointsMaterial({
+      size: 3.2,
       sizeAttenuation: true,
-      map: starTexture,
+      map: glowTexture,
+      transparent: true,
+      blending: THREE.AdditiveBlending,
+      vertexColors: true,
+      depthWrite: false
+    });
+    const pointsStrandA = new THREE.Points(geoStrandA, matStrandA);
+    dnaGroup.add(pointsStrandA);
+
+    // 2. Strand B Points
+    const geoStrandB = new THREE.BufferGeometry();
+    geoStrandB.setAttribute('position', new THREE.BufferAttribute(strandBPositions, 3));
+    geoStrandB.setAttribute('color', new THREE.BufferAttribute(strandBColors, 3));
+    const matStrandB = new THREE.PointsMaterial({
+      size: 3.2,
+      sizeAttenuation: true,
+      map: glowTexture,
+      transparent: true,
+      blending: THREE.AdditiveBlending,
+      vertexColors: true,
+      depthWrite: false
+    });
+    const pointsStrandB = new THREE.Points(geoStrandB, matStrandB);
+    dnaGroup.add(pointsStrandB);
+
+    // 3. Connecting Laser Rungs (Lines)
+    const geoRungs = new THREE.BufferGeometry();
+    geoRungs.setAttribute('position', new THREE.BufferAttribute(rungLinePositions, 3));
+    geoRungs.setAttribute('color', new THREE.BufferAttribute(rungLineColors, 3));
+    const matRungs = new THREE.LineBasicMaterial({
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.5,
+      blending: THREE.AdditiveBlending,
+      linewidth: 1.5
+    });
+    const linesRungs = new THREE.LineSegments(geoRungs, matRungs);
+    dnaGroup.add(linesRungs);
+
+    // 4. Middle Hydrogen Data Nodes
+    const geoBridgeNodes = new THREE.BufferGeometry();
+    geoBridgeNodes.setAttribute('position', new THREE.Float32BufferAttribute(bridgeNodesPositions, 3));
+    geoBridgeNodes.setAttribute('color', new THREE.Float32BufferAttribute(bridgeNodesColors, 3));
+    const matBridgeNodes = new THREE.PointsMaterial({
+      size: 1.6,
+      sizeAttenuation: true,
+      map: glowTexture,
+      transparent: true,
+      blending: THREE.AdditiveBlending,
+      vertexColors: true,
+      depthWrite: false
+    });
+    const pointsBridgeNodes = new THREE.Points(geoBridgeNodes, matBridgeNodes);
+    dnaGroup.add(pointsBridgeNodes);
+
+    // ----------------------------------------------------
+    // HACKER DATA IMPULSES (Pulses moving along the helix)
+    // ----------------------------------------------------
+    const pulseCount = 18;
+    const pulses = [];
+    const pulseGeo = new THREE.SphereGeometry(0.75, 12, 12);
+    const pulseMatA = new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true });
+    const pulseMatB = new THREE.MeshBasicMaterial({ color: 0x10b981, wireframe: true });
+
+    for (let p = 0; p < pulseCount; p++) {
+      const mesh = new THREE.Mesh(pulseGeo, p % 2 === 0 ? pulseMatA : pulseMatB);
+      dnaGroup.add(mesh);
+      pulses.push({
+        mesh,
+        strand: p % 2 === 0 ? 'A' : 'B',
+        progress: Math.random() * rungsCount,
+        speed: 0.45 + Math.random() * 0.4
+      });
+    }
+
+    // ----------------------------------------------------
+    // HOLOGRAPHIC QUANTUM SCAN RINGS
+    // ----------------------------------------------------
+    const ringCount = 3;
+    const rings = [];
+    for (let r = 0; r < ringCount; r++) {
+      const ringGeo = new THREE.RingGeometry(helixRadius * 1.35, helixRadius * 1.42, 64);
+      const ringMat = new THREE.MeshBasicMaterial({
+        color: r % 2 === 0 ? 0x00f5ff : 0x10b981,
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 0.35,
+        blending: THREE.AdditiveBlending
+      });
+      const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+      ringMesh.rotation.x = Math.PI / 2;
+      ringMesh.position.y = (r - 1) * 38;
+      dnaGroup.add(ringMesh);
+      rings.push(ringMesh);
+    }
+
+    // ----------------------------------------------------
+    // FLOATING 3D CYBER MATRIX DATA NODES & CODE DUST
+    // ----------------------------------------------------
+    const matrixNodesCount = 1800;
+    const matrixGeo = new THREE.BufferGeometry();
+    const matrixPositions = new Float32Array(matrixNodesCount * 3);
+    const matrixColors = new Float32Array(matrixNodesCount * 3);
+
+    for (let m = 0; m < matrixNodesCount * 3; m += 3) {
+      matrixPositions[m] = (Math.random() - 0.5) * 220;
+      matrixPositions[m + 1] = (Math.random() - 0.5) * 240;
+      matrixPositions[m + 2] = (Math.random() - 0.5) * 160;
+
+      const rnd = Math.random();
+      if (rnd > 0.6) {
+        matrixColors[m] = 0.22; matrixColors[m + 1] = 0.74; matrixColors[m + 2] = 0.97; // Cyan
+      } else if (rnd > 0.3) {
+        matrixColors[m] = 0.06; matrixColors[m + 1] = 0.72; matrixColors[m + 2] = 0.50; // Emerald
+      } else {
+        matrixColors[m] = 0.50; matrixColors[m + 1] = 0.55; matrixColors[m + 2] = 0.97; // Indigo
+      }
+    }
+
+    matrixGeo.setAttribute('position', new THREE.BufferAttribute(matrixPositions, 3));
+    matrixGeo.setAttribute('color', new THREE.BufferAttribute(matrixColors, 3));
+
+    const matrixMat = new THREE.PointsMaterial({
+      size: 1.1,
+      sizeAttenuation: true,
+      map: glowTexture,
       transparent: true,
       opacity: 0.75,
+      vertexColors: true,
       blending: THREE.AdditiveBlending,
-      vertexColors: true
+      depthWrite: false
     });
-    const bgStarField = new THREE.Points(bgStarGeo, bgStarMat);
-    scene.add(bgStarField);
+    const matrixCloud = new THREE.Points(matrixGeo, matrixMat);
+    scene.add(matrixCloud);
 
-    // 3D REALISTIC SHOOTING METEOR
-    const meteorCount = 2;
-    const meteors = [];
+    // Initial DNA tilt for high-end aesthetic
+    dnaGroup.rotation.z = Math.PI / 7.5;
+    dnaGroup.rotation.x = 0.2;
 
-    class NasaMeteor3D {
-      constructor() {
-        this.lineGeo = new THREE.BufferGeometry();
-        this.positions = new Float32Array(6);
-        this.lineGeo.setAttribute('position', new THREE.BufferAttribute(this.positions, 3));
-        this.lineMat = new THREE.LineBasicMaterial({
-          color: 0x38bdf8,
-          transparent: true,
-          opacity: 0,
-          blending: THREE.AdditiveBlending,
-          linewidth: 2
-        });
-        this.mesh = new THREE.Line(this.lineGeo, this.lineMat);
-        scene.add(this.mesh);
-        this.reset();
-      }
-
-      reset() {
-        this.active = false;
-        this.timer = Math.random() * 200 + 80;
-        this.length = 18 + Math.random() * 14;
-        this.speed = 2.4 + Math.random() * 1.8;
-        this.opacity = 1;
-        this.head = new THREE.Vector3(
-          (Math.random() - 0.5) * 220,
-          60 + Math.random() * 40,
-          (Math.random() - 0.5) * 160
-        );
-        this.direction = new THREE.Vector3(-1.2, -0.9, -0.6).normalize();
-      }
-
-      update() {
-        if (!this.active) {
-          this.timer--;
-          if (this.timer <= 0) this.active = true;
-          return;
-        }
-
-        this.head.addScaledVector(this.direction, this.speed);
-        this.opacity -= 0.018;
-
-        const tail = this.head.clone().addScaledVector(this.direction, -this.length);
-        const pos = this.lineGeo.attributes.position.array;
-        pos[0] = this.head.x; pos[1] = this.head.y; pos[2] = this.head.z;
-        pos[3] = tail.x; pos[4] = tail.y; pos[5] = tail.z;
-        this.lineGeo.attributes.position.needsUpdate = true;
-        this.lineMat.opacity = Math.max(0, this.opacity);
-
-        if (this.opacity <= 0 || this.head.y < -80) {
-          this.reset();
-        }
-      }
-    }
-
-    for (let i = 0; i < meteorCount; i++) {
-      meteors.push(new NasaMeteor3D());
-    }
-
-    // INTERACTIVE CAMERA PARALLAX
-    let targetMouseX = 0;
-    let targetMouseY = 0;
-    let mouseX = 0;
-    let mouseY = 0;
+    // ----------------------------------------------------
+    // INTERACTIVE MOUSE PARALLAX & CAMERA ORIENTATION
+    // ----------------------------------------------------
+    let mouseTargetX = 0, mouseTargetY = 0;
+    let mouseCurX = 0, mouseCurY = 0;
 
     window.addEventListener('mousemove', (e) => {
-      targetMouseX = (e.clientX - window.innerWidth / 2) * 0.0007;
-      targetMouseY = (e.clientY - window.innerHeight / 2) * 0.0007;
+      mouseTargetX = (e.clientX - window.innerWidth / 2) * 0.0008;
+      mouseTargetY = (e.clientY - window.innerHeight / 2) * 0.0008;
     });
 
     window.addEventListener('resize', () => {
@@ -2046,36 +2094,56 @@ print("Video render finished successfully!")`
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
+    // ----------------------------------------------------
+    // ANIMATION & RENDER LOOP
+    // ----------------------------------------------------
     const clock = new THREE.Clock();
 
-    function render3DNasaGalaxy() {
-      requestAnimationFrame(render3DNasaGalaxy);
-      const elapsedTime = clock.getElapsedTime();
+    function animateCyberDnaMatrix() {
+      requestAnimationFrame(animateCyberDnaMatrix);
+      const delta = clock.getDelta();
+      const elapsed = clock.getElapsedTime();
 
-      // Smooth camera interpolation for cinematic telescope feel
-      mouseX += (targetMouseX - mouseX) * 0.04;
-      mouseY += (targetMouseY - mouseY) * 0.04;
+      // Smooth mouse follow
+      mouseCurX += (mouseTargetX - mouseCurX) * 0.05;
+      mouseCurY += (mouseTargetY - mouseCurY) * 0.05;
 
-      camera.position.x = Math.sin(mouseX * 2.2) * 22;
-      camera.position.y = 48 - mouseY * 26;
+      camera.position.x = Math.sin(mouseCurX * 1.5) * 16;
+      camera.position.y = 5 - mouseCurY * 18;
       camera.lookAt(0, 0, 0);
 
-      // Majestic slow galactic rotation
-      if (galaxyPoints) {
-        galaxyPoints.rotation.y = elapsedTime * 0.038;
-      }
-      if (bgStarField) {
-        bgStarField.rotation.y = elapsedTime * 0.005;
-      }
+      // Continuous 3D unwinding & rotation of the DNA Helix
+      dnaGroup.rotation.y = elapsed * 0.32;
 
-      // Update 3D Meteors
-      for (let i = 0; i < meteors.length; i++) {
-        meteors[i].update();
-      }
+      // Animate flowing data pulses along the strands
+      pulses.forEach(p => {
+        p.progress += p.speed;
+        if (p.progress >= rungsCount - 1) p.progress = 0;
+
+        const idx = Math.floor(p.progress);
+        const frac = p.progress - idx;
+        const angle = (idx + frac) * twistPerRung + (p.strand === 'B' ? Math.PI : 0);
+        const y = ((idx + frac) - rungsCount / 2) * helixSpacing;
+
+        p.mesh.position.x = Math.cos(angle) * helixRadius;
+        p.mesh.position.y = y;
+        p.mesh.position.z = Math.sin(angle) * helixRadius;
+        p.mesh.rotation.y += 0.08;
+      });
+
+      // Animate holographic rings
+      rings.forEach((ring, idx) => {
+        ring.rotation.z = (idx % 2 === 0 ? 1 : -1) * elapsed * 0.5;
+        ring.scale.setScalar(1 + Math.sin(elapsed * 2 + idx) * 0.05);
+      });
+
+      // Gentle floating drift of outer cyberspace matrix nodes
+      matrixCloud.rotation.y = elapsed * 0.02;
+      matrixCloud.rotation.x = Math.sin(elapsed * 0.05) * 0.08;
 
       renderer.render(scene, camera);
     }
-    render3DNasaGalaxy();
+    animateCyberDnaMatrix();
 
     // ------------------------------------------------------------------
     // 6. AUTH & CHAT LOGIC (GEMINI 2.5)
@@ -2264,7 +2332,7 @@ print("Video render finished successfully!")`
       div.className = "flex flex-col items-end";
       div.innerHTML = `
         <span class="text-[10px] text-cyan-400 font-mono font-bold mb-1">${userName}</span>
-        <div class="bg-gradient-to-r from-cyan-600 to-blue-700 text-white px-5 py-3 rounded-2xl rounded-tr-none text-xs max-w-[85%] shadow-md whitespace-pre-wrap leading-relaxed">
+        <div class="bg-gradient-to-r from-cyan-600 to-emerald-700 text-white px-5 py-3 rounded-2xl rounded-tr-none text-xs max-w-[85%] shadow-md whitespace-pre-wrap leading-relaxed">
           ${escapeHtml(text)}
         </div>
       `;
@@ -2277,7 +2345,7 @@ print("Video render finished successfully!")`
       div.className = "flex flex-col items-start";
       div.innerHTML = `
         <span class="text-[10px] text-slate-400 font-mono font-bold mb-1 flex items-center gap-1.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
           HELLO CORE
         </span>
         <div class="bg-[#090f1d] border border-cyan-500/20 text-slate-200 px-5 py-3 rounded-2xl rounded-tl-none text-xs max-w-[85%] shadow-md whitespace-pre-wrap leading-relaxed">
@@ -2295,9 +2363,9 @@ print("Video render finished successfully!")`
       div.innerHTML = `
         <div class="bg-[#090f1d] border border-cyan-500/20 text-cyan-300 px-4 py-2.5 rounded-2xl rounded-tl-none text-xs flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-cyan-400 animate-bounce"></span>
-          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-bounce [animation-delay:0.2s]"></span>
-          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-bounce [animation-delay:0.4s]"></span>
-          <span class="ml-1 text-[11px] font-mono text-slate-400">Synthesizing...</span>
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-bounce [animation-delay:0.2s]"></span>
+          <span class="w-2 h-2 rounded-full bg-indigo-400 animate-bounce [animation-delay:0.4s]"></span>
+          <span class="ml-1 text-[11px] font-mono text-slate-400">Decoding matrix...</span>
         </div>
       `;
       messageFeed.appendChild(div);
@@ -2374,7 +2442,7 @@ print("Video render finished successfully!")`
           <div>
             <div class="flex justify-between items-center mb-3">
               <span class="text-[9.5px] font-mono font-bold text-cyan-400 tracking-wider">${tool.category}</span>
-              <span class="text-[8px] px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 font-bold">ONLINE</span>
+              <span class="text-[8px] px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 font-bold">ONLINE</span>
             </div>
             <h4 class="text-xl font-bold font-['Syne'] mb-2">${tool.name}</h4>
             <p class="text-xs text-[var(--text-muted)] leading-relaxed mb-6">${tool.desc}</p>
