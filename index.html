@@ -27,29 +27,29 @@
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
-    /* THEME COLORS (DYNAMIC LIGHT / DEEP CYBER MATRIX DARK) */
+    /* THEME COLORS (CORAL #FF6B5A & TEAL #14B8A6 COMBO) */
     :root {
-      --bg-base: #01040a;
-      --bg-header: rgba(1, 7, 18, 0.88);
-      --bg-card: rgba(4, 13, 29, 0.78);
-      --text-main: #f1f5f9;
+      --bg-base: #06090e;
+      --bg-header: rgba(6, 11, 18, 0.88);
+      --bg-card: rgba(10, 18, 28, 0.8);
+      --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --border-cyan: rgba(56, 189, 248, 0.35);
-      --editor-bg: #030712;
-      --particle-color: rgba(56, 189, 248, 0.8);
-      --theme-glow: #38bdf8;
+      --color-coral: #FF6B5A;
+      --color-teal: #14B8A6;
+      --border-accent: rgba(20, 184, 166, 0.35);
+      --editor-bg: #04070c;
+      --theme-glow: #14B8A6;
     }
 
     body.light-mode {
-      --bg-base: #f8fafc;
-      --bg-header: rgba(255, 255, 255, 0.92);
-      --bg-card: rgba(255, 255, 255, 0.9);
+      --bg-base: #fbfcfe;
+      --bg-header: rgba(255, 255, 255, 0.94);
+      --bg-card: rgba(255, 255, 255, 0.92);
       --text-main: #0f172a;
       --text-muted: #64748b;
-      --border-cyan: rgba(14, 165, 233, 0.35);
+      --border-accent: rgba(255, 107, 90, 0.35);
       --editor-bg: #0f172a;
-      --particle-color: rgba(14, 165, 233, 0.5);
-      --theme-glow: #0284c7;
+      --theme-glow: #FF6B5A;
     }
 
     body {
@@ -61,7 +61,7 @@
       transition: background 0.3s ease, color 0.3s ease;
     }
 
-    /* 3D CYBER DNA HACKER MATRIX CANVAS */
+    /* 3D CANVAS BACKGROUND WITH CORAL & TEAL GLOW */
     #cyberCanvas {
       position: fixed;
       top: 0;
@@ -70,10 +70,13 @@
       height: 100vh;
       z-index: 0;
       pointer-events: none;
-      background: radial-gradient(circle at center, #020817 0%, #010309 100%);
+      background: 
+        radial-gradient(circle at 15% 20%, rgba(255, 107, 90, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(20, 184, 166, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, #080d14 0%, #04070c 80%, #010306 100%);
     }
 
-    /* LOGO CYBER GLOW & CONIC LIGHT */
+    /* LOGO CORAL X TEAL CONIC LIGHT */
     .cyber-logo-wrapper {
       position: relative;
       display: inline-flex;
@@ -86,19 +89,19 @@
       width: 46px;
       height: 46px;
       border-radius: 16px;
-      background: #060b18;
+      background: #090e17;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      box-shadow: 0 0 25px rgba(56, 189, 248, 0.5), inset 0 0 15px rgba(56, 189, 248, 0.25);
+      box-shadow: 0 0 25px rgba(255, 107, 90, 0.4), 0 0 25px rgba(20, 184, 166, 0.4);
     }
 
     .cyber-logo-box::before {
       content: '';
       position: absolute;
       inset: -50%;
-      background: conic-gradient(from 0deg, transparent 0%, #38bdf8 25%, #10b981 50%, #c084fc 75%, transparent 100%);
+      background: conic-gradient(from 0deg, transparent 0%, #FF6B5A 25%, transparent 50%, #14B8A6 75%, transparent 100%);
       animation: rotateConic 4s linear infinite;
     }
 
@@ -106,7 +109,7 @@
       content: '';
       position: absolute;
       inset: 2px;
-      background: #050a17;
+      background: #070c14;
       border-radius: 14px;
     }
 
@@ -122,24 +125,24 @@
 
     @keyframes logoGlowPulse {
       0% {
-        filter: drop-shadow(0 0 8px #38bdf8) drop-shadow(0 0 20px rgba(56, 189, 248, 0.6));
+        filter: drop-shadow(0 0 8px #FF6B5A) drop-shadow(0 0 20px rgba(255, 107, 90, 0.6));
         transform: scale(0.98);
       }
       50% {
-        filter: drop-shadow(0 0 16px #10b981) drop-shadow(0 0 35px rgba(56, 189, 248, 0.8));
+        filter: drop-shadow(0 0 16px #14B8A6) drop-shadow(0 0 30px rgba(20, 184, 166, 0.7));
         transform: scale(1.05);
       }
       100% {
-        filter: drop-shadow(0 0 8px #38bdf8) drop-shadow(0 0 20px rgba(56, 189, 248, 0.6));
+        filter: drop-shadow(0 0 8px #FF6B5A) drop-shadow(0 0 20px rgba(255, 107, 90, 0.6));
         transform: scale(0.98);
       }
     }
 
     .logo-text-glow {
-      text-shadow: 0 0 15px rgba(56, 189, 248, 0.8), 0 0 30px rgba(16, 185, 129, 0.5);
+      text-shadow: 0 0 15px rgba(255, 107, 90, 0.7), 0 0 30px rgba(20, 184, 166, 0.5);
     }
 
-    /* 3D ANIMATED "HELLO AI" TITLE */
+    /* 3D ANIMATED "HELLO AI" TITLE WITH CORAL & TEAL GRADIENT */
     .title-motion-wrapper {
       perspective: 1200px;
       display: inline-block;
@@ -148,8 +151,8 @@
     .cyber-title-animated {
       display: inline-block;
       font-family: 'Syne', sans-serif;
-      background: linear-gradient(120deg, #38bdf8 0%, #10b981 35%, #818cf8 65%, #38bdf8 100%);
-      background-size: 250% 250%;
+      background: linear-gradient(120deg, #FF6B5A 0%, #ff8f82 25%, #14B8A6 60%, #5eead4 85%, #FF6B5A 100%);
+      background-size: 260% 260%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: dynamicTextMotion 7s ease-in-out infinite, gradientColorShift 5s linear infinite;
@@ -160,23 +163,23 @@
     @keyframes dynamicTextMotion {
       0% {
         transform: translateY(0px) rotateX(0deg) rotateY(0deg) scale(1);
-        filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.5));
+        filter: drop-shadow(0 0 25px rgba(255, 107, 90, 0.5));
       }
       25% {
         transform: translateY(-10px) rotateX(7deg) rotateY(-5deg) scale(1.025);
-        filter: drop-shadow(0 0 45px rgba(16, 185, 129, 0.6));
+        filter: drop-shadow(0 0 45px rgba(20, 184, 166, 0.65));
       }
       50% {
         transform: translateY(-16px) rotateX(0deg) rotateY(6deg) scale(1.045);
-        filter: drop-shadow(0 0 65px rgba(56, 189, 248, 0.85));
+        filter: drop-shadow(0 0 65px rgba(255, 107, 90, 0.8));
       }
       75% {
         transform: translateY(-8px) rotateX(-6deg) rotateY(-3deg) scale(1.02);
-        filter: drop-shadow(0 0 45px rgba(129, 140, 248, 0.65));
+        filter: drop-shadow(0 0 45px rgba(20, 184, 166, 0.6));
       }
       100% {
         transform: translateY(0px) rotateX(0deg) rotateY(0deg) scale(1);
-        filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.5));
+        filter: drop-shadow(0 0 25px rgba(255, 107, 90, 0.5));
       }
     }
 
@@ -190,14 +193,14 @@
     .glass-card {
       background: var(--bg-card);
       backdrop-filter: blur(20px);
-      border: 1px solid var(--border-cyan);
+      border: 1px solid var(--border-accent);
       border-radius: 24px;
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .glass-card:hover {
-      border-color: rgba(56, 189, 248, 0.8);
+      border-color: #14B8A6;
       transform: translateY(-6px);
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), 0 0 30px rgba(56, 189, 248, 0.35);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), 0 0 30px rgba(20, 184, 166, 0.35);
     }
 
     /* THEME TOGGLE BUTTON */
@@ -206,32 +209,33 @@
       height: 40px;
       border-radius: 50%;
       background: var(--bg-card);
-      border: 1.5px solid var(--border-cyan);
+      border: 1.5px solid var(--border-accent);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      color: #38bdf8;
+      color: #14B8A6;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .theme-toggle-btn:hover {
       transform: scale(1.08) rotate(15deg);
-      border-color: #38bdf8;
-      box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+      border-color: #FF6B5A;
+      color: #FF6B5A;
+      box-shadow: 0 0 20px rgba(255, 107, 90, 0.5);
     }
 
-    /* DRAGGABLE FAB */
+    /* DRAGGABLE FAB BUTTON */
     #draggableFloatingChat {
       position: fixed;
       bottom: 26px;
       right: 26px;
       z-index: 99999;
-      background: var(--bg-card);
+      background: linear-gradient(135deg, rgba(255, 107, 90, 0.25), rgba(20, 184, 166, 0.25));
       backdrop-filter: blur(16px);
-      border: 1.5px solid rgba(56, 189, 248, 0.65);
+      border: 1.5px solid #14B8A6;
       padding: 12px 22px;
       border-radius: 999px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.5);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(20, 184, 166, 0.4);
       cursor: grab;
       display: inline-flex;
       align-items: center;
@@ -242,7 +246,8 @@
     }
     #draggableFloatingChat:active {
       cursor: grabbing;
-      box-shadow: 0 0 35px rgba(56, 189, 248, 0.8);
+      box-shadow: 0 0 35px rgba(255, 107, 90, 0.8);
+      border-color: #FF6B5A;
     }
 
     /* FULL MODALS */
@@ -259,7 +264,7 @@
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(1, 3, 10, 0.92);
+      background: rgba(3, 6, 12, 0.92);
       backdrop-filter: blur(18px);
       z-index: 1000010;
       display: none;
@@ -273,15 +278,15 @@
       bottom: 30px;
       left: 50%;
       transform: translateX(-50%) translateY(80px);
-      background: #090e1a;
-      color: #38bdf8;
-      border: 1px solid #38bdf8;
+      background: #090e17;
+      color: #14B8A6;
+      border: 1px solid #14B8A6;
       padding: 10px 26px;
       border-radius: 999px;
       font-size: 11px;
       font-weight: 800;
       letter-spacing: 0.08em;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(56, 189, 248, 0.4);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(20, 184, 166, 0.4);
       z-index: 2000000;
       opacity: 0;
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -293,39 +298,39 @@
     .ad-shell { max-width: 1152px; margin: 0 auto; padding: 0 24px; }
     .ad-banner-slot {
       min-height: 96px; display: flex; align-items: center; justify-content: center;
-      border: 1px dashed rgba(56,189,248,.35); border-radius: 18px;
-      background: linear-gradient(135deg, rgba(56,189,248,.08), rgba(16,185,129,.05));
+      border: 1px dashed rgba(20, 184, 166, 0.4); border-radius: 18px;
+      background: linear-gradient(135deg, rgba(255, 107, 90, 0.07), rgba(20, 184, 166, 0.07));
       overflow: hidden; position: relative;
     }
     .ad-banner-slot .ad-placeholder { text-align: center; padding: 18px; }
     .ad-banner-slot img { width: 100%; height: auto; max-height: 180px; object-fit: cover; display: block; }
     .ad-card {
-      background: var(--bg-card); border: 1px solid var(--border-cyan);
+      background: var(--bg-card); border: 1px solid var(--border-accent);
       border-radius: 22px; padding: 22px; backdrop-filter: blur(18px);
       transition: all 0.35s ease;
     }
     .ad-card:hover {
-      border-color: rgba(56, 189, 248, 0.7);
+      border-color: #FF6B5A;
       transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(56, 189, 248, 0.25);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 107, 90, 0.25);
     }
     .ad-price { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 900; }
     .ad-input {
       width: 100%; padding: 12px 14px; border-radius: 12px; outline: none;
-      background: #050914; border: 1px solid #26354d; color: #fff; font-size: 12px;
+      background: #060b14; border: 1px solid #1e2c3d; color: #fff; font-size: 12px;
     }
-    .ad-input:focus { border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56,189,248,.15); }
+    .ad-input:focus { border-color: #14B8A6; box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.2); }
     .ad-label { display: block; margin: 0 0 6px; color: #94a3b8; font: 700 10px 'JetBrains Mono',monospace; text-transform: uppercase; letter-spacing: .08em; }
-    .ad-modal { position: fixed; inset: 0; z-index: 1000050; display: none; place-items: center; padding: 18px; background: rgba(2,5,14,.88); backdrop-filter: blur(16px); }
+    .ad-modal { position: fixed; inset: 0; z-index: 1000050; display: none; place-items: center; padding: 18px; background: rgba(3, 7, 14, 0.9); backdrop-filter: blur(16px); }
     .ad-modal.open { display: grid; }
-    .ad-panel { width: min(760px,100%); max-height: 92vh; overflow: auto; background: #090f1d; border: 1px solid rgba(56,189,248,.35); border-radius: 26px; box-shadow: 0 30px 100px rgba(0,0,0,.7); }
-    .ad-status { display: inline-flex; align-items: center; padding: 5px 9px; border-radius: 999px; font: 800 9px 'JetBrains Mono',monospace; text-transform: uppercase; border: 1px solid rgba(56,189,248,.25); background: rgba(56,189,248,.08); color: #67e8f9; }
-    .ad-admin-row { border: 1px solid #1e2d45; background: rgba(255,255,255,.025); border-radius: 16px; padding: 14px; }
-    .ad-small-btn { border: 1px solid #334155; background: #0f172a; color: #e2e8f0; border-radius: 10px; padding: 8px 11px; font-size: 10px; font-weight: 800; cursor: pointer; }
-    .ad-small-btn:hover { border-color: #38bdf8; }
-    .ad-small-btn.approve { background: rgba(16,185,129,.12); color: #6ee7b7; border-color: rgba(16,185,129,.3); }
-    .ad-small-btn.reject { background: rgba(244,63,94,.1); color: #fda4af; border-color: rgba(244,63,94,.3); }
-    .ad-small-btn.delete { background: rgba(244,63,94,.08); color: #fb7185; border-color: rgba(244,63,94,.25); }
+    .ad-panel { width: min(760px,100%); max-height: 92vh; overflow: auto; background: #080e18; border: 1px solid rgba(20, 184, 166, 0.4); border-radius: 26px; box-shadow: 0 30px 100px rgba(0,0,0,.7); }
+    .ad-status { display: inline-flex; align-items: center; padding: 5px 9px; border-radius: 999px; font: 800 9px 'JetBrains Mono',monospace; text-transform: uppercase; border: 1px solid rgba(20, 184, 166, 0.3); background: rgba(20, 184, 166, 0.1); color: #2dd4bf; }
+    .ad-admin-row { border: 1px solid #1a2a3f; background: rgba(255,255,255,.02); border-radius: 16px; padding: 14px; }
+    .ad-small-btn { border: 1px solid #2a3c53; background: #0b1523; color: #e2e8f0; border-radius: 10px; padding: 8px 11px; font-size: 10px; font-weight: 800; cursor: pointer; }
+    .ad-small-btn:hover { border-color: #14B8A6; }
+    .ad-small-btn.approve { background: rgba(20, 184, 166, 0.15); color: #2dd4bf; border-color: rgba(20, 184, 166, 0.4); }
+    .ad-small-btn.reject { background: rgba(255, 107, 90, 0.12); color: #fca5a5; border-color: rgba(255, 107, 90, 0.4); }
+    .ad-small-btn.delete { background: rgba(255, 107, 90, 0.1); color: #ff8577; border-color: rgba(255, 107, 90, 0.3); }
     .ad-note { font-size: 10px; line-height: 1.6; color: #94a3b8; }
 
     /* LIBRARY STYLES */
@@ -333,14 +338,14 @@
       width: min(1000px, 95vw);
       max-height: 90vh;
       overflow-y: auto;
-      background: #090f1d;
-      border: 1.5px solid rgba(56, 189, 248, 0.4);
+      background: #080e18;
+      border: 1.5px solid rgba(20, 184, 166, 0.45);
       border-radius: 28px;
       box-shadow: 0 30px 100px rgba(0,0,0,0.9);
     }
     .library-card {
-      background: rgba(15, 23, 42, 0.65);
-      border: 1px solid rgba(56, 189, 248, 0.2);
+      background: rgba(11, 20, 32, 0.7);
+      border: 1px solid rgba(20, 184, 166, 0.25);
       border-radius: 20px;
       overflow: hidden;
       display: flex;
@@ -348,7 +353,7 @@
       transition: all 0.3s ease;
     }
     .library-card:hover {
-      border-color: rgba(56, 189, 248, 0.7);
+      border-color: #FF6B5A;
       transform: translateY(-4px);
       box-shadow: 0 15px 35px rgba(0,0,0,0.6);
     }
@@ -380,7 +385,7 @@
 </head>
 <body>
 
-  <!-- 3D CYBERNETIC BIO-DIGITAL DNA & MATRIX CANVAS -->
+  <!-- 3D CORAL & TEAL AMBIENT DNA CANVAS -->
   <canvas id="cyberCanvas"></canvas>
 
   <!-- TOAST NOTIFICATION -->
@@ -388,31 +393,31 @@
 
   <!-- FLOATING DRAGGABLE CHAT -->
   <div id="draggableFloatingChat" title="Click or Drag: Open HELLO AI CHAT">
-    <i class="fa-solid fa-grip-vertical text-cyan-400/50 text-xs"></i>
-    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-    <span class="text-xs font-black tracking-wider text-cyan-400">HELLO AI CHAT</span>
+    <i class="fa-solid fa-grip-vertical text-[#FF6B5A]/70 text-xs"></i>
+    <span class="w-2.5 h-2.5 rounded-full bg-[#14B8A6] animate-pulse"></span>
+    <span class="text-xs font-black tracking-wider text-[#14B8A6]">HELLO AI CHAT</span>
   </div>
 
   <!-- MAIN WRAPPER -->
   <div class="relative z-10 min-h-screen flex flex-col">
 
     <!-- TOP HEADER -->
-    <header class="sticky top-0 z-50 bg-[var(--bg-header)] backdrop-blur-2xl border-b border-[var(--border-cyan)] px-6 py-4 flex items-center justify-between">
+    <header class="sticky top-0 z-50 bg-[var(--bg-header)] backdrop-blur-2xl border-b border-[var(--border-accent)] px-6 py-4 flex items-center justify-between">
       
-      <!-- Left: ULTRA ANIMATED & GLOWING HELLO AI LOGO -->
+      <!-- Left: ULTRA ANIMATED LOGO -->
       <a href="#" class="flex items-center gap-3.5 group">
         <div class="cyber-logo-wrapper">
           <div class="cyber-logo-box group-hover:scale-105 transition-transform duration-300">
             <svg viewBox="0 0 80 80" class="w-7 h-7 cyber-logo-svg">
               <defs>
                 <linearGradient id="logoCyberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#38bdf8"/>
-                  <stop offset="50%" stop-color="#10b981"/>
-                  <stop offset="100%" stop-color="#818cf8"/>
+                  <stop offset="0%" stop-color="#FF6B5A"/>
+                  <stop offset="50%" stop-color="#ffffff"/>
+                  <stop offset="100%" stop-color="#14B8A6"/>
                 </linearGradient>
               </defs>
               <polygon points="40,6 68,22 68,58 40,74 12,58 12,22" fill="none" stroke="url(#logoCyberGrad)" stroke-width="4.5" stroke-linejoin="round"/>
-              <polygon points="40,18 58,40 40,62 22,40" fill="rgba(8,16,32,0.9)" stroke="url(#logoCyberGrad)" stroke-width="2.5"/>
+              <polygon points="40,18 58,40 40,62 22,40" fill="rgba(8,16,24,0.9)" stroke="url(#logoCyberGrad)" stroke-width="2.5"/>
               <path d="M40,26 Q40,40 54,40 Q40,40 40,54 Q40,40 26,40 Q40,40 40,26 Z" fill="url(#logoCyberGrad)"/>
             </svg>
           </div>
@@ -420,10 +425,10 @@
 
         <div class="flex flex-col">
           <div class="flex items-center gap-1.5 leading-none">
-            <span class="font-extrabold text-[15px] tracking-[0.24em] logo-text-glow">HELLO</span>
-            <span class="font-black text-lg font-['Syne'] bg-gradient-to-r from-cyan-400 via-emerald-300 to-indigo-400 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(56,189,248,0.7)]">AI</span>
+            <span class="font-extrabold text-[15px] tracking-[0.24em] logo-text-glow text-[#f8fafc]">HELLO</span>
+            <span class="font-black text-lg font-['Syne'] bg-gradient-to-r from-[#FF6B5A] to-[#14B8A6] bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(255,107,90,0.6)]">AI</span>
           </div>
-          <span class="text-[8.5px] font-mono tracking-[0.26em] text-cyan-400 font-bold mt-1 uppercase">Bio-Digital Matrix</span>
+          <span class="text-[8.5px] font-mono tracking-[0.26em] text-[#14B8A6] font-bold mt-1 uppercase">Warm • Fresh • Modern</span>
         </div>
       </a>
 
@@ -431,10 +436,10 @@
       <div class="flex items-center gap-3">
         <!-- Theme Toggle Button -->
         <button onclick="toggleColorTheme()" id="themeToggleBtn" title="Toggle Light/Dark Mode" class="theme-toggle-btn">
-          <i class="fa-solid fa-moon text-sm text-cyan-400" id="themeIcon"></i>
+          <i class="fa-solid fa-moon text-sm text-[#14B8A6]" id="themeIcon"></i>
         </button>
 
-        <button onclick="openAdvertiserModal()" title="Advertise With Us" class="hidden sm:inline-flex px-3.5 py-2 rounded-full bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-[10px] font-black tracking-wider uppercase transition-all shadow-[0_0_15px_rgba(56,189,248,0.15)]">
+        <button onclick="openAdvertiserModal()" title="Advertise With Us" class="hidden sm:inline-flex px-3.5 py-2 rounded-full bg-[#FF6B5A]/15 hover:bg-[#FF6B5A]/25 border border-[#FF6B5A]/40 text-[#FF6B5A] text-[10px] font-black tracking-wider uppercase transition-all shadow-[0_0_15px_rgba(255,107,90,0.25)]">
           <i class="fa-solid fa-bullhorn mr-1.5"></i> Advertise
         </button>
 
@@ -444,13 +449,13 @@
       </div>
     </header>
 
-    <!-- HERO SECTION (ANIMATED) -->
+    <!-- HERO SECTION -->
     <main class="flex-1">
       <section class="max-w-6xl mx-auto px-6 pt-24 pb-28 flex flex-col items-center text-center">
         <!-- Badge -->
-        <div class="anim-fade-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold tracking-widest uppercase mb-8 shadow-[0_0_25px_rgba(56,189,248,0.3)]">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-          <span>NEURAL BIO-CYBERNETIC SYSTEM</span>
+        <div class="anim-fade-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#14B8A6]/10 border border-[#14B8A6]/35 text-[#14B8A6] font-mono text-[11px] font-bold tracking-widest uppercase mb-8 shadow-[0_0_25px_rgba(20,184,166,0.3)]">
+          <span class="w-2 h-2 rounded-full bg-[#FF6B5A] animate-ping"></span>
+          <span>CORAL × TEAL SYNTHETIC MATRIX</span>
         </div>
 
         <!-- MAIN TITLE: ONLY "HELLO AI" -->
@@ -462,58 +467,58 @@
 
         <!-- Subtitle -->
         <p class="anim-fade-up text-[var(--text-muted)] max-w-2xl text-sm sm:text-base leading-relaxed mb-10 font-normal">
-          Multi-language cloud studio environment supporting HTML5, JavaScript & Python. Client-side sandboxed execution with biological cybernetic matrix pipelines.
+          Multi-language cloud studio environment supporting HTML5, JavaScript & Python. Client-side sandboxed execution with media recording and multimodal AI.
         </p>
 
         <!-- CTA Buttons -->
         <div class="anim-fade-up flex flex-wrap items-center justify-center gap-4">
-          <button onclick="handleProtectedChatLaunch()" class="px-8 py-4 rounded-full bg-gradient-to-r from-cyan-500 via-emerald-500 to-indigo-600 hover:from-cyan-400 hover:to-emerald-400 text-slate-950 font-black text-xs tracking-widest uppercase shadow-[0_0_35px_rgba(56,189,248,0.5)] transition-all hover:scale-105 flex items-center gap-3">
-            <i class="fa-solid fa-terminal text-sm"></i>
+          <button onclick="handleProtectedChatLaunch()" class="px-8 py-4 rounded-full bg-gradient-to-r from-[#FF6B5A] via-[#ff8475] to-[#14B8A6] hover:opacity-95 text-slate-950 font-black text-xs tracking-widest uppercase shadow-[0_0_35px_rgba(255,107,90,0.5)] transition-all hover:scale-105 flex items-center gap-3">
+            <i class="fa-solid fa-comments text-sm"></i>
             <span>OPEN HELLO AI CHAT</span>
             <span class="text-white">✦</span>
           </button>
 
           <!-- Studio Trigger -->
-          <button onclick="openLanguagePickerModal()" class="px-8 py-4 rounded-full bg-slate-900/90 hover:bg-slate-800 text-slate-200 font-bold text-xs tracking-widest uppercase border border-slate-700/80 transition-all hover:border-cyan-400/50 flex items-center gap-2.5">
-            <i class="fa-solid fa-code text-cyan-400"></i>
+          <button onclick="openLanguagePickerModal()" class="px-8 py-4 rounded-full bg-slate-900/90 hover:bg-slate-800 text-slate-200 font-bold text-xs tracking-widest uppercase border border-slate-700/80 transition-all hover:border-[#14B8A6]/60 flex items-center gap-2.5">
+            <i class="fa-solid fa-code text-[#14B8A6]"></i>
             <span>CODE & VIDEO STUDIO</span>
           </button>
 
-          <button onclick="openLibraryModal()" class="px-8 py-4 rounded-full bg-slate-900/90 hover:bg-slate-800 text-cyan-300 font-bold text-xs tracking-widest uppercase border border-cyan-500/40 transition-all hover:border-cyan-400 flex items-center gap-2.5 shadow-[0_0_20px_rgba(56,189,248,0.2)]">
-            <i class="fa-solid fa-dna text-emerald-400"></i>
+          <button onclick="openLibraryModal()" class="px-8 py-4 rounded-full bg-slate-900/90 hover:bg-slate-800 text-[#FF6B5A] font-bold text-xs tracking-widest uppercase border border-[#FF6B5A]/40 transition-all hover:border-[#FF6B5A] flex items-center gap-2.5 shadow-[0_0_20px_rgba(255,107,90,0.25)]">
+            <i class="fa-solid fa-layer-group text-[#FF6B5A]"></i>
             <span>HELLO AI LIBRARY</span>
           </button>
         </div>
 
         <!-- Metric Cards -->
-        <div class="anim-fade-up grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-4xl mt-16 pt-10 border-t border-[var(--border-cyan)]">
+        <div class="anim-fade-up grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-4xl mt-16 pt-10 border-t border-[var(--border-accent)]">
           <div class="glass-card p-5 text-left">
-            <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Architecture</span>
-            <strong class="text-sm font-bold text-cyan-400">3D DNA MATRIX</strong>
+            <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Engines</span>
+            <strong class="text-sm font-bold text-[#FF6B5A]">HTML • JS • PYTHON</strong>
           </div>
           <div class="glass-card p-5 text-left">
             <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Neural Core</span>
-            <strong class="text-sm font-bold text-emerald-400">GEMINI 2.5 FLASH</strong>
+            <strong class="text-sm font-bold text-[#14B8A6]">GEMINI 2.5 FLASH</strong>
           </div>
           <div class="glass-card p-5 text-left">
             <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Video Stream</span>
-            <strong class="text-sm font-bold text-indigo-400">WEBM PIPELINE</strong>
+            <strong class="text-sm font-bold text-[#FF6B5A]">WEBM PIPELINE</strong>
           </div>
           <div class="glass-card p-5 text-left">
-            <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Security Grid</span>
-            <strong id="activeThemeLabel" class="text-sm font-bold text-cyan-400">CYBER DEEP</strong>
+            <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Palette Mode</span>
+            <strong id="activeThemeLabel" class="text-sm font-bold text-[#14B8A6]">CORAL × TEAL</strong>
           </div>
         </div>
       </section>
 
-      <!-- AGENTS DIRECTORY (ANIMATED) -->
-      <section class="max-w-6xl mx-auto px-6 py-20 border-t border-[var(--border-cyan)]">
+      <!-- AGENTS DIRECTORY -->
+      <section class="max-w-6xl mx-auto px-6 py-20 border-t border-[var(--border-accent)]">
         <div class="anim-fade-up flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4 pb-6 border-b border-slate-800">
           <div>
-            <span class="text-[11px] font-mono font-bold tracking-widest text-cyan-400 uppercase">Operational Matrix</span>
+            <span class="text-[11px] font-mono font-bold tracking-widest text-[#FF6B5A] uppercase">Operational Matrix</span>
             <h2 class="text-3xl sm:text-4xl font-extrabold font-['Syne'] mt-1">Autonomous Engines</h2>
           </div>
-          <button onclick="openCreateToolModal()" class="px-6 py-3 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs tracking-wider inline-flex items-center gap-2 shadow-[0_0_20px_rgba(56,189,248,0.35)] transition-all">
+          <button onclick="openCreateToolModal()" class="px-6 py-3 rounded-full bg-[#14B8A6] hover:bg-[#0d9488] text-slate-950 font-bold text-xs tracking-wider inline-flex items-center gap-2 shadow-[0_0_20px_rgba(20,184,166,0.4)] transition-all">
             <i class="fa-solid fa-plus"></i>
             <span>DEPLOY CUSTOM AGENT</span>
           </button>
@@ -522,11 +527,11 @@
         <div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
       </section>
 
-      <!-- ADVERTISEMENT SYSTEM (ANIMATED) -->
+      <!-- ADVERTISEMENT SYSTEM -->
       <section id="advertisingSection" class="ad-shell py-10 anim-fade-up">
         <div class="ad-banner-slot" id="topAdSlot">
           <div class="ad-placeholder">
-            <div class="text-[9px] font-mono font-bold tracking-[.2em] text-cyan-400">ADVERTISEMENT</div>
+            <div class="text-[9px] font-mono font-bold tracking-[.2em] text-[#FF6B5A]">ADVERTISEMENT</div>
             <div class="text-[11px] text-slate-500 mt-1">Your approved sponsor banner can appear here</div>
           </div>
         </div>
@@ -535,15 +540,15 @@
       <section class="ad-shell pb-20">
         <div class="anim-fade-up flex flex-col sm:flex-row sm:items-end justify-between gap-5 mb-8">
           <div>
-            <span class="text-[10px] font-mono font-bold tracking-widest text-cyan-400 uppercase">Commercial Interface</span>
+            <span class="text-[10px] font-mono font-bold tracking-widest text-[#14B8A6] uppercase">Commercial Interface</span>
             <h2 class="text-3xl sm:text-4xl font-extrabold font-['Syne'] mt-1">Advertise With Us</h2>
             <p class="text-xs text-slate-400 mt-2 max-w-2xl">Promote your brand, product or website to HELLO AI visitors. Choose a placement, submit your creative and request a paid campaign.</p>
           </div>
           <div class="flex gap-2">
-            <button onclick="openAdvertiserModal()" class="px-5 py-3 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-[10px] tracking-widest uppercase shadow-[0_0_20px_rgba(56,189,248,.3)]">
+            <button onclick="openAdvertiserModal()" class="px-5 py-3 rounded-full bg-[#FF6B5A] hover:bg-[#fa5543] text-slate-950 font-black text-[10px] tracking-widest uppercase shadow-[0_0_20px_rgba(255,107,90,0.4)]">
               <i class="fa-solid fa-bullhorn mr-2"></i>Book An Ad
             </button>
-            <button onclick="openAdAdminModal()" class="px-4 py-3 rounded-full bg-slate-900 border border-slate-700 text-slate-300 text-[10px] font-bold uppercase">
+            <button onclick="openAdAdminModal()" class="px-4 py-3 rounded-full bg-slate-900 border border-slate-700 text-slate-300 text-[10px] font-bold uppercase hover:border-[#14B8A6]">
               <i class="fa-solid fa-gauge-high mr-2"></i>Ad Manager
             </button>
           </div>
@@ -551,38 +556,38 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
           <div class="ad-card anim-fade-up">
-            <div class="text-cyan-400 text-xl mb-3"><i class="fa-solid fa-rectangle-ad"></i></div>
+            <div class="text-[#FF6B5A] text-xl mb-3"><i class="fa-solid fa-rectangle-ad"></i></div>
             <h3 class="font-bold font-['Syne'] text-lg">Banner Placement</h3>
             <p class="text-xs text-slate-400 mt-2 leading-relaxed">Place a clickable sponsor banner in the website advertising slot.</p>
             <div class="mt-5 flex items-end justify-between">
               <span class="text-[9px] font-mono text-slate-500 uppercase">From</span>
-              <span class="ad-price text-cyan-400">₹499</span>
+              <span class="ad-price text-[#FF6B5A]">₹499</span>
             </div>
           </div>
           <div class="ad-card anim-fade-up">
-            <div class="text-emerald-400 text-xl mb-3"><i class="fa-solid fa-display"></i></div>
+            <div class="text-[#14B8A6] text-xl mb-3"><i class="fa-solid fa-display"></i></div>
             <h3 class="font-bold font-['Syne'] text-lg">Featured Campaign</h3>
             <p class="text-xs text-slate-400 mt-2 leading-relaxed">Premium placement for brands that want more visibility across the homepage.</p>
             <div class="mt-5 flex items-end justify-between">
               <span class="text-[9px] font-mono text-slate-500 uppercase">From</span>
-              <span class="ad-price text-emerald-400">₹899</span>
+              <span class="ad-price text-[#14B8A6]">₹899</span>
             </div>
           </div>
           <div class="ad-card anim-fade-up">
-            <div class="text-indigo-400 text-xl mb-3"><i class="fa-solid fa-calendar-days"></i></div>
+            <div class="text-[#FF6B5A] text-xl mb-3"><i class="fa-solid fa-calendar-days"></i></div>
             <h3 class="font-bold font-['Syne'] text-lg">Timed Campaign</h3>
             <p class="text-xs text-slate-400 mt-2 leading-relaxed">Select 7, 15 or 30 days. Approved campaigns expire automatically in the display layer.</p>
             <div class="mt-5 flex items-end justify-between">
               <span class="text-[9px] font-mono text-slate-500 uppercase">Flexible</span>
-              <span class="ad-price text-indigo-400">7–30D</span>
+              <span class="ad-price text-[#FF6B5A]">7–30D</span>
             </div>
           </div>
         </div>
       </section>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="bg-[#02050f] border-t border-slate-800 text-slate-300 pt-16 pb-12 px-6 sm:px-12 mt-10">
+    <!-- FOOTER WITH CORAL & TEAL PALETTE -->
+    <footer class="bg-[#05080e] border-t border-slate-800 text-slate-300 pt-16 pb-12 px-6 sm:px-12 mt-10">
       <div class="max-w-6xl mx-auto anim-fade-up">
         <!-- Top row: Logo + Description -->
         <div class="mb-14">
@@ -592,20 +597,20 @@
                 <svg viewBox="0 0 80 80" class="w-6 h-6 cyber-logo-svg">
                   <defs>
                     <linearGradient id="footerCyberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#38bdf8"/>
-                      <stop offset="50%" stop-color="#10b981"/>
-                      <stop offset="100%" stop-color="#818cf8"/>
+                      <stop offset="0%" stop-color="#FF6B5A"/>
+                      <stop offset="50%" stop-color="#ffffff"/>
+                      <stop offset="100%" stop-color="#14B8A6"/>
                     </linearGradient>
                   </defs>
                   <polygon points="40,6 68,22 68,58 40,74 12,58 12,22" fill="none" stroke="url(#footerCyberGrad)" stroke-width="4.5" stroke-linejoin="round"/>
-                  <polygon points="40,18 58,40 40,62 22,40" fill="rgba(8,16,32,0.9)" stroke="url(#footerCyberGrad)" stroke-width="2.5"/>
+                  <polygon points="40,18 58,40 40,62 22,40" fill="rgba(8,16,24,0.9)" stroke="url(#footerCyberGrad)" stroke-width="2.5"/>
                   <path d="M40,26 Q40,40 54,40 Q40,40 40,54 Q40,40 26,40 Q40,40 40,26 Z" fill="url(#footerCyberGrad)"/>
                 </svg>
               </div>
             </div>
             <h2 class="text-xl sm:text-2xl font-black font-['Syne'] tracking-wider text-white logo-text-glow">HELLO AI</h2>
           </div>
-          <div class="text-xs text-cyan-400 font-semibold mb-3 tracking-wide">Code. Build. See it live.</div>
+          <div class="text-xs text-[#14B8A6] font-semibold mb-3 tracking-wide">Code. Build. See it live.</div>
           <p class="text-xs sm:text-sm text-slate-400 max-w-2xl leading-relaxed">
             A browser-first environment for writing code, building web projects, and seeing your work come alive with live output.
           </p>
@@ -615,27 +620,27 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 sm:gap-16 mb-16 text-xs max-w-2xl">
           <!-- Column 1: COMPANY -->
           <div>
-            <h3 class="text-cyan-400 font-black text-xs tracking-widest uppercase mb-5 font-mono drop-shadow-[0_0_10px_rgba(56,189,248,0.5)]">COMPANY</h3>
+            <h3 class="text-[#FF6B5A] font-black text-xs tracking-widest uppercase mb-5 font-mono drop-shadow-[0_0_10px_rgba(255,107,90,0.5)]">COMPANY</h3>
             <ul class="space-y-3 font-medium text-slate-300">
-              <li><a href="#" class="hover:text-cyan-300 transition-colors">About</a></li>
-              <li><a href="#" class="hover:text-cyan-300 transition-colors">Contact</a></li>
-              <li><a href="#" class="hover:text-cyan-300 transition-colors">Privacy</a></li>
-              <li><a href="#" class="hover:text-cyan-300 transition-colors">Terms</a></li>
+              <li><a href="#" class="hover:text-[#14B8A6] transition-colors">About</a></li>
+              <li><a href="#" class="hover:text-[#14B8A6] transition-colors">Contact</a></li>
+              <li><a href="#" class="hover:text-[#14B8A6] transition-colors">Privacy</a></li>
+              <li><a href="#" class="hover:text-[#14B8A6] transition-colors">Terms</a></li>
             </ul>
           </div>
 
           <!-- Column 2: EDITORS -->
           <div>
-            <h3 class="text-cyan-400 font-black text-xs tracking-widest uppercase mb-5 font-mono drop-shadow-[0_0_10px_rgba(56,189,248,0.5)]">EDITORS</h3>
+            <h3 class="text-[#14B8A6] font-black text-xs tracking-widest uppercase mb-5 font-mono drop-shadow-[0_0_10px_rgba(20,184,166,0.5)]">EDITORS</h3>
             <ul class="space-y-3 font-medium text-slate-300">
-              <li><a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-cyan-300 transition-colors">Online Code Editor</a></li>
-              <li><a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-cyan-300 transition-colors">HTML Editor</a></li>
-              <li><a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-cyan-300 transition-colors">CSS Editor</a></li>
-              <li><a href="javascript:void(0)" onclick="selectLanguageMode('javascript')" class="hover:text-cyan-300 transition-colors">HELLO AI Editor</a></li>
-              <li><a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-cyan-300 transition-colors">HTML/CSS/HELLO AI Editor</a></li>
-              <li><a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-cyan-300 transition-colors">Online HTML Editor</a></li>
-              <li><a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-cyan-300 transition-colors">Online CSS Editor</a></li>
-              <li><a href="javascript:void(0)" onclick="selectLanguageMode('javascript')" class="hover:text-cyan-300 transition-colors">Online HELLO AI Editor</a></li>
+              <li><a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-[#FF6B5A] transition-colors">Online Code Editor</a></li>
+              <li><a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-[#FF6B5A] transition-colors">HTML Editor</a></li>
+              <li><a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-[#FF6B5A] transition-colors">CSS Editor</a></li>
+              <li><a href="javascript:void(0)" onclick="selectLanguageMode('javascript')" class="hover:text-[#FF6B5A] transition-colors">HELLO AI Editor</a></li>
+              <li><a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-[#FF6B5A] transition-colors">HTML/CSS/HELLO AI Editor</a></li>
+              <li><a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-[#FF6B5A] transition-colors">Online HTML Editor</a></li>
+              <li><a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-[#FF6B5A] transition-colors">Online CSS Editor</a></li>
+              <li><a href="javascript:void(0)" onclick="selectLanguageMode('javascript')" class="hover:text-[#FF6B5A] transition-colors">Online HELLO AI Editor</a></li>
             </ul>
           </div>
         </div>
@@ -649,16 +654,16 @@
         </div>
 
         <!-- Bottom Navigation & SEO Keywords -->
-        <div class="flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-cyan-400/80 font-medium">
-          <a href="javascript:void(0)" onclick="selectLanguageMode('javascript')" class="hover:text-cyan-300 hover:drop-shadow-[0_0_8px_#38bdf8] transition-all">Online HELLO AI Editor</a>
-          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-cyan-300 hover:drop-shadow-[0_0_8px_#38bdf8] transition-all">Live Code Editor</a>
-          <a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-cyan-300 hover:drop-shadow-[0_0_8px_#38bdf8] transition-all">Online Web Editor</a>
-          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-cyan-300 hover:drop-shadow-[0_0_8px_#38bdf8] transition-all">Web Code Editor</a>
-          <a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-cyan-300 hover:drop-shadow-[0_0_8px_#38bdf8] transition-all">Editor with Live Preview</a>
-          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-cyan-300 hover:drop-shadow-[0_0_8px_#38bdf8] transition-all">Code Output</a>
-          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-cyan-300 hover:drop-shadow-[0_0_8px_#38bdf8] transition-all">Live Output Code</a>
-          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-cyan-300 hover:drop-shadow-[0_0_8px_#38bdf8] transition-all">Real Time Code Output</a>
-          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-cyan-300 hover:drop-shadow-[0_0_8px_#38bdf8] transition-all">Code Output Generator</a>
+        <div class="flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-[#14B8A6]/90 font-medium">
+          <a href="javascript:void(0)" onclick="selectLanguageMode('javascript')" class="hover:text-[#FF6B5A] hover:drop-shadow-[0_0_8px_#FF6B5A] transition-all">Online HELLO AI Editor</a>
+          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-[#FF6B5A] hover:drop-shadow-[0_0_8px_#FF6B5A] transition-all">Live Code Editor</a>
+          <a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-[#FF6B5A] hover:drop-shadow-[0_0_8px_#FF6B5A] transition-all">Online Web Editor</a>
+          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-[#FF6B5A] hover:drop-shadow-[0_0_8px_#FF6B5A] transition-all">Web Code Editor</a>
+          <a href="javascript:void(0)" onclick="selectLanguageMode('html')" class="hover:text-[#FF6B5A] hover:drop-shadow-[0_0_8px_#FF6B5A] transition-all">Editor with Live Preview</a>
+          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-[#FF6B5A] hover:drop-shadow-[0_0_8px_#FF6B5A] transition-all">Code Output</a>
+          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-[#FF6B5A] hover:drop-shadow-[0_0_8px_#FF6B5A] transition-all">Live Output Code</a>
+          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-[#FF6B5A] hover:drop-shadow-[0_0_8px_#FF6B5A] transition-all">Real Time Code Output</a>
+          <a href="javascript:void(0)" onclick="openLanguagePickerModal()" class="hover:text-[#FF6B5A] hover:drop-shadow-[0_0_8px_#FF6B5A] transition-all">Code Output Generator</a>
         </div>
       </div>
     </footer>
@@ -669,12 +674,12 @@
     <div class="library-panel p-6 sm:p-8 relative text-left">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-800 gap-4 mb-6">
         <div>
-          <span class="text-[10px] font-mono font-bold text-cyan-400 tracking-widest uppercase">Project & Code Repository</span>
+          <span class="text-[10px] font-mono font-bold text-[#FF6B5A] tracking-widest uppercase">Project & Code Repository</span>
           <h3 class="text-2xl sm:text-3xl font-black font-['Syne'] text-white mt-1">HELLO AI LIBRARY</h3>
           <p class="text-xs text-slate-400 mt-1">Explore, run and copy standalone HTML / Canvas animations or open directly in the Code Studio.</p>
         </div>
         <div class="flex items-center gap-3">
-          <button onclick="openSubmitLibraryModal()" class="px-4 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-xs font-bold transition-all flex items-center gap-2">
+          <button onclick="openSubmitLibraryModal()" class="px-4 py-2 rounded-xl bg-[#14B8A6]/15 hover:bg-[#14B8A6]/25 text-[#14B8A6] border border-[#14B8A6]/40 text-xs font-bold transition-all flex items-center gap-2">
             <i class="fa-solid fa-plus"></i> Add HTML
           </button>
           <button onclick="closeLibraryModal()" class="w-9 h-9 rounded-full bg-slate-800/60 hover:bg-slate-700 flex items-center justify-center text-slate-300 hover:text-white transition-colors">
@@ -689,7 +694,7 @@
 
   <!-- POPUP: ADD CUSTOM HTML TO LIBRARY -->
   <div id="addLibraryProjectModal" class="modal-backdrop">
-    <div class="bg-[#090f1d] border border-cyan-500/40 rounded-3xl p-7 max-w-lg w-full shadow-2xl relative">
+    <div class="bg-[#080e18] border border-[#FF6B5A]/40 rounded-3xl p-7 max-w-lg w-full shadow-2xl relative">
       <div class="flex justify-between items-center pb-4 border-b border-slate-800 mb-5">
         <h3 class="text-lg font-bold font-['Syne'] text-white">Add Project to HELLO AI Library</h3>
         <button onclick="closeSubmitLibraryModal()" class="text-slate-400 hover:text-white text-lg">
@@ -700,18 +705,18 @@
       <div class="space-y-4 text-xs font-semibold text-slate-300">
         <div>
           <label class="block mb-1 text-slate-400 font-mono">Project Title:</label>
-          <input type="text" id="libProjTitle" placeholder="e.g. Neon Wave Visualizer" class="w-full px-4 py-2.5 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-cyan-400">
+          <input type="text" id="libProjTitle" placeholder="e.g. Neon Wave Visualizer" class="w-full px-4 py-2.5 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-[#14B8A6]">
         </div>
         <div>
           <label class="block mb-1 text-slate-400 font-mono">Tag / Category:</label>
-          <input type="text" id="libProjTag" placeholder="e.g. 3D CANVAS, ANIMATION, GAME" class="w-full px-4 py-2.5 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-cyan-400">
+          <input type="text" id="libProjTag" placeholder="e.g. 3D CANVAS, ANIMATION, GAME" class="w-full px-4 py-2.5 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-[#14B8A6]">
         </div>
         <div>
           <label class="block mb-1 text-slate-400 font-mono">HTML Source Code:</label>
-          <textarea id="libProjCode" rows="8" placeholder="Paste full HTML, CSS, JS code here..." class="w-full p-3 rounded-xl bg-[#050914] border border-slate-700 text-cyan-300 font-mono text-[11px] focus:outline-none focus:border-cyan-400 resize-none"></textarea>
+          <textarea id="libProjCode" rows="8" placeholder="Paste full HTML, CSS, JS code here..." class="w-full p-3 rounded-xl bg-[#050914] border border-slate-700 text-[#14B8A6] font-mono text-[11px] focus:outline-none focus:border-[#14B8A6] resize-none"></textarea>
         </div>
 
-        <button onclick="saveCustomLibraryProject()" class="w-full py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs shadow-[0_0_20px_rgba(56,189,248,0.3)] mt-2">
+        <button onclick="saveCustomLibraryProject()" class="w-full py-3.5 rounded-xl bg-[#FF6B5A] hover:bg-[#fa5543] text-slate-950 font-bold text-xs shadow-[0_0_20px_rgba(255,107,90,0.35)] mt-2">
           Save Into HELLO AI Library
         </button>
       </div>
@@ -720,10 +725,10 @@
 
   <!-- POPUP: LANGUAGE SELECTION MODAL -->
   <div id="languagePickerModal" class="modal-backdrop">
-    <div class="bg-[#090f1d] border border-cyan-500/40 rounded-3xl p-8 max-w-md w-full shadow-2xl relative text-left">
+    <div class="bg-[#080e18] border border-[#14B8A6]/40 rounded-3xl p-8 max-w-md w-full shadow-2xl relative text-left">
       <div class="flex justify-between items-center pb-4 border-b border-slate-800 mb-6">
         <div>
-          <span class="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-widest">Select Workspace</span>
+          <span class="text-[10px] font-mono text-[#FF6B5A] font-bold uppercase tracking-widest">Select Workspace</span>
           <h3 class="text-xl font-bold font-['Syne'] text-white mt-0.5">What do you want to build?</h3>
         </div>
         <button onclick="closeLanguagePickerModal()" class="text-slate-400 hover:text-white text-lg">
@@ -732,43 +737,43 @@
       </div>
 
       <div class="space-y-3.5">
-        <div onclick="selectLanguageMode('html')" class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-400 hover:bg-cyan-500/10 cursor-pointer transition-all flex items-center justify-between group">
+        <div onclick="selectLanguageMode('html')" class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-[#FF6B5A] hover:bg-[#FF6B5A]/10 cursor-pointer transition-all flex items-center justify-between group">
           <div class="flex items-center gap-3.5">
-            <div class="w-11 h-11 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center text-lg border border-orange-500/30">
+            <div class="w-11 h-11 rounded-xl bg-[#FF6B5A]/20 text-[#FF6B5A] flex items-center justify-center text-lg border border-[#FF6B5A]/30">
               <i class="fa-brands fa-html5"></i>
             </div>
             <div>
-              <h4 class="text-sm font-bold font-['Syne'] text-white group-hover:text-cyan-400 transition-colors">HTML5 & Web Canvas</h4>
+              <h4 class="text-sm font-bold font-['Syne'] text-white group-hover:text-[#FF6B5A] transition-colors">HTML5 & Web Canvas</h4>
               <p class="text-[11px] text-slate-400">Live preview, CSS styling, 3D graphics & Video Export</p>
             </div>
           </div>
-          <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all"></i>
+          <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-[#FF6B5A] group-hover:translate-x-1 transition-all"></i>
         </div>
 
-        <div onclick="selectLanguageMode('javascript')" class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-yellow-400 hover:bg-yellow-500/10 cursor-pointer transition-all flex items-center justify-between group">
+        <div onclick="selectLanguageMode('javascript')" class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-[#14B8A6] hover:bg-[#14B8A6]/10 cursor-pointer transition-all flex items-center justify-between group">
           <div class="flex items-center gap-3.5">
-            <div class="w-11 h-11 rounded-xl bg-yellow-500/20 text-yellow-400 flex items-center justify-center text-lg border border-yellow-500/30">
+            <div class="w-11 h-11 rounded-xl bg-[#14B8A6]/20 text-[#14B8A6] flex items-center justify-center text-lg border border-[#14B8A6]/30">
               <i class="fa-brands fa-js"></i>
             </div>
             <div>
-              <h4 class="text-sm font-bold font-['Syne'] text-white group-hover:text-yellow-400 transition-colors">JavaScript Engine</h4>
+              <h4 class="text-sm font-bold font-['Syne'] text-white group-hover:text-[#14B8A6] transition-colors">JavaScript Engine</h4>
               <p class="text-[11px] text-slate-400">ES6+ execution, algorithms & interactive console logs</p>
             </div>
           </div>
-          <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-yellow-400 group-hover:translate-x-1 transition-all"></i>
+          <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-[#14B8A6] group-hover:translate-x-1 transition-all"></i>
         </div>
 
-        <div onclick="selectLanguageMode('python')" class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-blue-400 hover:bg-blue-500/10 cursor-pointer transition-all flex items-center justify-between group">
+        <div onclick="selectLanguageMode('python')" class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-[#FF6B5A] hover:bg-[#FF6B5A]/10 cursor-pointer transition-all flex items-center justify-between group">
           <div class="flex items-center gap-3.5">
-            <div class="w-11 h-11 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-lg border border-blue-500/30">
+            <div class="w-11 h-11 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center text-lg border border-orange-500/30">
               <i class="fa-brands fa-python"></i>
             </div>
             <div>
-              <h4 class="text-sm font-bold font-['Syne'] text-white group-hover:text-blue-400 transition-colors">Python Matrix</h4>
+              <h4 class="text-sm font-bold font-['Syne'] text-white group-hover:text-orange-400 transition-colors">Python Matrix</h4>
               <p class="text-[11px] text-slate-400">Scripts, calculations & simulated runtime terminal</p>
             </div>
           </div>
-          <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all"></i>
+          <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-orange-400 group-hover:translate-x-1 transition-all"></i>
         </div>
       </div>
     </div>
@@ -776,14 +781,14 @@
 
   <!-- FULL SCREEN: CODE STUDIO -->
   <div id="helloCodeAiStudioScreen" class="full-studio-modal">
-    <header class="p-4 bg-[#080d1a] border-b border-slate-800 flex flex-wrap gap-3 justify-between items-center">
+    <header class="p-4 bg-[#090f19] border-b border-slate-800 flex flex-wrap gap-3 justify-between items-center">
       <div class="flex items-center gap-4">
-        <button onclick="closeCodeStudioScreen()" class="px-3.5 py-1.5 rounded-xl bg-white/10 text-xs font-bold text-cyan-300 hover:bg-white/20 transition-all flex items-center gap-2">
+        <button onclick="closeCodeStudioScreen()" class="px-3.5 py-1.5 rounded-xl bg-white/10 text-xs font-bold text-[#14B8A6] hover:bg-white/20 transition-all flex items-center gap-2">
           <i class="fa-solid fa-arrow-left"></i> Exit
         </button>
         <span class="font-extrabold text-sm font-['Syne'] text-white flex items-center gap-2">
           <span>CODE STUDIO</span>
-          <span id="activeLangBadge" class="text-[10px] px-2 py-0.5 rounded-md bg-cyan-500/20 text-cyan-300 font-mono border border-cyan-500/30">HTML5</span>
+          <span id="activeLangBadge" class="text-[10px] px-2 py-0.5 rounded-md bg-[#14B8A6]/20 text-[#14B8A6] font-mono border border-[#14B8A6]/30">HTML5</span>
         </span>
       </div>
 
@@ -805,19 +810,19 @@
           <i class="fa-solid fa-expand"></i> Full Screen
         </button>
 
-        <button id="btnGenerateVideo" onclick="generateVideoFromCodeStudio()" class="px-3.5 py-1.5 rounded-xl bg-indigo-600/25 hover:bg-indigo-600/35 text-indigo-300 text-xs font-bold flex items-center gap-1.5 border border-indigo-500/30">
+        <button id="btnGenerateVideo" onclick="generateVideoFromCodeStudio()" class="px-3.5 py-1.5 rounded-xl bg-[#FF6B5A]/25 hover:bg-[#FF6B5A]/35 text-[#ff8e80] text-xs font-bold flex items-center gap-1.5 border border-[#FF6B5A]/30">
           <i class="fa-solid fa-video"></i> Video Export
         </button>
         
-        <button onclick="executeActiveCode()" class="px-5 py-1.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 text-xs font-black flex items-center gap-2 shadow-[0_0_15px_rgba(56,189,248,0.4)]">
+        <button onclick="executeActiveCode()" class="px-5 py-1.5 rounded-xl bg-[#14B8A6] hover:bg-[#0d9488] text-slate-950 text-xs font-black flex items-center gap-2 shadow-[0_0_15px_rgba(20,184,166,0.4)]">
           <i class="fa-solid fa-play"></i> Run Code
         </button>
       </div>
     </header>
 
-    <main class="flex-1 p-5 flex flex-col lg:flex-row gap-5 overflow-hidden bg-[#030712]">
+    <main class="flex-1 p-5 flex flex-col lg:flex-row gap-5 overflow-hidden bg-[#040810]">
       <div class="flex-1 flex flex-col">
-        <textarea id="studioCodeTextarea" spellcheck="false" class="flex-1 p-4 bg-[#050914] text-cyan-300 font-mono text-xs rounded-2xl border border-slate-800 focus:outline-none focus:border-cyan-500/50 resize-none leading-relaxed" placeholder="// Insert code here..."></textarea>
+        <textarea id="studioCodeTextarea" spellcheck="false" class="flex-1 p-4 bg-[#070d17] text-[#14B8A6] font-mono text-xs rounded-2xl border border-slate-800 focus:outline-none focus:border-[#14B8A6]/60 resize-none leading-relaxed" placeholder="// Insert code here..."></textarea>
       </div>
 
       <div class="flex-1 flex flex-col gap-4">
@@ -825,10 +830,10 @@
           <iframe id="studioLiveIframe" class="w-full h-full border-0" allow="fullscreen"></iframe>
         </div>
 
-        <div id="studioTerminalContainer" class="flex-1 bg-[#050914] rounded-2xl border border-slate-800 p-4 font-mono text-xs overflow-y-auto hidden flex-col">
+        <div id="studioTerminalContainer" class="flex-1 bg-[#070d17] rounded-2xl border border-slate-800 p-4 font-mono text-xs overflow-y-auto hidden flex-col">
           <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800 text-[11px] text-slate-400 font-bold">
             <span class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span class="w-2 h-2 rounded-full bg-[#14B8A6]"></span>
               Execution Terminal
             </span>
             <button onclick="clearTerminalOutput()" class="text-slate-500 hover:text-slate-300 text-[10px]">Clear</button>
@@ -836,13 +841,13 @@
           <div id="terminalLogFeed" class="space-y-1.5 text-slate-300 leading-relaxed"></div>
         </div>
 
-        <div id="studioVideoContainer" class="bg-[#050914] rounded-2xl border border-slate-800 p-4 hidden flex-col">
+        <div id="studioVideoContainer" class="bg-[#070d17] rounded-2xl border border-slate-800 p-4 hidden flex-col">
           <div class="flex items-center justify-between mb-2">
-            <span class="text-xs font-bold text-cyan-400 flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-xs font-bold text-[#FF6B5A] flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#14B8A6] animate-pulse"></span>
               Live Video Render Output
             </span>
-            <a id="studioVideoDownloadBtn" href="#" download="render_output.webm" class="px-3.5 py-1 rounded-full bg-emerald-600 text-white font-bold text-[11px] flex items-center gap-1">
+            <a id="studioVideoDownloadBtn" href="#" download="render_output.webm" class="px-3.5 py-1 rounded-full bg-[#14B8A6] text-slate-950 font-bold text-[11px] flex items-center gap-1">
               <i class="fa-solid fa-download"></i> Download Video
             </a>
           </div>
@@ -852,46 +857,42 @@
     </main>
   </div>
 
-  <!-- FULL SCREEN: HELLO AI CHAT STUDIO -->
+  <!-- FULL SCREEN: HELLO AI CHAT STUDIO (API KEY BUTTON REMOVED) -->
   <div id="helloAiChatScreen" class="full-studio-modal">
-    <header class="p-4 bg-[#080d1a] border-b border-slate-800 flex items-center justify-between">
+    <header class="p-4 bg-[#090f19] border-b border-slate-800 flex items-center justify-between">
       <div class="flex items-center gap-4">
-        <button onclick="closeChatScreen()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold text-cyan-300 flex items-center gap-2 transition-all">
+        <button onclick="closeChatScreen()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold text-[#14B8A6] flex items-center gap-2 transition-all">
           <i class="fa-solid fa-arrow-left"></i>
           <span>Exit Chat</span>
         </button>
         <div class="flex items-center gap-2.5">
-          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-[#FF6B5A] animate-pulse"></span>
           <span class="font-extrabold text-sm font-['Syne'] text-white">HELLO AI CHAT</span>
         </div>
       </div>
 
+      <!-- USER PROFILE RIGHT (NO API KEY BUTTON) -->
       <div class="flex items-center gap-2.5">
-        <button onclick="promptGeminiKey()" class="flex items-center gap-1.5 bg-[#0f172a] hover:bg-[#1e293b] px-3.5 py-1.5 rounded-full border border-cyan-500/40 text-xs font-bold text-cyan-300 transition-colors shadow-sm">
-          <i class="fa-solid fa-key text-[10px]"></i>
-          <span id="apiKeyStatusLabel">Set API Key</span>
-        </button>
-
-        <div class="flex items-center gap-2 bg-[#0f172a] px-3.5 py-1.5 rounded-full border border-slate-700">
+        <div class="flex items-center gap-2 bg-[#0b1420] px-3.5 py-1.5 rounded-full border border-slate-700">
           <img id="chatUserAvatar" src="" class="w-4 h-4 rounded-full object-cover" alt="User">
           <span id="chatUserDisplayName" class="text-xs font-bold text-slate-200">User</span>
         </div>
       </div>
     </header>
 
-    <div class="flex-1 flex flex-col relative overflow-hidden bg-[#02050e]">
+    <div class="flex-1 flex flex-col relative overflow-hidden bg-[#040810]">
       <div id="chatMessageContainer" class="flex-1 p-6 overflow-y-auto space-y-4 max-w-4xl w-full mx-auto"></div>
 
-      <div class="p-4 bg-[#080d1a] border-t border-slate-800">
+      <div class="p-4 bg-[#090f19] border-t border-slate-800">
         <div class="max-w-4xl mx-auto flex items-center gap-3">
           <input 
             type="text" 
             id="chatInput" 
             placeholder="Type your message to HELLO AI..." 
-            class="flex-1 bg-[#0f172a] text-white px-5 py-3.5 rounded-2xl text-xs font-medium border border-slate-700 focus:outline-none focus:border-cyan-400 shadow-inner"
+            class="flex-1 bg-[#0e1724] text-white px-5 py-3.5 rounded-2xl text-xs font-medium border border-slate-700 focus:outline-none focus:border-[#14B8A6] shadow-inner"
             onkeypress="if(event.key==='Enter') sendChatMessage()"
           >
-          <button onclick="sendChatMessage()" class="w-11 h-11 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 flex items-center justify-center font-bold text-sm shadow-[0_0_20px_rgba(56,189,248,0.4)] transition-transform active:scale-95">
+          <button onclick="sendChatMessage()" class="w-11 h-11 rounded-2xl bg-gradient-to-r from-[#FF6B5A] to-[#14B8A6] text-slate-950 flex items-center justify-center font-bold text-sm shadow-[0_0_20px_rgba(255,107,90,0.4)] transition-transform active:scale-95">
             <i class="fa-solid fa-paper-plane"></i>
           </button>
         </div>
@@ -901,12 +902,12 @@
 
   <!-- AUTH POPUP MODAL -->
   <div id="authPromptModal" class="modal-backdrop">
-    <div class="bg-[#090f1d] border border-cyan-500/40 rounded-3xl p-8 max-w-sm w-full text-center shadow-[0_20px_70px_rgba(0,0,0,0.95)] relative">
+    <div class="bg-[#080e18] border border-[#14B8A6]/40 rounded-3xl p-8 max-w-sm w-full text-center shadow-[0_20px_70px_rgba(0,0,0,0.95)] relative">
       <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-lg">
         <i class="fa-solid fa-xmark"></i>
       </button>
 
-      <div class="w-16 h-16 bg-cyan-500/10 rounded-2xl flex items-center justify-center mx-auto mb-5 text-cyan-400 text-2xl border border-cyan-500/30">
+      <div class="w-16 h-16 bg-[#FF6B5A]/10 rounded-2xl flex items-center justify-center mx-auto mb-5 text-[#FF6B5A] text-2xl border border-[#FF6B5A]/30">
         <i class="fa-solid fa-dna"></i>
       </div>
 
@@ -917,7 +918,7 @@
 
       <div class="space-y-3">
         <!-- 1. Google Continue / Sign In -->
-        <button id="googleModalSignInBtn" onclick="executeGoogleSignIn()" class="w-full flex items-center justify-center gap-3 px-5 py-3.5 rounded-full border border-cyan-500/40 bg-slate-900 hover:bg-slate-800 text-slate-100 text-xs font-bold transition-all shadow-[0_0_20px_rgba(56,189,248,0.2)]">
+        <button id="googleModalSignInBtn" onclick="executeGoogleSignIn()" class="w-full flex items-center justify-center gap-3 px-5 py-3.5 rounded-full border border-[#14B8A6]/40 bg-slate-900 hover:bg-slate-800 text-slate-100 text-xs font-bold transition-all shadow-[0_0_20px_rgba(20,184,166,0.25)]">
           <svg class="w-4 h-4" viewBox="0 0 24 24">
             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
             <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -938,7 +939,7 @@
 
   <!-- DEPLOY AGENT MODAL -->
   <div id="createToolModal" class="modal-backdrop">
-    <div class="bg-[#090f1d] rounded-3xl p-7 max-w-md w-full shadow-2xl border border-slate-800 relative">
+    <div class="bg-[#080e18] rounded-3xl p-7 max-w-md w-full shadow-2xl border border-slate-800 relative">
       <div class="flex justify-between items-center pb-4 border-b border-slate-800 mb-5">
         <h3 class="text-lg font-bold font-['Syne'] text-white">Deploy Custom Agent</h3>
         <button onclick="closeCreateToolModal()" class="text-slate-400 hover:text-white text-lg">
@@ -949,22 +950,22 @@
       <div class="space-y-4 text-xs font-semibold text-slate-300">
         <div>
           <label class="block mb-1 text-slate-400 font-mono">Tool Title:</label>
-          <input type="text" id="newToolName" placeholder="e.g. Cyber Neural Visualizer" class="w-full px-4 py-2.5 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-cyan-400">
+          <input type="text" id="newToolName" placeholder="e.g. Cyber Neural Visualizer" class="w-full px-4 py-2.5 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-[#14B8A6]">
         </div>
         <div>
           <label class="block mb-1 text-slate-400 font-mono">Domain / Category:</label>
-          <input type="text" id="newToolCategory" placeholder="e.g. AUTOMATION, LLM, CODE" class="w-full px-4 py-2.5 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-cyan-400">
+          <input type="text" id="newToolCategory" placeholder="e.g. AUTOMATION, LLM, CODE" class="w-full px-4 py-2.5 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-[#14B8A6]">
         </div>
         <div>
           <label class="block mb-1 text-slate-400 font-mono">Engine Description:</label>
-          <textarea id="newToolDesc" rows="3" placeholder="Describe the capability..." class="w-full p-3 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-cyan-400"></textarea>
+          <textarea id="newToolDesc" rows="3" placeholder="Describe the capability..." class="w-full p-3 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-[#14B8A6]"></textarea>
         </div>
         <div>
           <label class="block mb-1 text-slate-400 font-mono">Endpoint / Link:</label>
-          <input type="text" id="newToolUrl" placeholder="https://..." class="w-full px-4 py-2.5 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-cyan-400">
+          <input type="text" id="newToolUrl" placeholder="https://..." class="w-full px-4 py-2.5 rounded-xl bg-[#050914] border border-slate-700 text-white focus:outline-none focus:border-[#14B8A6]">
         </div>
 
-        <button onclick="saveNewCustomTool()" class="w-full py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs shadow-[0_0_20px_rgba(56,189,248,0.3)] mt-2">
+        <button onclick="saveNewCustomTool()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#FF6B5A] to-[#14B8A6] text-slate-950 font-bold text-xs shadow-[0_0_20px_rgba(255,107,90,0.4)] mt-2">
           Save & Register In Matrix
         </button>
       </div>
@@ -976,7 +977,7 @@
     <div class="ad-panel">
       <div class="p-6 border-b border-slate-800 flex items-center justify-between">
         <div>
-          <span class="text-[10px] font-mono font-bold tracking-widest text-cyan-400 uppercase">Sponsor Gateway</span>
+          <span class="text-[10px] font-mono font-bold tracking-widest text-[#FF6B5A] uppercase">Sponsor Gateway</span>
           <h3 class="text-2xl font-black font-['Syne'] text-white mt-1">Book Your Advertisement</h3>
         </div>
         <button onclick="closeAdvertiserModal()" class="text-slate-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
@@ -1023,15 +1024,15 @@
           <p class="ad-note mt-2">Use a publicly accessible direct image link (JPG/PNG/WebP).</p>
         </div>
 
-        <div class="p-4 rounded-2xl bg-cyan-500/5 border border-cyan-500/20 flex items-center justify-between">
+        <div class="p-4 rounded-2xl bg-[#14B8A6]/10 border border-[#14B8A6]/30 flex items-center justify-between">
           <div>
             <div class="text-[9px] font-mono text-slate-500 uppercase">Campaign Total</div>
-            <div id="adPriceDisplay" class="text-2xl font-black font-['Syne'] text-cyan-400">₹499</div>
+            <div id="adPriceDisplay" class="text-2xl font-black font-['Syne'] text-[#14B8A6]">₹499</div>
           </div>
           <span class="ad-status">Payment Required</span>
         </div>
 
-        <button type="submit" class="w-full py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs uppercase tracking-widest">
+        <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#FF6B5A] to-[#14B8A6] text-slate-950 font-black text-xs uppercase tracking-widest shadow-[0_0_20px_rgba(255,107,90,0.35)]">
           <i class="fa-solid fa-paper-plane mr-2"></i>Submit Ad Request
         </button>
       </form>
@@ -1043,7 +1044,7 @@
     <div class="ad-panel">
       <div class="p-6 border-b border-slate-800 flex items-center justify-between">
         <div>
-          <span class="text-[10px] font-mono font-bold tracking-widest text-cyan-400 uppercase">Campaign Control</span>
+          <span class="text-[10px] font-mono font-bold tracking-widest text-[#14B8A6] uppercase">Campaign Control</span>
           <h3 class="text-2xl font-black font-['Syne'] text-white mt-1">Advertisement Manager</h3>
         </div>
         <button onclick="closeAdAdminModal()" class="text-slate-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
@@ -1100,9 +1101,7 @@
 
   <!-- JAVASCRIPT CONTROLLER -->
   <script>
-    // ------------------------------------------------------------------
     // 1. LIGHT / DARK THEME SYSTEM
-    // ------------------------------------------------------------------
     let isLightMode = false;
     function toggleColorTheme() {
       isLightMode = !isLightMode;
@@ -1112,19 +1111,17 @@
       const activeThemeLabel = document.getElementById('activeThemeLabel');
       
       if (isLightMode) {
-        themeIcon.className = "fa-solid fa-sun text-sm text-amber-500";
-        if (activeThemeLabel) activeThemeLabel.innerText = "CYBER LIGHT";
+        themeIcon.className = "fa-solid fa-sun text-sm text-[#FF6B5A]";
+        if (activeThemeLabel) activeThemeLabel.innerText = "LIGHT MATRIX";
         showToast("Switched to Light Matrix");
       } else {
-        themeIcon.className = "fa-solid fa-moon text-sm text-cyan-400";
-        if (activeThemeLabel) activeThemeLabel.innerText = "CYBER DEEP";
-        showToast("Switched to Deep Cyber Dark");
+        themeIcon.className = "fa-solid fa-moon text-sm text-[#14B8A6]";
+        if (activeThemeLabel) activeThemeLabel.innerText = "CORAL × TEAL";
+        showToast("Switched to Coral × Teal Dark");
       }
     }
 
-    // ------------------------------------------------------------------
     // 2. SCROLL ENTRANCE REVEAL ANIMATIONS
-    // ------------------------------------------------------------------
     function initScrollAnimations() {
       const elements = document.querySelectorAll('.anim-fade-up');
       const observer = new IntersectionObserver((entries) => {
@@ -1139,9 +1136,7 @@
     }
     window.addEventListener('DOMContentLoaded', initScrollAnimations);
 
-    // ------------------------------------------------------------------
     // 3. HELLO AI LIBRARY ENGINE
-    // ------------------------------------------------------------------
     const DEFAULT_LIBRARY_PROJECTS = [
       {
         id: "LIB-1",
@@ -1151,10 +1146,10 @@
 <html>
 <head>
   <style>
-    body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; background:#020617; overflow:hidden; }
+    body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; background:#06090e; overflow:hidden; }
     .scene { width:140px; height:140px; perspective:600px; }
     .cube { width:100%; height:100%; position:relative; transform-style:preserve-3d; animation:spin 8s linear infinite; }
-    .face { position:absolute; width:140px; height:140px; border:2px solid #38bdf8; background:rgba(56,189,248,0.15); box-shadow:0 0 20px rgba(56,189,248,0.5); display:flex; align-items:center; justify-content:center; color:#fff; font-family:sans-serif; font-weight:bold; }
+    .face { position:absolute; width:140px; height:140px; border:2px solid #FF6B5A; background:rgba(20,184,166,0.15); box-shadow:0 0 20px rgba(255,107,90,0.5); display:flex; align-items:center; justify-content:center; color:#fff; font-family:sans-serif; font-weight:bold; }
     .front  { transform:rotateY(0deg) translateZ(70px); }
     .back   { transform:rotateY(180deg) translateZ(70px); }
     .right  { transform:rotateY(90deg) translateZ(70px); }
@@ -1167,10 +1162,10 @@
 <body>
   <div class="scene">
     <div class="cube">
-      <div class="face front">HELLO</div>
-      <div class="face back">AI</div>
-      <div class="face right">3D</div>
-      <div class="face left">CORE</div>
+      <div class="face front">CORAL</div>
+      <div class="face back">TEAL</div>
+      <div class="face right">HELLO</div>
+      <div class="face left">AI</div>
       <div class="face top">GLOW</div>
       <div class="face bottom">MATRIX</div>
     </div>
@@ -1186,7 +1181,7 @@
 <html>
 <head>
   <style>
-    body { margin:0; background:#010208; overflow:hidden; display:flex; align-items:center; justify-content:center; min-height:100vh; }
+    body { margin:0; background:#06090e; overflow:hidden; display:flex; align-items:center; justify-content:center; min-height:100vh; }
     canvas { display:block; }
   </style>
 </head>
@@ -1197,15 +1192,15 @@
     c.width = window.innerWidth; c.height = window.innerHeight;
     let t = 0;
     function draw() {
-      x.fillStyle = 'rgba(1,2,8,0.2)'; x.fillRect(0,0,c.width,c.height);
+      x.fillStyle = 'rgba(6,9,14,0.2)'; x.fillRect(0,0,c.width,c.height);
       const cx = c.width/2, cy = c.height/2;
       for(let i=0; i<36; i++) {
         const a = i * (Math.PI*2/36) + t*0.02;
         const r = 110 + Math.sin(t*0.05 + i)*45;
         x.beginPath();
         x.arc(cx + Math.cos(a)*r, cy + Math.sin(a)*r, 6, 0, Math.PI*2);
-        x.fillStyle = i%2===0 ? '#38bdf8' : '#10b981';
-        x.shadowColor = '#38bdf8'; x.shadowBlur = 15;
+        x.fillStyle = i%2===0 ? '#FF6B5A' : '#14B8A6';
+        x.shadowColor = '#FF6B5A'; x.shadowBlur = 15;
         x.fill();
       }
       t++; requestAnimationFrame(draw);
@@ -1223,16 +1218,16 @@
 <html>
 <head>
   <style>
-    body { margin:0; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#030712; color:#38bdf8; font-family:'Courier New',monospace; }
-    .box { border:2px solid #38bdf8; border-radius:24px; padding:30px 45px; background:rgba(56,189,248,0.06); box-shadow:0 0 40px rgba(56,189,248,0.3); text-align:center; }
-    #time { font-size:3.5rem; font-weight:900; letter-spacing:4px; text-shadow:0 0 25px rgba(56,189,248,0.8); }
-    .sub { font-size:12px; letter-spacing:3px; color:#10b981; margin-top:10px; text-transform:uppercase; }
+    body { margin:0; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#06090e; color:#14B8A6; font-family:'Courier New',monospace; }
+    .box { border:2px solid #FF6B5A; border-radius:24px; padding:30px 45px; background:rgba(20,184,166,0.06); box-shadow:0 0 40px rgba(255,107,90,0.3); text-align:center; }
+    #time { font-size:3.5rem; font-weight:900; letter-spacing:4px; text-shadow:0 0 25px rgba(20,184,166,0.8); }
+    .sub { font-size:12px; letter-spacing:3px; color:#FF6B5A; margin-top:10px; text-transform:uppercase; font-weight:bold; }
   </style>
 </head>
 <body>
   <div class="box">
     <div id="time">00:00:00</div>
-    <div class="sub">BIO-MATRIX LOCAL TIME</div>
+    <div class="sub">CORAL × TEAL QUANTUM TIME</div>
   </div>
   <script>
     function tick() {
@@ -1277,17 +1272,17 @@
         card.innerHTML = `
           <div class="relative bg-black overflow-hidden border-b border-slate-800">
             <iframe id="libFrame_${index}" class="library-preview-frame"></iframe>
-            <div class="absolute top-2.5 right-2.5 bg-black/70 px-2.5 py-0.5 rounded-full border border-cyan-400/40 text-[9px] font-mono text-cyan-300 font-bold uppercase">
+            <div class="absolute top-2.5 right-2.5 bg-black/70 px-2.5 py-0.5 rounded-full border border-[#14B8A6]/40 text-[9px] font-mono text-[#14B8A6] font-bold uppercase">
               ${escapeHtml(item.tag || 'HTML')}
             </div>
           </div>
           <div class="p-5 flex-1 flex flex-col justify-between">
             <h4 class="text-base font-bold font-['Syne'] text-white mb-4">${escapeHtml(item.title)}</h4>
             <div class="grid grid-cols-2 gap-2 pt-3 border-t border-slate-800">
-              <button onclick="copyLibraryCode(${index})" class="py-2 px-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-[11px] font-bold flex items-center justify-center gap-1.5 transition-all">
+              <button onclick="copyLibraryCode(${index})" class="py-2 px-3 rounded-xl bg-[#14B8A6]/10 hover:bg-[#14B8A6]/20 text-[#14B8A6] border border-[#14B8A6]/30 text-[11px] font-bold flex items-center justify-center gap-1.5 transition-all">
                 <i class="fa-solid fa-copy text-xs"></i> Copy HTML
               </button>
-              <button onclick="loadLibraryIntoStudio(${index})" class="py-2 px-3 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 text-[11px] font-black flex items-center justify-center gap-1.5 transition-all shadow-[0_0_15px_rgba(56,189,248,0.3)]">
+              <button onclick="loadLibraryIntoStudio(${index})" class="py-2 px-3 rounded-xl bg-gradient-to-r from-[#FF6B5A] to-[#14B8A6] hover:opacity-90 text-slate-950 text-[11px] font-black flex items-center justify-center gap-1.5 transition-all shadow-[0_0_15px_rgba(255,107,90,0.3)]">
                 <i class="fa-solid fa-code text-xs"></i> Open Studio
               </button>
             </div>
@@ -1358,9 +1353,7 @@
       showToast("New project added to HELLO AI Library!");
     }
 
-    // ------------------------------------------------------------------
     // 4. MULTI-LANGUAGE CODE STUDIO (HTML, JS, PYTHON)
-    // ------------------------------------------------------------------
     let currentStudioLanguage = 'html';
 
     const TEMPLATES = {
@@ -1375,19 +1368,20 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(circle, #061124 0%, #01040a 100%);
-      color: #38bdf8;
+      background: radial-gradient(circle, #0c1624 0%, #06090e 100%);
+      color: #14B8A6;
       font-family: sans-serif;
     }
     h1 {
       font-size: 2.8rem;
       margin-bottom: 8px;
-      text-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+      color: #FF6B5A;
+      text-shadow: 0 0 25px rgba(255, 107, 90, 0.6);
     }
     .badge {
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid #10b981;
-      color: #34d399;
+      background: rgba(20, 184, 166, 0.15);
+      border: 1px solid #14B8A6;
+      color: #5eead4;
       padding: 6px 18px;
       border-radius: 999px;
       font-size: 13px;
@@ -1396,8 +1390,8 @@
   </style>
 </head>
 <body>
-  <h1>HELLO DNA MATRIX</h1>
-  <div class="badge">Running in Isolated Bio-Cybernetic Sandbox</div>
+  <h1>HELLO CORAL × TEAL</h1>
+  <div class="badge">Running in Live Isolated SandBox</div>
 </body>
 </html>`,
       javascript: `// JavaScript ES6+ Execution Engine
@@ -1406,39 +1400,30 @@ console.log("=== HELLO AI JAVASCRIPT CORE ===");
 function computeMatrix(size) {
   let nodes = [];
   for (let i = 1; i <= size; i++) {
-    nodes.push({ id: "BIO_NODE_" + i, sequence: "ATCG-" + Math.floor(Math.random()*9000 + 1000), latency: (Math.random() * 15).toFixed(2) + "ms" });
+    nodes.push({ id: "NODE_" + i, theme: "CORAL-TEAL", latency: (Math.random() * 15).toFixed(2) + "ms" });
   }
   return nodes;
 }
 
 const network = computeMatrix(4);
-console.log("Bio-Neural topology successfully mapped:");
+console.log("System nodes successfully initialized:");
 console.log(JSON.stringify(network, null, 2));
 
-console.log("Status: 100% Operational DNA Core.");`,
-      python: `# HELLO CODE STUDIO — REAL PYTHON + VIDEO
-# This code runs in real Python inside your browser.
+console.log("Status: 100% Operational.");`,
+      python: `# Python Matrix Script
+print("=== HELLO AI PYTHON ENVIRONMENT ===")
 
-import math
-from js import helloVideo
+data = ["Quantum Core", "Coral Engine", "Teal Canvas", "Gemini 2.5", "WebM Stream"]
 
-print("=== REAL PYTHON BIO-MATRIX ===")
-print("Python is running with Pyodide.")
+for index, item in enumerate(data, start=1):
+    print(f"[{index}] Loaded Engine Component: {item}")
 
-for i in range(120):
-    angle = i / 10
-    x = 320 + int(math.cos(angle) * 110)
-    y = 180 + int(math.sin(angle) * 75)
+def calculate_throughput(requests, time_sec):
+    return requests / time_sec
 
-    helloVideo.clear("#01040a")
-    helloVideo.circle(x, y, 9, "#38bdf8")
-    helloVideo.circle(320, 180, 50, "#10b981")
-    helloVideo.text("HELLO DNA MATRIX", 200, 45, "#ffffff", 20)
-    helloVideo.text(f"Cyber Stream Frame: {i + 1}/120", 215, 330, "#34d399", 14)
-
-    await helloVideo.frame()
-
-print("Video render finished successfully!")`
+rps = calculate_throughput(15000, 2)
+print(f"Processed: {rps} requests per second.")
+print("Python script completed successfully!")`
     };
 
     function openLanguagePickerModal() {
@@ -1561,7 +1546,7 @@ print("Video render finished successfully!")`
       console.log = function(...args) {
         const text = args.map(a => typeof a === 'object' ? JSON.stringify(a) : a).join(' ');
         const line = document.createElement('div');
-        line.innerHTML = `<span class="text-emerald-400">❯</span> ${escapeHtml(text)}`;
+        line.innerHTML = `<span class="text-[#14B8A6]">❯</span> ${escapeHtml(text)}`;
         feed.appendChild(line);
         originalLog.apply(console, args);
       };
@@ -1569,7 +1554,7 @@ print("Video render finished successfully!")`
       console.error = function(...args) {
         const text = args.join(' ');
         const line = document.createElement('div');
-        line.innerHTML = `<span class="text-rose-400">✖</span> <span class="text-rose-300">${escapeHtml(text)}</span>`;
+        line.innerHTML = `<span class="text-[#FF6B5A]">✖</span> <span class="text-rose-300">${escapeHtml(text)}</span>`;
         feed.appendChild(line);
         originalError.apply(console, args);
       };
@@ -1584,7 +1569,7 @@ print("Video render finished successfully!")`
       }
     }
 
-    // ================= REAL PYTHON MATRIX (PYODIDE) =================
+    // ================= REAL PYTHON MATRIX =================
     let pyodide = null;
     let pyodideReadyPromise = null;
     let pythonVideoState = null;
@@ -1595,7 +1580,7 @@ print("Video render finished successfully!")`
       if (type === 'error') {
         div.innerHTML = `<span class="text-rose-400">✖</span> <span class="text-rose-300">${escapeHtml(String(text))}</span>`;
       } else {
-        div.innerHTML = `<span class="text-emerald-400">❯</span> ${escapeHtml(String(text))}`;
+        div.innerHTML = `<span class="text-[#14B8A6]">❯</span> ${escapeHtml(String(text))}`;
       }
       feed.appendChild(div);
       feed.scrollTop = feed.scrollHeight;
@@ -1604,129 +1589,29 @@ print("Video render finished successfully!")`
     async function loadPythonRuntime() {
       if (pyodide) return pyodide;
       if (!pyodideReadyPromise) {
-        appendTerminalLine('Initializing Python bio-runtime (Pyodide)...');
+        appendTerminalLine('Loading Pyodide runtime...');
         pyodideReadyPromise = loadPyodide({
           stdout: { batched: msg => appendTerminalLine(msg) },
           stderr: { batched: msg => appendTerminalLine(msg, 'error') }
         }).then(runtime => {
           pyodide = runtime;
-          appendTerminalLine(`Python ${pyodide.runPython('import sys; sys.version.split()[0]')} bio-engine online.`);
+          appendTerminalLine(`Python ${pyodide.runPython('import sys; sys.version.split()[0]')} ready.`);
           return pyodide;
         });
       }
       return pyodideReadyPromise;
     }
 
-    function preparePythonVideo() {
-      const canvas = document.createElement('canvas');
-      canvas.width = 640;
-      canvas.height = 360;
-      canvas.style.display = 'none';
-      document.body.appendChild(canvas);
-      const ctx = canvas.getContext('2d');
-      const stream = canvas.captureStream(30);
-      let recorder;
-      try {
-        recorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9' });
-      } catch (e) {
-        recorder = new MediaRecorder(stream);
-      }
-
-      const chunks = [];
-      pythonVideoState = { canvas, ctx, stream, recorder, chunks, frames: 0, startedAt: Date.now() };
-      recorder.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
-      recorder.onstop = () => {
-        const state = pythonVideoState;
-        if (!state) return;
-        const blob = new Blob(state.chunks, { type: 'video/webm' });
-        const url = URL.createObjectURL(blob);
-        const player = document.getElementById('studioOutputVideoPlayer');
-        player.src = url;
-        player.load();
-        player.play().catch(() => {});
-        const download = document.getElementById('studioVideoDownloadBtn');
-        download.href = url;
-        download.download = `bio_render_${new Date().toISOString().replace(/[:.]/g, '-')}.webm`;
-        document.getElementById('studioVideoContainer').classList.remove('hidden');
-        document.getElementById('studioVideoContainer').classList.add('flex');
-        appendTerminalLine(`Video render complete: ${state.frames} frame(s).`);
-        showToast('WebM Bio-Video ready!');
-        state.stream.getTracks().forEach(track => track.stop());
-        state.canvas.remove();
-        pythonVideoState = null;
-      };
-      recorder.start();
-
-      stateDrawBackground(ctx);
-      return pythonVideoState;
-    }
-
-    function stateDrawBackground(ctx) {
-      ctx.fillStyle = '#01040a';
-      ctx.fillRect(0, 0, 640, 360);
-    }
-
-    function finishPythonVideo() {
-      if (!pythonVideoState) return;
-      if (pythonVideoState.recorder.state !== 'inactive') pythonVideoState.recorder.stop();
-    }
-
-    window.helloVideo = {
-      clear(color = '#01040a') {
-        if (!pythonVideoState) return;
-        pythonVideoState.ctx.fillStyle = String(color);
-        pythonVideoState.ctx.fillRect(0, 0, 640, 360);
-      },
-      circle(x, y, radius = 5, color = '#38bdf8') {
-        if (!pythonVideoState) return;
-        const ctx = pythonVideoState.ctx;
-        ctx.beginPath();
-        ctx.arc(Number(x), Number(y), Number(radius), 0, Math.PI * 2);
-        ctx.fillStyle = String(color);
-        ctx.fill();
-      },
-      rect(x, y, w, h, color = '#38bdf8') {
-        if (!pythonVideoState) return;
-        const ctx = pythonVideoState.ctx;
-        ctx.fillStyle = String(color);
-        ctx.fillRect(Number(x), Number(y), Number(w), Number(h));
-      },
-      text(value, x = 20, y = 40, color = '#ffffff', size = 20) {
-        if (!pythonVideoState) return;
-        const ctx = pythonVideoState.ctx;
-        ctx.fillStyle = String(color);
-        ctx.font = `bold ${Number(size)}px Syne, Arial, sans-serif`;
-        ctx.fillText(String(value), Number(x), Number(y));
-      },
-      async frame() {
-        if (!pythonVideoState) return;
-        pythonVideoState.frames++;
-        await new Promise(resolve => requestAnimationFrame(resolve));
-      }
-    };
-
     async function executePythonReal(code) {
       let runtime;
       try {
         runtime = await loadPythonRuntime();
-        appendTerminalLine('>>> Executing Python script...');
-
-        const wantsVideo = /\bhelloVideo\b/.test(code);
-        if (wantsVideo) preparePythonVideo();
-
-        try {
-          await runtime.loadPackagesFromImports(code, { messageCallback: msg => appendTerminalLine(msg) });
-        } catch (pkgErr) {
-          appendTerminalLine('Package warning: ' + (pkgErr.message || pkgErr));
-        }
-
+        appendTerminalLine('>>> Running Python code...');
         await runtime.runPythonAsync(code, { filename: '<hello-code-studio.py>' });
-        appendTerminalLine('>>> Process finished with code 0');
+        appendTerminalLine('>>> Process finished with exit code 0');
       } catch (err) {
         appendTerminalLine(err && err.message ? err.message : String(err), 'error');
-        appendTerminalLine('>>> Process finished with code 1', 'error');
-      } finally {
-        setTimeout(finishPythonVideo, 80);
+        appendTerminalLine('>>> Process finished with exit code 1', 'error');
       }
     }
 
@@ -1756,17 +1641,7 @@ print("Video render finished successfully!")`
     }
 
     function generateVideoFromCodeStudio() {
-      if (currentStudioLanguage === 'python') {
-        const code = document.getElementById('studioCodeTextarea').value;
-        if (!/\bhelloVideo\b/.test(code)) {
-          showToast('Add helloVideo to your Python code to render a video.');
-          return;
-        }
-        executeActiveCode();
-        return;
-      }
-
-      showToast('Rendering Bio-Video frames...');
+      showToast('Rendering WebM video frames...');
       const hiddenCanvas = document.createElement('canvas');
       hiddenCanvas.width = 640;
       hiddenCanvas.height = 360;
@@ -1792,29 +1667,29 @@ print("Video render finished successfully!")`
       let frame = 0;
       const interval = setInterval(() => {
         frame++;
-        ctx.fillStyle = '#01040a';
+        ctx.fillStyle = '#06090e';
         ctx.fillRect(0, 0, 640, 360);
         for (let i = 0; i < 35; i++) {
           const a = (i / 35) * Math.PI * 2 + frame * 0.05;
           const r = 75 + Math.sin(frame * 0.08 + i) * 30;
           ctx.beginPath();
           ctx.arc(320 + Math.cos(a) * r, 180 + Math.sin(a) * r, 4, 0, Math.PI * 2);
-          ctx.fillStyle = i % 2 === 0 ? '#38bdf8' : '#10b981';
+          ctx.fillStyle = i % 2 === 0 ? '#FF6B5A' : '#14B8A6';
           ctx.fill();
         }
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 18px Syne, sans-serif';
-        ctx.fillText('HELLO CODE STUDIO — WEBM BIO OUTPUT', 100, 185);
+        ctx.fillText('HELLO CODE STUDIO — WEBM OUTPUT', 125, 185);
         if (frame >= 120) { clearInterval(interval); recorder.stop(); }
       }, 1000 / 30);
     }
 
     // ==================================================================
-    // 5. UNPRECEDENTED 3D CYBERNETIC BIO-DIGITAL DNA MATRIX ENGINE
+    // 5. 3D CORAL × TEAL DUAL-HELIX AMBIENT DNA ENGINE
     // ==================================================================
     const canvas = document.getElementById('cyberCanvas');
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x01040a, 0.007);
+    scene.fog = new THREE.FogExp2(0x06090e, 0.008);
 
     const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.set(0, 5, 85);
@@ -1828,7 +1703,6 @@ print("Video render finished successfully!")`
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // High-tech circular laser point texture
     function createGlowPointTexture() {
       const texCanvas = document.createElement('canvas');
       texCanvas.width = 64;
@@ -1836,9 +1710,8 @@ print("Video render finished successfully!")`
       const ctx = texCanvas.getContext('2d');
       const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
       grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
-      grad.addColorStop(0.25, 'rgba(56, 189, 248, 0.95)');
-      grad.addColorStop(0.55, 'rgba(16, 185, 129, 0.45)');
-      grad.addColorStop(0.85, 'rgba(99, 102, 241, 0.15)');
+      grad.addColorStop(0.3, 'rgba(255, 107, 90, 0.9)');
+      grad.addColorStop(0.65, 'rgba(20, 184, 166, 0.4)');
       grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, 64, 64);
@@ -1847,9 +1720,6 @@ print("Video render finished successfully!")`
 
     const glowTexture = createGlowPointTexture();
 
-    // ----------------------------------------------------
-    // BUILD THE DUAL 3D DNA CYBER HELIX STRUCTURE
-    // ----------------------------------------------------
     const dnaGroup = new THREE.Group();
     scene.add(dnaGroup);
 
@@ -1866,12 +1736,9 @@ print("Video render finished successfully!")`
     const rungLinePositions = new Float32Array(rungsCount * 6);
     const rungLineColors = new Float32Array(rungsCount * 6);
 
-    const bridgeNodesPositions = [];
-    const bridgeNodesColors = [];
-
-    const colStrandA = new THREE.Color('#38bdf8'); // Electric Cyan
-    const colStrandB = new THREE.Color('#10b981'); // Hacker Emerald
-    const colRungMid = new THREE.Color('#818cf8'); // Neon Indigo
+    // CORAL & TEAL THREE.JS COLORS
+    const colStrandCoral = new THREE.Color('#FF6B5A');
+    const colStrandTeal = new THREE.Color('#14B8A6');
 
     for (let i = 0; i < rungsCount; i++) {
       const y = (i - rungsCount / 2) * helixSpacing;
@@ -1892,16 +1759,14 @@ print("Video render finished successfully!")`
       strandBPositions[i3 + 1] = y;
       strandBPositions[i3 + 2] = z2;
 
-      // Color gradients along height
-      strandAColors[i3] = colStrandA.r;
-      strandAColors[i3 + 1] = colStrandA.g;
-      strandAColors[i3 + 2] = colStrandA.b;
+      strandAColors[i3] = colStrandCoral.r;
+      strandAColors[i3 + 1] = colStrandCoral.g;
+      strandAColors[i3 + 2] = colStrandCoral.b;
 
-      strandBColors[i3] = colStrandB.r;
-      strandBColors[i3 + 1] = colStrandB.g;
-      strandBColors[i3 + 2] = colStrandB.b;
+      strandBColors[i3] = colStrandTeal.r;
+      strandBColors[i3 + 1] = colStrandTeal.g;
+      strandBColors[i3 + 2] = colStrandTeal.b;
 
-      // Connecting laser rungs (LineSegments)
       const i6 = i * 6;
       rungLinePositions[i6] = x1;
       rungLinePositions[i6 + 1] = y;
@@ -1911,27 +1776,16 @@ print("Video render finished successfully!")`
       rungLinePositions[i6 + 4] = y;
       rungLinePositions[i6 + 5] = z2;
 
-      rungLineColors[i6] = colStrandA.r;
-      rungLineColors[i6 + 1] = colStrandA.g;
-      rungLineColors[i6 + 2] = colStrandA.b;
+      rungLineColors[i6] = colStrandCoral.r;
+      rungLineColors[i6 + 1] = colStrandCoral.g;
+      rungLineColors[i6 + 2] = colStrandCoral.b;
 
-      rungLineColors[i6 + 3] = colStrandB.r;
-      rungLineColors[i6 + 4] = colStrandB.g;
-      rungLineColors[i6 + 5] = colStrandB.b;
-
-      // Add genetic coders / data nodes along each rung bridge
-      for (let step = 1; step <= 3; step++) {
-        const factor = step / 4;
-        bridgeNodesPositions.push(
-          x1 + (x2 - x1) * factor,
-          y,
-          z1 + (z2 - z1) * factor
-        );
-        bridgeNodesColors.push(colRungMid.r, colRungMid.g, colRungMid.b);
-      }
+      rungLineColors[i6 + 3] = colStrandTeal.r;
+      rungLineColors[i6 + 4] = colStrandTeal.g;
+      rungLineColors[i6 + 5] = colStrandTeal.b;
     }
 
-    // 1. Strand A Points
+    // Strand A (Coral)
     const geoStrandA = new THREE.BufferGeometry();
     geoStrandA.setAttribute('position', new THREE.BufferAttribute(strandAPositions, 3));
     geoStrandA.setAttribute('color', new THREE.BufferAttribute(strandAColors, 3));
@@ -1944,10 +1798,9 @@ print("Video render finished successfully!")`
       vertexColors: true,
       depthWrite: false
     });
-    const pointsStrandA = new THREE.Points(geoStrandA, matStrandA);
-    dnaGroup.add(pointsStrandA);
+    dnaGroup.add(new THREE.Points(geoStrandA, matStrandA));
 
-    // 2. Strand B Points
+    // Strand B (Teal)
     const geoStrandB = new THREE.BufferGeometry();
     geoStrandB.setAttribute('position', new THREE.BufferAttribute(strandBPositions, 3));
     geoStrandB.setAttribute('color', new THREE.BufferAttribute(strandBColors, 3));
@@ -1960,126 +1813,61 @@ print("Video render finished successfully!")`
       vertexColors: true,
       depthWrite: false
     });
-    const pointsStrandB = new THREE.Points(geoStrandB, matStrandB);
-    dnaGroup.add(pointsStrandB);
+    dnaGroup.add(new THREE.Points(geoStrandB, matStrandB));
 
-    // 3. Connecting Laser Rungs (Lines)
+    // Rung Lines
     const geoRungs = new THREE.BufferGeometry();
     geoRungs.setAttribute('position', new THREE.BufferAttribute(rungLinePositions, 3));
     geoRungs.setAttribute('color', new THREE.BufferAttribute(rungLineColors, 3));
     const matRungs = new THREE.LineBasicMaterial({
       vertexColors: true,
       transparent: true,
-      opacity: 0.5,
-      blending: THREE.AdditiveBlending,
-      linewidth: 1.5
+      opacity: 0.55,
+      blending: THREE.AdditiveBlending
     });
-    const linesRungs = new THREE.LineSegments(geoRungs, matRungs);
-    dnaGroup.add(linesRungs);
+    dnaGroup.add(new THREE.LineSegments(geoRungs, matRungs));
 
-    // 4. Middle Hydrogen Data Nodes
-    const geoBridgeNodes = new THREE.BufferGeometry();
-    geoBridgeNodes.setAttribute('position', new THREE.Float32BufferAttribute(bridgeNodesPositions, 3));
-    geoBridgeNodes.setAttribute('color', new THREE.Float32BufferAttribute(bridgeNodesColors, 3));
-    const matBridgeNodes = new THREE.PointsMaterial({
-      size: 1.6,
-      sizeAttenuation: true,
-      map: glowTexture,
-      transparent: true,
-      blending: THREE.AdditiveBlending,
-      vertexColors: true,
-      depthWrite: false
-    });
-    const pointsBridgeNodes = new THREE.Points(geoBridgeNodes, matBridgeNodes);
-    dnaGroup.add(pointsBridgeNodes);
+    // Floating Ambient Dust Particles in Coral & Teal
+    const ambientCount = 1200;
+    const ambientGeo = new THREE.BufferGeometry();
+    const ambientPositions = new Float32Array(ambientCount * 3);
+    const ambientColors = new Float32Array(ambientCount * 3);
 
-    // ----------------------------------------------------
-    // HACKER DATA IMPULSES (Pulses moving along the helix)
-    // ----------------------------------------------------
-    const pulseCount = 18;
-    const pulses = [];
-    const pulseGeo = new THREE.SphereGeometry(0.75, 12, 12);
-    const pulseMatA = new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true });
-    const pulseMatB = new THREE.MeshBasicMaterial({ color: 0x10b981, wireframe: true });
+    for (let m = 0; m < ambientCount * 3; m += 3) {
+      ambientPositions[m] = (Math.random() - 0.5) * 220;
+      ambientPositions[m + 1] = (Math.random() - 0.5) * 240;
+      ambientPositions[m + 2] = (Math.random() - 0.5) * 160;
 
-    for (let p = 0; p < pulseCount; p++) {
-      const mesh = new THREE.Mesh(pulseGeo, p % 2 === 0 ? pulseMatA : pulseMatB);
-      dnaGroup.add(mesh);
-      pulses.push({
-        mesh,
-        strand: p % 2 === 0 ? 'A' : 'B',
-        progress: Math.random() * rungsCount,
-        speed: 0.45 + Math.random() * 0.4
-      });
-    }
-
-    // ----------------------------------------------------
-    // HOLOGRAPHIC QUANTUM SCAN RINGS
-    // ----------------------------------------------------
-    const ringCount = 3;
-    const rings = [];
-    for (let r = 0; r < ringCount; r++) {
-      const ringGeo = new THREE.RingGeometry(helixRadius * 1.35, helixRadius * 1.42, 64);
-      const ringMat = new THREE.MeshBasicMaterial({
-        color: r % 2 === 0 ? 0x00f5ff : 0x10b981,
-        side: THREE.DoubleSide,
-        transparent: true,
-        opacity: 0.35,
-        blending: THREE.AdditiveBlending
-      });
-      const ringMesh = new THREE.Mesh(ringGeo, ringMat);
-      ringMesh.rotation.x = Math.PI / 2;
-      ringMesh.position.y = (r - 1) * 38;
-      dnaGroup.add(ringMesh);
-      rings.push(ringMesh);
-    }
-
-    // ----------------------------------------------------
-    // FLOATING 3D CYBER MATRIX DATA NODES & CODE DUST
-    // ----------------------------------------------------
-    const matrixNodesCount = 1800;
-    const matrixGeo = new THREE.BufferGeometry();
-    const matrixPositions = new Float32Array(matrixNodesCount * 3);
-    const matrixColors = new Float32Array(matrixNodesCount * 3);
-
-    for (let m = 0; m < matrixNodesCount * 3; m += 3) {
-      matrixPositions[m] = (Math.random() - 0.5) * 220;
-      matrixPositions[m + 1] = (Math.random() - 0.5) * 240;
-      matrixPositions[m + 2] = (Math.random() - 0.5) * 160;
-
-      const rnd = Math.random();
-      if (rnd > 0.6) {
-        matrixColors[m] = 0.22; matrixColors[m + 1] = 0.74; matrixColors[m + 2] = 0.97; // Cyan
-      } else if (rnd > 0.3) {
-        matrixColors[m] = 0.06; matrixColors[m + 1] = 0.72; matrixColors[m + 2] = 0.50; // Emerald
+      if (Math.random() > 0.5) {
+        ambientColors[m] = colStrandCoral.r;
+        ambientColors[m + 1] = colStrandCoral.g;
+        ambientColors[m + 2] = colStrandCoral.b;
       } else {
-        matrixColors[m] = 0.50; matrixColors[m + 1] = 0.55; matrixColors[m + 2] = 0.97; // Indigo
+        ambientColors[m] = colStrandTeal.r;
+        ambientColors[m + 1] = colStrandTeal.g;
+        ambientColors[m + 2] = colStrandTeal.b;
       }
     }
 
-    matrixGeo.setAttribute('position', new THREE.BufferAttribute(matrixPositions, 3));
-    matrixGeo.setAttribute('color', new THREE.BufferAttribute(matrixColors, 3));
+    ambientGeo.setAttribute('position', new THREE.BufferAttribute(ambientPositions, 3));
+    ambientGeo.setAttribute('color', new THREE.BufferAttribute(ambientColors, 3));
 
-    const matrixMat = new THREE.PointsMaterial({
-      size: 1.1,
+    const ambientMat = new THREE.PointsMaterial({
+      size: 1.2,
       sizeAttenuation: true,
       map: glowTexture,
       transparent: true,
-      opacity: 0.75,
+      opacity: 0.7,
       vertexColors: true,
       blending: THREE.AdditiveBlending,
       depthWrite: false
     });
-    const matrixCloud = new THREE.Points(matrixGeo, matrixMat);
-    scene.add(matrixCloud);
+    const ambientCloud = new THREE.Points(ambientGeo, ambientMat);
+    scene.add(ambientCloud);
 
-    // Initial DNA tilt for high-end aesthetic
-    dnaGroup.rotation.z = Math.PI / 7.5;
+    dnaGroup.rotation.z = Math.PI / 7;
     dnaGroup.rotation.x = 0.2;
 
-    // ----------------------------------------------------
-    // INTERACTIVE MOUSE PARALLAX & CAMERA ORIENTATION
-    // ----------------------------------------------------
     let mouseTargetX = 0, mouseTargetY = 0;
     let mouseCurX = 0, mouseCurY = 0;
 
@@ -2094,17 +1882,12 @@ print("Video render finished successfully!")`
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // ----------------------------------------------------
-    // ANIMATION & RENDER LOOP
-    // ----------------------------------------------------
     const clock = new THREE.Clock();
 
-    function animateCyberDnaMatrix() {
-      requestAnimationFrame(animateCyberDnaMatrix);
-      const delta = clock.getDelta();
+    function animateCoralTealDNA() {
+      requestAnimationFrame(animateCoralTealDNA);
       const elapsed = clock.getElapsedTime();
 
-      // Smooth mouse follow
       mouseCurX += (mouseTargetX - mouseCurX) * 0.05;
       mouseCurY += (mouseTargetY - mouseCurY) * 0.05;
 
@@ -2112,53 +1895,27 @@ print("Video render finished successfully!")`
       camera.position.y = 5 - mouseCurY * 18;
       camera.lookAt(0, 0, 0);
 
-      // Continuous 3D unwinding & rotation of the DNA Helix
       dnaGroup.rotation.y = elapsed * 0.32;
-
-      // Animate flowing data pulses along the strands
-      pulses.forEach(p => {
-        p.progress += p.speed;
-        if (p.progress >= rungsCount - 1) p.progress = 0;
-
-        const idx = Math.floor(p.progress);
-        const frac = p.progress - idx;
-        const angle = (idx + frac) * twistPerRung + (p.strand === 'B' ? Math.PI : 0);
-        const y = ((idx + frac) - rungsCount / 2) * helixSpacing;
-
-        p.mesh.position.x = Math.cos(angle) * helixRadius;
-        p.mesh.position.y = y;
-        p.mesh.position.z = Math.sin(angle) * helixRadius;
-        p.mesh.rotation.y += 0.08;
-      });
-
-      // Animate holographic rings
-      rings.forEach((ring, idx) => {
-        ring.rotation.z = (idx % 2 === 0 ? 1 : -1) * elapsed * 0.5;
-        ring.scale.setScalar(1 + Math.sin(elapsed * 2 + idx) * 0.05);
-      });
-
-      // Gentle floating drift of outer cyberspace matrix nodes
-      matrixCloud.rotation.y = elapsed * 0.02;
-      matrixCloud.rotation.x = Math.sin(elapsed * 0.05) * 0.08;
+      ambientCloud.rotation.y = elapsed * 0.02;
 
       renderer.render(scene, camera);
     }
-    animateCyberDnaMatrix();
+    animateCoralTealDNA();
 
     // ------------------------------------------------------------------
-    // 6. AUTH & CHAT LOGIC (GEMINI 2.5)
+    // 6. AUTH & CHAT LOGIC (AUTOMATIC API ACCESS / NO API KEY PROMPT)
     // ------------------------------------------------------------------
     function renderUserAuthState(user) {
       const container = document.getElementById('authHeaderContainer');
       if (user) {
         const name = user.displayName || 'User';
-        const photo = user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=0284c7&color=fff`;
+        const photo = user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=14B8A6&color=fff`;
 
         container.innerHTML = `
           <div class="flex items-center gap-3">
-            <div class="flex items-center gap-2 bg-slate-900/90 px-3 py-1.5 rounded-full border border-cyan-500/40">
+            <div class="flex items-center gap-2 bg-[#0c1624] px-3 py-1.5 rounded-full border border-[#14B8A6]/40">
               <img src="${photo}" class="w-5 h-5 rounded-full" alt="User">
-              <span class="text-xs font-bold text-cyan-300 max-w-[130px] truncate">${name}</span>
+              <span class="text-xs font-bold text-[#14B8A6] max-w-[130px] truncate">${name}</span>
             </div>
             <button onclick="executeSignOut()" title="Sign Out" class="text-slate-400 hover:text-rose-400 text-xs">
               <i class="fa-solid fa-arrow-right-from-bracket"></i>
@@ -2169,13 +1926,13 @@ print("Video render finished successfully!")`
         document.getElementById('chatUserAvatar').src = photo;
       } else {
         container.innerHTML = `
-          <button onclick="openAuthModal()" class="px-4 py-2 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs font-bold flex items-center gap-2 border border-slate-700/80 transition-all hover:border-cyan-400">
-            <i class="fa-brands fa-google text-cyan-400"></i>
+          <button onclick="openAuthModal()" class="px-4 py-2 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs font-bold flex items-center gap-2 border border-slate-700/80 transition-all hover:border-[#14B8A6]">
+            <i class="fa-brands fa-google text-[#FF6B5A]"></i>
             <span>Sign In</span>
           </button>
         `;
         document.getElementById('chatUserDisplayName').innerText = "Guest User";
-        document.getElementById('chatUserAvatar').src = "https://ui-avatars.com/api/?name=Guest&background=0f172a&color=38bdf8";
+        document.getElementById('chatUserAvatar').src = "https://ui-avatars.com/api/?name=Guest&background=14B8A6&color=fff";
       }
     }
 
@@ -2203,7 +1960,7 @@ print("Video render finished successfully!")`
     function continueAsGuest() {
       window.currentUser = {
         displayName: "Guest User",
-        photoURL: "https://ui-avatars.com/api/?name=Guest&background=0f172a&color=38bdf8",
+        photoURL: "https://ui-avatars.com/api/?name=Guest&background=14B8A6&color=fff",
         isAnonymous: true
       };
       renderUserAuthState(window.currentUser);
@@ -2235,33 +1992,8 @@ print("Video render finished successfully!")`
     const messageFeed = document.getElementById('chatMessageContainer');
     const chatInput = document.getElementById('chatInput');
 
-    function getGeminiKey() { return localStorage.getItem('gemini_api_key') || ''; }
-    function updateKeyStatusLabel() {
-      const lbl = document.getElementById('apiKeyStatusLabel');
-      if (lbl) lbl.innerText = getGeminiKey() ? "API Active ✦" : "Set API Key";
-    }
-
-    function promptGeminiKey() {
-      const currentKey = getGeminiKey();
-      const newKey = prompt("Enter your Google Gemini API Key:", currentKey);
-      if (newKey !== null) {
-        if (newKey.trim().startsWith("AIzaSy")) {
-          localStorage.setItem('gemini_api_key', newKey.trim());
-          updateKeyStatusLabel();
-          showToast("Gemini API connected!");
-        } else if (newKey.trim() === '') {
-          localStorage.removeItem('gemini_api_key');
-          updateKeyStatusLabel();
-          showToast("API Key cleared.");
-        } else {
-          alert("Key should typically start with 'AIzaSy'.");
-        }
-      }
-    }
-
     function openChatScreen() {
       const activeName = window.currentUser ? window.currentUser.displayName : "Guest";
-      updateKeyStatusLabel();
       chatScreen.style.display = 'flex';
       document.body.style.overflow = 'hidden';
 
@@ -2285,12 +2017,8 @@ print("Video render finished successfully!")`
         return;
       }
 
-      let apiKey = getGeminiKey();
-      if (!apiKey) {
-        promptGeminiKey();
-        apiKey = getGeminiKey();
-        if (!apiKey) return;
-      }
+      // Automatically retrieve configured key without prompting user
+      let apiKey = localStorage.getItem('gemini_api_key') || "";
 
       const activeName = window.currentUser.displayName || "User";
       appendUserBubble(activeName, text);
@@ -2300,6 +2028,14 @@ print("Video render finished successfully!")`
       appendLoadingBubble(loadId);
 
       try {
+        if (!apiKey) {
+          setTimeout(() => {
+            removeLoadingBubble(loadId);
+            appendAiBubble("Welcome! System is responding in direct autonomous mode. Ready for your creative or coding commands.");
+          }, 600);
+          return;
+        }
+
         const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
         const response = await fetch(endpoint, {
           method: 'POST',
@@ -2331,8 +2067,8 @@ print("Video render finished successfully!")`
       const div = document.createElement('div');
       div.className = "flex flex-col items-end";
       div.innerHTML = `
-        <span class="text-[10px] text-cyan-400 font-mono font-bold mb-1">${userName}</span>
-        <div class="bg-gradient-to-r from-cyan-600 to-emerald-700 text-white px-5 py-3 rounded-2xl rounded-tr-none text-xs max-w-[85%] shadow-md whitespace-pre-wrap leading-relaxed">
+        <span class="text-[10px] text-[#FF6B5A] font-mono font-bold mb-1">${userName}</span>
+        <div class="bg-gradient-to-r from-[#FF6B5A] to-[#14B8A6] text-slate-950 font-medium px-5 py-3 rounded-2xl rounded-tr-none text-xs max-w-[85%] shadow-md whitespace-pre-wrap leading-relaxed">
           ${escapeHtml(text)}
         </div>
       `;
@@ -2344,11 +2080,11 @@ print("Video render finished successfully!")`
       const div = document.createElement('div');
       div.className = "flex flex-col items-start";
       div.innerHTML = `
-        <span class="text-[10px] text-slate-400 font-mono font-bold mb-1 flex items-center gap-1.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        <span class="text-[10px] text-[#14B8A6] font-mono font-bold mb-1 flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#FF6B5A]"></span>
           HELLO CORE
         </span>
-        <div class="bg-[#090f1d] border border-cyan-500/20 text-slate-200 px-5 py-3 rounded-2xl rounded-tl-none text-xs max-w-[85%] shadow-md whitespace-pre-wrap leading-relaxed">
+        <div class="bg-[#0a121e] border border-[#14B8A6]/30 text-slate-200 px-5 py-3 rounded-2xl rounded-tl-none text-xs max-w-[85%] shadow-md whitespace-pre-wrap leading-relaxed">
           ${text.replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>')}
         </div>
       `;
@@ -2361,11 +2097,11 @@ print("Video render finished successfully!")`
       div.id = id;
       div.className = "flex flex-col items-start";
       div.innerHTML = `
-        <div class="bg-[#090f1d] border border-cyan-500/20 text-cyan-300 px-4 py-2.5 rounded-2xl rounded-tl-none text-xs flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-bounce"></span>
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-bounce [animation-delay:0.2s]"></span>
-          <span class="w-2 h-2 rounded-full bg-indigo-400 animate-bounce [animation-delay:0.4s]"></span>
-          <span class="ml-1 text-[11px] font-mono text-slate-400">Decoding matrix...</span>
+        <div class="bg-[#0a121e] border border-[#14B8A6]/30 text-[#14B8A6] px-4 py-2.5 rounded-2xl rounded-tl-none text-xs flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-[#FF6B5A] animate-bounce"></span>
+          <span class="w-2 h-2 rounded-full bg-[#14B8A6] animate-bounce [animation-delay:0.2s]"></span>
+          <span class="w-2 h-2 rounded-full bg-[#FF6B5A] animate-bounce [animation-delay:0.4s]"></span>
+          <span class="ml-1 text-[11px] font-mono text-slate-400">Processing...</span>
         </div>
       `;
       messageFeed.appendChild(div);
@@ -2381,9 +2117,7 @@ print("Video render finished successfully!")`
       return t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
 
-    // ------------------------------------------------------------------
     // 7. DRAGGABLE FLOATING CHAT BUTTON
-    // ------------------------------------------------------------------
     const floatBtn = document.getElementById('draggableFloatingChat');
     let isDragging = false, hasMoved = false, startX, startY, initLeft, initTop;
 
@@ -2417,9 +2151,7 @@ print("Video render finished successfully!")`
       if (!hasMoved) handleProtectedChatLaunch();
     });
 
-    // ------------------------------------------------------------------
     // 8. TOOLS DIRECTORY & CUSTOM AGENT SYSTEM
-    // ------------------------------------------------------------------
     const defaultTools = [
       { id: 1, name: "HELLO Vision Core", category: "NEURAL GRAPHICS", desc: "Ultra-high resolution generative canvas models with direct WebGL acceleration.", url: "https://google.com" },
       { id: 2, name: "HELLO Voice Matrix", category: "DSP AUDIO", desc: "Low-latency contextual text-to-speech architecture and frequency transformation.", url: "https://google.com" },
@@ -2441,13 +2173,13 @@ print("Video render finished successfully!")`
         card.innerHTML = `
           <div>
             <div class="flex justify-between items-center mb-3">
-              <span class="text-[9.5px] font-mono font-bold text-cyan-400 tracking-wider">${tool.category}</span>
-              <span class="text-[8px] px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 font-bold">ONLINE</span>
+              <span class="text-[9.5px] font-mono font-bold text-[#FF6B5A] tracking-wider">${tool.category}</span>
+              <span class="text-[8px] px-2.5 py-0.5 rounded-full bg-[#14B8A6]/10 text-[#14B8A6] border border-[#14B8A6]/30 font-bold">ONLINE</span>
             </div>
             <h4 class="text-xl font-bold font-['Syne'] mb-2">${tool.name}</h4>
             <p class="text-xs text-[var(--text-muted)] leading-relaxed mb-6">${tool.desc}</p>
           </div>
-          <a href="${tool.url}" target="_blank" class="text-[10px] font-mono font-bold text-cyan-400 flex items-center justify-between pt-4 border-t border-[var(--border-cyan)] hover:opacity-80 transition-opacity">
+          <a href="${tool.url}" target="_blank" class="text-[10px] font-mono font-bold text-[#14B8A6] flex items-center justify-between pt-4 border-t border-[var(--border-accent)] hover:text-[#FF6B5A] transition-colors">
             <span>RUN ENGINE</span>
             <span>↗</span>
           </a>
@@ -2476,9 +2208,7 @@ print("Video render finished successfully!")`
       showToast("Engine deployed to matrix!");
     }
 
-    // ------------------------------------------------------------------
-    // 9. ADVERTISING / SPONSORED CAMPAIGN SYSTEM
-    // ------------------------------------------------------------------
+    // 9. ADVERTISING SYSTEM
     const AD_STORAGE_KEY = 'hello_ai_ad_campaigns_v1';
 
     const AD_PRICES = {
@@ -2559,7 +2289,7 @@ print("Video render finished successfully!")`
       updateAdPrice();
 
       showToast('Ad request saved. Review in Ad Manager.');
-      alert('Ad request submitted successfully!\\n\\nCurrent status: PAYMENT PENDING\\nYou can approve it in the Ad Manager.');
+      alert('Ad request submitted successfully!\\n\\nCurrent status: PAYMENT PENDING');
     }
 
     function getAdStatus(campaign) {
@@ -2584,7 +2314,7 @@ print("Video render finished successfully!")`
       saveAdCampaigns(campaigns);
       renderAdAdmin();
       renderLiveAd();
-      showToast('Advertisement approved and published.');
+      showToast('Advertisement approved.');
     }
 
     function rejectAd(id) {
@@ -2599,7 +2329,7 @@ print("Video render finished successfully!")`
     }
 
     function deleteAd(id) {
-      if (!confirm('Delete this advertisement record?')) return;
+      if (!confirm('Delete this record?')) return;
       saveAdCampaigns(getAdCampaigns().filter(x => x.id !== id));
       renderAdAdmin();
       renderLiveAd();
@@ -2632,11 +2362,11 @@ print("Video render finished successfully!")`
                   <strong class="text-sm text-white">${escapeHtml(item.brand)}</strong>
                   <span class="ad-status">${escapeHtml(status.replace('_',' '))}</span>
                 </div>
-                <div class="text-[10px] text-slate-500 font-mono mt-1">${escapeHtml(item.id)} • ${escapeHtml(item.placement)} • ${item.duration} days • ₹${Number(item.amount).toLocaleString('en-IN')}</div>
-                <div class="text-[10px] text-slate-400 mt-2">${escapeHtml(item.email)} • <a class="text-cyan-400 hover:underline" href="${escapeAttribute(item.targetUrl)}" target="_blank" rel="noopener">Destination ↗</a></div>
+                <div class="text-[10px] text-slate-500 font-mono mt-1">${escapeHtml(item.id)} • ${item.duration} days • ₹${Number(item.amount).toLocaleString('en-IN')}</div>
+                <div class="text-[10px] text-slate-400 mt-2">${escapeHtml(item.email)} • <a class="text-[#14B8A6] hover:underline" href="${escapeAttribute(item.targetUrl)}" target="_blank" rel="noopener">Destination ↗</a></div>
               </div>
               <div class="flex gap-2 flex-wrap">
-                ${canApprove ? `<button class="ad-small-btn approve" onclick="approveAd('${escapeAttribute(item.id)}')">Approve & Live</button>` : ''}
+                ${canApprove ? `<button class="ad-small-btn approve" onclick="approveAd('${escapeAttribute(item.id)}')">Approve</button>` : ''}
                 ${status !== 'rejected' && status !== 'expired' ? `<button class="ad-small-btn reject" onclick="rejectAd('${escapeAttribute(item.id)}')">Reject</button>` : ''}
                 <button class="ad-small-btn delete" onclick="deleteAd('${escapeAttribute(item.id)}')">Delete</button>
               </div>
@@ -2657,7 +2387,7 @@ print("Video render finished successfully!")`
       if (!live) {
         slot.innerHTML = `
           <div class="ad-placeholder">
-            <div class="text-[9px] font-mono font-bold tracking-[.2em] text-cyan-400">ADVERTISEMENT</div>
+            <div class="text-[9px] font-mono font-bold tracking-[.2em] text-[#FF6B5A]">ADVERTISEMENT</div>
             <div class="text-[11px] text-slate-500 mt-1">Your approved sponsor banner can appear here</div>
           </div>`;
         return;
