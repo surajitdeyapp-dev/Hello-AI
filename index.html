@@ -2433,7 +2433,6 @@ print("Python script completed successfully!")`
         return;
       }
 
-      let apiKey = localStorage.getItem('gemini_api_key') || "";
       const activeName = window.currentUser.displayName || "User";
       appendUserBubble(activeName, text);
       chatInput.value = '';
@@ -2442,38 +2441,31 @@ print("Python script completed successfully!")`
       appendLoadingBubble(loadId);
 
       try {
-        if (!apiKey) {
-          setTimeout(() => {
-            removeLoadingBubble(loadId);
-            appendAiBubble("Welcome! Direct autonomous intelligence mode active. Ask anything, execute code, or build new projects.");
-          }, 600);
-          return;
-        }
-
-        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-        const response = await fetch(endpoint, {
+        const response = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            contents: [{
-              parts: [{
-                text: `You are HELLO AI, a world-class AI developer and assistant. User: ${activeName}. Provide concise, precise and helpful answers. Match user language. Message: ${text}`
-              }]
-            }]
+            message: `You are HELLO AI, a world-class AI developer and assistant. User: ${activeName}. Provide concise, precise and helpful answers. Match user language. Message: ${text}`
           })
         });
 
         const data = await response.json();
         removeLoadingBubble(loadId);
 
-        if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
-          appendAiBubble(data.candidates[0].content.parts[0].text);
+        if (!response.ok) {
+          appendAiBubble(`⚠️ **Error:** ${data.error || 'AI request failed.'}`);
+          return;
+        }
+
+        if (data.reply) {
+          appendAiBubble(data.reply);
         } else {
-          appendAiBubble(`⚠️ **Error:** ${data.error?.message || 'Empty response.'}`);
+          appendAiBubble('⚠️ **Error:** Empty response.');
         }
       } catch (err) {
+        console.error('OpenRouter error:', err);
         removeLoadingBubble(loadId);
-        appendAiBubble("⚠️ Connection failure. Check network interface.");
+        appendAiBubble('⚠️ Connection failure. Please try again.');
       }
     }
 
